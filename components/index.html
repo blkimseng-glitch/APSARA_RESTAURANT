@@ -1,0 +1,2111 @@
+<!doctype html>
+<!-- code kea -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>APSARA RESTAURANT</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Dark mode must run before first paint -->
+    <script>
+      (function () {
+        const saved = localStorage.getItem("color-theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        if (saved === "dark" || (!saved && prefersDark))
+          document.documentElement.classList.add("dark");
+      })();
+    </script>
+
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              coffee: {
+                100: "#f5ece5",
+                200: "#e6d5c3",
+                300: "#d4b997",
+                400: "#c49a6b",
+                500: "#b07d4a",
+                600: "#8e6439",
+                700: "#6b4b2a",
+                800: "#48321c",
+                850: "#432818",
+                900: "#25190e",
+              },
+              litter: { 700: "#FFB700" },
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      /* ── Item Review Modal ── */
+      #item-review-modal {
+        transition: opacity 0.25s ease;
+      }
+      #item-review-modal.hidden {
+        display: none;
+      }
+      #item-review-panel {
+        transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+
+      /* ── Star hover glow ── */
+      .item-star-btn:hover {
+        filter: drop-shadow(0 0 6px #ffb700aa);
+      }
+      .item-star-btn.active {
+        color: #ffb700 !important;
+        filter: drop-shadow(0 0 4px #ffb700);
+      }
+
+      /* ── Review card slide-in ── */
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(-8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .review-new {
+        animation: slideIn 0.35s ease forwards;
+      }
+
+      /* ── Rating bar animation ── */
+      .rating-bar-fill {
+        transition: width 0.6s cubic-bezier(0.34, 1.2, 0.64, 1);
+      }
+
+      /* ── Review list custom scrollbar ── */
+      #item-reviews-list::-webkit-scrollbar {
+        width: 4px;
+      }
+      #item-reviews-list::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      #item-reviews-list::-webkit-scrollbar-thumb {
+        background: #c49a6b55;
+        border-radius: 99px;
+      }
+
+      /* ── Toast notification ── */
+      #toast {
+        transition:
+          opacity 0.3s ease,
+          transform 0.3s ease;
+        opacity: 0;
+        transform: translateY(16px);
+        pointer-events: none;
+      }
+      #toast.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+
+  <body
+    class="bg-coffee-100 dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300"
+  >
+    <!-- ══════════════════════════════════════════
+         TOAST NOTIFICATION
+    ══════════════════════════════════════════ -->
+    <div
+      id="toast"
+      class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[200] bg-coffee-800 text-white text-sm font-medium px-5 py-3 rounded-full shadow-lg flex items-center gap-2"
+    >
+      <i id="toast-icon" class="fas fa-check-circle text-green-400"></i>
+      <span id="toast-msg"></span>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         NAVBAR
+    ══════════════════════════════════════════ -->
+    <nav
+      class="bg-coffee-850 dark:bg-gray-950 text-white shadow-lg sticky top-0 z-50"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <!-- Logo -->
+          <div class="flex items-center gap-2">
+            <img
+              src="./picture/apsara-logo.png"
+              alt="Apsara logo"
+              class="w-12 h-12 md:w-16 md:h-16"
+            />
+            <a
+              href="#"
+              class="hidden md:block text-xl font-bold uppercase text-litter-700 leading-tight"
+            >
+              apsara<br />restaurant
+            </a>
+          </div>
+
+          <!-- Desktop nav -->
+          <div class="hidden md:flex items-center space-x-6">
+            <a
+              href="#home"
+              class="px-3 py-1 rounded-lg hover:bg-amber-500 transition"
+              >Home</a
+            >
+            <a
+              href="#about"
+              class="px-3 py-1 rounded-lg hover:bg-amber-500 transition"
+              >About</a
+            >
+            <a
+              href="#menu"
+              class="px-3 py-1 rounded-lg hover:bg-amber-500 transition"
+              >Menu</a
+            >
+            <a
+              href="#contact"
+              class="px-3 py-1 rounded-lg hover:bg-amber-500 transition"
+              >Contact</a
+            >
+          </div>
+
+          <!-- Action buttons -->
+          <div class="flex items-center gap-1">
+            <!-- Search -->
+            <div class="flex items-center relative">
+              <input
+                id="search-input"
+                type="text"
+                placeholder="Search menu..."
+                class="bg-coffee-700 dark:bg-gray-800 text-white placeholder-coffee-300 rounded-full py-1.5 pl-4 pr-10 text-sm w-0 opacity-0 transition-all duration-300 focus:outline-none focus:ring-1 focus:ring-coffee-400"
+              />
+              <button
+                id="search-btn"
+                class="p-2 hover:text-coffee-300 transition relative z-10"
+                aria-label="Search"
+              >
+                <i class="fas fa-search text-sm"></i>
+              </button>
+            </div>
+
+            <!-- User (desktop only) -->
+            <a href="#" class="hidden md:block">
+              <button
+                class="p-2 hover:text-coffee-300 transition"
+                aria-label="My account"
+              >
+                <i class="fa-solid fa-user"></i>
+              </button>
+            </a>
+
+            <!-- Cart -->
+            <button
+              id="cart-btn"
+              class="p-2 hover:text-coffee-300 transition relative"
+              aria-label="Shopping cart"
+            >
+              <i class="fas fa-shopping-cart"></i>
+              <span
+                id="cart-count"
+                class="absolute -top-1 -right-1 bg-coffee-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"
+              >
+                0
+              </span>
+            </button>
+
+            <!-- Dark mode toggle (desktop) -->
+            <button
+              id="theme-toggle"
+              type="button"
+              class="hidden md:block p-2 hover:text-coffee-300 transition"
+              aria-label="Toggle theme"
+            >
+              <svg
+                id="icon-moon"
+                class="w-5 h-5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
+                ></path>
+              </svg>
+              <svg
+                id="icon-sun"
+                class="w-5 h-5 hidden"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                ></path>
+              </svg>
+            </button>
+
+            <!-- Mobile hamburger -->
+            <button
+              id="mobile-menu-btn"
+              class="md:hidden p-2 hover:text-coffee-300 transition"
+              aria-label="Open menu"
+            >
+              <i class="fas fa-bars text-lg"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile dropdown menu -->
+      <div id="mobile-menu" class="md:hidden hidden">
+        <div
+          class="bg-coffee-800 dark:bg-gray-900 px-4 py-3 space-y-1 border-t border-coffee-700"
+        >
+          <a
+            href="#home"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-coffee-700 dark:hover:bg-gray-800 transition"
+            ><i class="fas fa-home w-4 text-litter-700"></i> Home</a
+          >
+          <a
+            href="#about"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-coffee-700 dark:hover:bg-gray-800 transition"
+            ><i class="fas fa-info-circle w-4 text-litter-700"></i> About</a
+          >
+          <a
+            href="#menu"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-coffee-700 dark:hover:bg-gray-800 transition"
+            ><i class="fas fa-utensils w-4 text-litter-700"></i> Menu</a
+          >
+          <a
+            href="#contact"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-coffee-700 dark:hover:bg-gray-800 transition"
+            ><i class="fas fa-phone w-4 text-litter-700"></i> Contact</a
+          >
+          <div class="border-t border-coffee-700 my-2"></div>
+          <button
+            id="theme-toggle-mobile"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-coffee-700 dark:hover:bg-gray-800 transition w-full text-left"
+          >
+            <i id="mobile-icon" class="fas fa-moon w-4 text-litter-700"></i>
+            <span id="mobile-label">Dark Mode</span>
+          </button>
+          <a
+            href="#"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-coffee-700 dark:hover:bg-gray-800 transition"
+          >
+            <i class="fas fa-user w-4 text-litter-700"></i> My Account
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ══════════════════════════════════════════
+         MENU SECTION
+    ══════════════════════════════════════════ -->
+    <main>
+      <section id="menu" class="py-16 bg-white dark:bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2
+            class="text-3xl font-bold text-center text-coffee-800 dark:text-coffee-200 mb-10"
+          >
+            Our Menu
+          </h2>
+
+          <!-- Category tabs -->
+          <div class="flex flex-wrap justify-center gap-3 mb-10">
+            <button
+              data-tab="all"
+              class="tab-btn px-5 py-2 rounded-full text-sm font-medium transition-all duration-200"
+            >
+              ទាំងអស់
+            </button>
+            <button
+              data-tab="coffee"
+              class="tab-btn px-5 py-2 rounded-full text-sm font-medium transition-all duration-200"
+            >
+              កាហ្វេ
+            </button>
+            <button
+              data-tab="food"
+              class="tab-btn px-5 py-2 rounded-full text-sm font-medium transition-all duration-200"
+            >
+              ម្ហូបអាហារពេលព្រឹក
+            </button>
+            <button
+              data-tab="mainDish"
+              class="tab-btn px-5 py-2 rounded-full text-sm font-medium transition-all duration-200"
+            >
+              ម្ហូបចម្បង
+            </button>
+            <button
+              data-tab="dessert"
+              class="tab-btn px-5 py-2 rounded-full text-sm font-medium transition-all duration-200"
+            >
+              បង្អែម
+            </button>
+            <button
+              data-tab="beverage"
+              class="tab-btn px-5 py-2 rounded-full text-sm font-medium transition-all duration-200"
+            >
+              ភេសជ្ជះ
+            </button>
+          </div>
+
+          <!-- Menu grid -->
+          <div
+            id="menu-grid"
+            class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-300"
+          ></div>
+
+          <!-- Empty / no results -->
+          <div
+            id="menu-empty"
+            class="hidden text-center py-16 text-coffee-400 dark:text-coffee-600"
+          >
+            <i class="fas fa-search text-4xl mb-3 block"></i>
+            <p>រកមិនឃើញម្ហូប</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ══════════════════════════════════════════
+         ITEM REVIEW MODAL
+    ══════════════════════════════════════════ -->
+    <div
+      id="item-review-modal"
+      class="hidden fixed inset-0 z-50 flex items-end sm:items-center justify-center"
+    >
+      <!-- Backdrop -->
+      <div
+        id="item-review-backdrop"
+        class="absolute inset-0 bg-black/60 backdrop-blur-sm"
+      ></div>
+
+      <!-- Panel -->
+      <div
+        id="item-review-panel"
+        class="relative w-full sm:max-w-lg bg-white dark:bg-gray-900 rounded-t-3xl sm:rounded-2xl shadow-2xl flex flex-col max-h-[90vh] translate-y-8"
+      >
+        <!-- Drag handle (mobile only) -->
+        <div class="sm:hidden flex justify-center pt-3 pb-1">
+          <div
+            class="w-10 h-1 bg-coffee-200 dark:bg-gray-700 rounded-full"
+          ></div>
+        </div>
+
+        <!-- Header -->
+        <div
+          class="flex items-start gap-4 px-6 pt-4 pb-4 border-b border-coffee-100 dark:border-gray-800"
+        >
+          <img
+            id="modal-item-img"
+            src=""
+            alt=""
+            class="w-16 h-16 rounded-xl object-cover flex-shrink-0 shadow"
+          />
+          <div class="flex-1 min-w-0">
+            <h3
+              id="modal-item-name"
+              class="font-bold text-lg text-coffee-800 dark:text-coffee-100 truncate"
+            ></h3>
+            <div class="flex items-center gap-2 mt-0.5">
+              <div id="modal-avg-stars" class="flex gap-0.5"></div>
+              <span
+                id="modal-avg-score"
+                class="text-xs font-semibold text-litter-700"
+              ></span>
+              <span
+                id="modal-review-count"
+                class="text-xs text-coffee-400"
+              ></span>
+            </div>
+          </div>
+          <button
+            id="close-item-review"
+            class="flex-shrink-0 w-8 h-8 rounded-full bg-coffee-100 dark:bg-gray-800 flex items-center justify-center text-coffee-500 hover:text-coffee-700 transition"
+            aria-label="Close"
+          >
+            <i class="fas fa-times text-sm"></i>
+          </button>
+        </div>
+
+        <!-- Rating breakdown bars -->
+        <div
+          id="modal-breakdown"
+          class="px-6 py-3 bg-coffee-50 dark:bg-gray-800/50 space-y-1 border-b border-coffee-100 dark:border-gray-800"
+        ></div>
+
+        <!-- Reviews list (scrollable) -->
+        <div class="flex-1 overflow-y-auto" id="item-reviews-list"></div>
+
+        <!-- Write review form -->
+        <div
+          class="px-6 py-5 border-t border-coffee-100 dark:border-gray-800 bg-white dark:bg-gray-900"
+        >
+          <p
+            class="text-xs font-semibold text-coffee-600 dark:text-coffee-400 uppercase tracking-wide mb-3"
+          >
+            សរសេរ Review របស់អ្នក
+          </p>
+
+          <!-- Star picker -->
+          <div class="flex items-center gap-1 mb-3">
+            <span id="item-star-label" class="text-xs text-coffee-400 mr-1"
+              >ជ្រើសរើសផ្កាយ</span
+            >
+            <div id="item-star-picker" class="flex gap-1">
+              <i
+                class="item-star-btn fas fa-star text-xl text-coffee-200 dark:text-gray-600 cursor-pointer transition-all duration-150"
+                data-v="1"
+              ></i>
+              <i
+                class="item-star-btn fas fa-star text-xl text-coffee-200 dark:text-gray-600 cursor-pointer transition-all duration-150"
+                data-v="2"
+              ></i>
+              <i
+                class="item-star-btn fas fa-star text-xl text-coffee-200 dark:text-gray-600 cursor-pointer transition-all duration-150"
+                data-v="3"
+              ></i>
+              <i
+                class="item-star-btn fas fa-star text-xl text-coffee-200 dark:text-gray-600 cursor-pointer transition-all duration-150"
+                data-v="4"
+              ></i>
+              <i
+                class="item-star-btn fas fa-star text-xl text-coffee-200 dark:text-gray-600 cursor-pointer transition-all duration-150"
+                data-v="5"
+              ></i>
+            </div>
+          </div>
+
+          <!-- Name + Comment -->
+          <div class="flex gap-2 mb-2">
+            <input
+              id="item-review-name"
+              type="text"
+              placeholder="ឈ្មោះអ្នក *"
+              class="w-1/3 border border-coffee-200 dark:border-gray-700 bg-coffee-50 dark:bg-gray-800 text-coffee-800 dark:text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-coffee-400 placeholder-coffee-300 dark:placeholder-gray-500"
+            />
+            <input
+              id="item-review-comment"
+              type="text"
+              placeholder="មតិរបស់អ្នកអំពីម្ហូបនេះ... *"
+              class="flex-1 border border-coffee-200 dark:border-gray-700 bg-coffee-50 dark:bg-gray-800 text-coffee-800 dark:text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-coffee-400 placeholder-coffee-300 dark:placeholder-gray-500"
+            />
+          </div>
+
+          <!-- Validation error -->
+          <p id="item-review-error" class="hidden text-xs text-red-500 mb-2">
+            <i class="fas fa-exclamation-circle mr-1"></i>សូមបំពេញឈ្មោះ,
+            ជ្រើសផ្កាយ, និងមតិ
+          </p>
+
+          <button
+            id="item-review-submit"
+            class="w-full bg-coffee-700 hover:bg-coffee-800 active:scale-[0.98] text-white font-semibold py-2.5 rounded-xl transition-all duration-200 text-sm flex items-center justify-center gap-2"
+          >
+            <i class="fas fa-paper-plane text-xs"></i> បញ្ជូន Review
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         FEEDBACK SECTION
+    ══════════════════════════════════════════ -->
+    <section id="feedback" class="py-16 bg-coffee-100 dark:bg-gray-800">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-10">
+          <h2
+            class="text-3xl font-bold text-coffee-800 dark:text-coffee-200 mb-2"
+          >
+            មតិយោបល់របស់អ្នក
+          </h2>
+          <p class="text-coffee-500 dark:text-coffee-400 text-sm">
+            យើងពេញចិត្តស្តាប់មតិពីអ្នក ដើម្បីកែលម្អសេវាកម្ម
+          </p>
+          <div class="flex items-center justify-center gap-3 mt-4">
+            <div class="h-px w-16 bg-coffee-300 dark:bg-coffee-600"></div>
+            <i class="fas fa-star text-litter-700 text-sm"></i>
+            <div class="h-px w-16 bg-coffee-300 dark:bg-coffee-600"></div>
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-8">
+          <!-- Service star rating -->
+          <div class="mb-6">
+            <label
+              class="block text-sm font-semibold text-coffee-700 dark:text-coffee-300 mb-3"
+            >
+              វាយតម្លៃសេវាកម្ម
+            </label>
+            <div id="star-rating" class="flex gap-2">
+              <i
+                class="star-btn fas fa-star text-2xl text-coffee-200 dark:text-gray-600 cursor-pointer transition-colors duration-150"
+                data-value="1"
+              ></i>
+              <i
+                class="star-btn fas fa-star text-2xl text-coffee-200 dark:text-gray-600 cursor-pointer transition-colors duration-150"
+                data-value="2"
+              ></i>
+              <i
+                class="star-btn fas fa-star text-2xl text-coffee-200 dark:text-gray-600 cursor-pointer transition-colors duration-150"
+                data-value="3"
+              ></i>
+              <i
+                class="star-btn fas fa-star text-2xl text-coffee-200 dark:text-gray-600 cursor-pointer transition-colors duration-150"
+                data-value="4"
+              ></i>
+              <i
+                class="star-btn fas fa-star text-2xl text-coffee-200 dark:text-gray-600 cursor-pointer transition-colors duration-150"
+                data-value="5"
+              ></i>
+            </div>
+            <p id="rating-label" class="text-xs text-coffee-400 mt-1">
+              សូមចុចដើម្បីវាយតម្លៃ
+            </p>
+          </div>
+
+          <!-- Name + Email -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
+            <div>
+              <label
+                class="block text-sm font-semibold text-coffee-700 dark:text-coffee-300 mb-1"
+              >
+                ឈ្មោះ <span class="text-red-400">*</span>
+              </label>
+              <input
+                id="fb-name"
+                type="text"
+                placeholder="ឧ. សុខ ដារ៉ា"
+                class="w-full border border-coffee-200 dark:border-gray-700 bg-coffee-50 dark:bg-gray-800 text-coffee-800 dark:text-white rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-coffee-400 placeholder-coffee-300 dark:placeholder-gray-500"
+              />
+            </div>
+            <div>
+              <label
+                class="block text-sm font-semibold text-coffee-700 dark:text-coffee-300 mb-1"
+              >
+                អ៊ីម៉ែល
+                <span class="text-coffee-400 font-normal">(ស្រេចចិត្ត)</span>
+              </label>
+              <input
+                id="fb-email"
+                type="email"
+                placeholder="example@email.com"
+                class="w-full border border-coffee-200 dark:border-gray-700 bg-coffee-50 dark:bg-gray-800 text-coffee-800 dark:text-white rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-coffee-400 placeholder-coffee-300 dark:placeholder-gray-500"
+              />
+            </div>
+          </div>
+
+          <!-- Category -->
+          <div class="mb-5">
+            <label
+              class="block text-sm font-semibold text-coffee-700 dark:text-coffee-300 mb-1"
+              >ប្រភេទមតិ</label
+            >
+            <select
+              id="fb-category"
+              class="w-full border border-coffee-200 dark:border-gray-700 bg-coffee-50 dark:bg-gray-800 text-coffee-800 dark:text-white rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-coffee-400"
+            >
+              <option value="">-- សូមជ្រើសរើស --</option>
+              <option value="food">រសជាតិអាហារ</option>
+              <option value="service">សេវាកម្ម</option>
+              <option value="ambiance">បរិយាកាស</option>
+              <option value="price">តម្លៃ</option>
+              <option value="other">ផ្សេងទៀត</option>
+            </select>
+          </div>
+
+          <!-- Message -->
+          <div class="mb-6">
+            <label
+              class="block text-sm font-semibold text-coffee-700 dark:text-coffee-300 mb-1"
+            >
+              មតិយោបល់ <span class="text-red-400">*</span>
+            </label>
+            <textarea
+              id="fb-message"
+              rows="4"
+              placeholder="សូមចែករំលែករបបគំនិតរបស់អ្នក..."
+              class="w-full border border-coffee-200 dark:border-gray-700 bg-coffee-50 dark:bg-gray-800 text-coffee-800 dark:text-white rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-coffee-400 placeholder-coffee-300 dark:placeholder-gray-500 resize-none"
+            ></textarea>
+          </div>
+
+          <button
+            id="fb-submit"
+            class="w-full bg-coffee-700 hover:bg-coffee-800 active:scale-95 text-white font-semibold py-3 rounded-xl transition-all duration-200 flex items-center justify-center gap-2"
+          >
+            <i class="fas fa-paper-plane text-sm"></i> បញ្ជូនមតិ
+          </button>
+
+          <!-- Success -->
+          <div
+            id="fb-success"
+            class="hidden mt-5 bg-green-50 dark:bg-green-900/30 border border-green-300 dark:border-green-700 text-green-700 dark:text-green-400 rounded-xl px-5 py-4 flex items-center gap-3 text-sm"
+          >
+            <i class="fas fa-check-circle text-xl flex-shrink-0"></i>
+            <div>
+              <p class="font-semibold">អរគុណសម្រាប់មតិរបស់អ្នក!</p>
+              <p class="text-xs mt-0.5 opacity-80">
+                យើងនឹងពិចារណាលើការណែនាំរបស់អ្នក
+              </p>
+            </div>
+          </div>
+
+          <!-- Error -->
+          <div
+            id="fb-error"
+            class="hidden mt-5 bg-red-50 dark:bg-red-900/30 border border-red-300 dark:border-red-700 text-red-600 dark:text-red-400 rounded-xl px-5 py-4 flex items-center gap-3 text-sm"
+          >
+            <i class="fas fa-exclamation-circle text-xl flex-shrink-0"></i>
+            <p>សូមបំពេញឈ្មោះ និងមតិយោបល់</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         CART SIDEBAR
+    ══════════════════════════════════════════ -->
+    <div
+      id="cart-overlay"
+      class="hidden fixed inset-0 bg-black bg-opacity-50 z-40"
+    ></div>
+
+    <div
+      id="cart-sidebar"
+      class="fixed right-0 top-0 h-full w-80 bg-white dark:bg-gray-900 shadow-xl z-50 transform translate-x-full transition-transform duration-300 flex flex-col"
+    >
+      <!-- Header -->
+      <div
+        class="flex items-center justify-between p-4 border-b border-coffee-200 dark:border-gray-700"
+      >
+        <h3 class="font-bold text-lg text-coffee-800 dark:text-coffee-200">
+          Your Cart
+        </h3>
+        <button
+          id="close-cart"
+          class="text-coffee-500 hover:text-coffee-700 transition"
+          aria-label="Close cart"
+        >
+          <i class="fas fa-times text-xl"></i>
+        </button>
+      </div>
+
+      <!-- Items -->
+      <div id="cart-items" class="flex-1 overflow-y-auto p-4">
+        <div id="empty-cart-message" class="text-center text-coffee-400 py-8">
+          <i class="fas fa-shopping-cart text-4xl mb-3 block"></i>
+          Your cart is empty
+        </div>
+      </div>
+
+      <!-- Totals + Checkout -->
+      <div
+        class="p-4 border-t border-coffee-200 dark:border-gray-700 space-y-2 text-sm"
+      >
+        <div class="flex justify-between text-coffee-600 dark:text-coffee-300">
+          <span>Subtotal</span><span id="cart-subtotal">$0.00</span>
+        </div>
+        <div class="flex justify-between text-coffee-600 dark:text-coffee-300">
+          <span>Tax (8%)</span><span id="cart-tax">$0.00</span>
+        </div>
+        <div
+          class="flex justify-between font-bold text-coffee-800 dark:text-coffee-200 text-base pt-1 border-t border-coffee-200 dark:border-gray-700"
+        >
+          <span>Total</span><span id="cart-total">$0.00</span>
+        </div>
+        <button
+          id="checkout-btn"
+          class="w-full bg-coffee-600 hover:bg-coffee-700 active:scale-95 text-white py-2.5 rounded-lg transition mt-2"
+        >
+          Checkout
+        </button>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         PAYMENT MODAL
+    ══════════════════════════════════════════ -->
+    <div
+      id="payment-modal"
+      class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4"
+    >
+      <div
+        id="payment-backdrop"
+        class="absolute inset-0 bg-black/60 backdrop-blur-sm"
+      ></div>
+
+      <div
+        class="relative bg-white dark:bg-gray-900 w-full max-w-sm rounded-3xl shadow-2xl overflow-hidden"
+      >
+        <div class="bg-coffee-700 p-4 text-center">
+          <h3 class="text-white font-bold text-lg">បង់ប្រាក់តាម QR Code</h3>
+        </div>
+        <div class="p-8 flex flex-col items-center">
+          <div class="text-center mb-4">
+            <p class="text-sm text-gray-500 dark:text-gray-400">
+              ចំនួនទឹកប្រាក់សរុប
+            </p>
+            <h2
+              id="payment-amount"
+              class="text-3xl font-black text-coffee-800 dark:text-litter-700"
+            >
+              $0.00
+            </h2>
+          </div>
+          <div
+            class="bg-white p-4 rounded-2xl shadow-inner border-2 border-coffee-100"
+          >
+            <img
+              src="./picture/Abaqr.PNG"
+              alt="Payment QR Code"
+              class="w-48 h-48 object-contain"
+            />
+          </div>
+          <p class="mt-6 text-xs text-gray-400 text-center">
+            សូមស្កេនដើម្បីបង់ប្រាក់។ ក្រុមការងារយើងនឹងរៀបចំម្ហូបជូនអ្នកភ្លាមៗ
+            ក្រោយទទួលបានការបង់ប្រាក់។
+          </p>
+          <button
+            id="payment-close-btn"
+            class="mt-6 w-full bg-coffee-700 hover:bg-coffee-800 text-white font-bold py-3 rounded-xl transition"
+          >
+            រួចរាល់
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         FOOTER
+    ══════════════════════════════════════════ -->
+    <footer class="bg-coffee-900 text-coffee-200">
+      <div class="max-w-7xl mx-auto px-8 py-8">
+        <div
+          class="grid grid-cols-1 md:grid-cols-3 gap-0 divide-y md:divide-y-0 md:divide-x divide-coffee-800"
+        >
+          <!-- Brand -->
+          <div class="pr-0 md:pr-8 pb-6 md:pb-0">
+            <div class="flex items-center gap-3 mb-4">
+              <img
+                src="./picture/apsara-logo.png"
+                alt="Apsara logo"
+                class="w-12 h-12"
+              />
+              <span
+                class="text-litter-700 text-center font-bold text-xl uppercase leading-tight"
+                >Apsara<br />Restaurant</span
+              >
+            </div>
+            <p class="text-coffee-300 text-sm leading-relaxed mb-5">
+              Bringing the authentic taste of the Kingdom of Wonder to your
+              plate since 2024.
+            </p>
+            <div class="flex items-center gap-3">
+              <a
+                href="#"
+                aria-label="Facebook"
+                class="w-9 h-9 rounded-full bg-coffee-700 hover:bg-litter-700 hover:text-coffee-900 flex items-center justify-center transition-all duration-200"
+                ><i class="fab fa-facebook-f text-sm"></i
+              ></a>
+              <a
+                href="#"
+                aria-label="Instagram"
+                class="w-9 h-9 rounded-full bg-coffee-700 hover:bg-litter-700 hover:text-coffee-900 flex items-center justify-center transition-all duration-200"
+                ><i class="fab fa-instagram text-sm"></i
+              ></a>
+              <a
+                href="#"
+                aria-label="TikTok"
+                class="w-9 h-9 rounded-full bg-coffee-700 hover:bg-litter-700 hover:text-coffee-900 flex items-center justify-center transition-all duration-200"
+                ><i class="fab fa-tiktok text-sm"></i
+              ></a>
+              <a
+                href="#"
+                aria-label="YouTube"
+                class="w-9 h-9 rounded-full bg-coffee-700 hover:bg-litter-700 hover:text-coffee-900 flex items-center justify-center transition-all duration-200"
+                ><i class="fab fa-youtube text-sm"></i
+              ></a>
+              <a
+                href="#"
+                aria-label="Telegram"
+                class="w-9 h-9 rounded-full bg-coffee-700 hover:bg-litter-700 hover:text-coffee-900 flex items-center justify-center transition-all duration-200"
+                ><i class="fab fa-telegram text-sm"></i
+              ></a>
+            </div>
+          </div>
+
+          <!-- Opening hours -->
+          <div class="px-0 md:px-8 py-6 md:py-0">
+            <h4
+              class="text-white font-semibold text-base mb-5 pb-2 border-b border-coffee-700"
+            >
+              Opening Hours
+            </h4>
+            <ul class="space-y-2.5 text-sm text-coffee-300">
+              <li class="flex justify-between gap-4">
+                <span>Mon – Fri</span
+                ><span class="text-white">7:00 AM – 9:00 PM</span>
+              </li>
+              <li class="flex justify-between gap-4">
+                <span>Sat – Sun</span
+                ><span class="text-white">6:00 AM – 11:00 PM</span>
+              </li>
+              <li class="flex justify-between gap-4">
+                <span>Public Holiday</span
+                ><span class="text-red-400">Closed</span>
+              </li>
+            </ul>
+            <div
+              class="mt-5 inline-flex items-center gap-2 bg-green-900/40 border border-green-700 text-green-400 text-xs px-3 py-1.5 rounded-full"
+            >
+              <span
+                class="w-2 h-2 bg-green-400 rounded-full animate-pulse"
+              ></span>
+              Open Now
+            </div>
+          </div>
+
+          <!-- Contact -->
+          <div class="pl-0 md:pl-8 pt-6 md:pt-0">
+            <h4
+              class="text-white font-semibold text-base mb-5 pb-2 border-b border-coffee-700"
+            >
+              Contact Us
+            </h4>
+            <ul class="space-y-3 text-sm text-coffee-300">
+              <li class="flex items-start gap-3">
+                <i class="fas fa-map-marker-alt text-litter-700 mt-0.5 w-4"></i
+                ><span>Street 123, Phnom Penh, Cambodia</span>
+              </li>
+              <li class="flex items-center gap-3">
+                <i class="fas fa-phone text-litter-700 w-4"></i
+                ><a
+                  href="tel:+85512345678"
+                  class="hover:text-litter-700 transition"
+                  >+855 12 345 678</a
+                >
+              </li>
+              <li class="flex items-center gap-3">
+                <i class="fas fa-envelope text-litter-700 w-4"></i
+                ><a
+                  href="mailto:info@apsara.com"
+                  class="hover:text-litter-700 transition"
+                  >info@apsara.com</a
+                >
+              </li>
+              <li class="flex items-center gap-3">
+                <i class="fab fa-telegram text-litter-700 w-4"></i
+                ><a href="#" class="hover:text-litter-700 transition"
+                  >@apsararestaurant</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-coffee-800">
+        <div
+          class="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-coffee-400"
+        >
+          <span>© 2026 Apsara Restaurant Group. All rights reserved.</span>
+          <div class="flex items-center gap-4">
+            <a href="#" class="hover:text-litter-700 transition"
+              >Privacy Policy</a
+            >
+            <a href="#" class="hover:text-litter-700 transition"
+              >Terms of Service</a
+            >
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ══════════════════════════════════════════
+         JAVASCRIPT
+    ══════════════════════════════════════════ -->
+    <script>
+      /* ════════════════════════════════════════
+         1. MENU DATA
+      ════════════════════════════════════════ */
+      const menuItems = {
+        coffee: [
+          {
+            id: 1,
+            name: "Espresso",
+            price: 3.5,
+            category: "coffee",
+            image:
+              "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&w=600&q=80",
+            description:
+              "A concentrated coffee brewed under pressure through finely ground coffee.",
+          },
+          {
+            id: 2,
+            name: "Cappuccino",
+            price: 4.5,
+            category: "coffee",
+            image:
+              "https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&w=600&q=80",
+            description: "Equal parts espresso, steamed milk and milk foam.",
+          },
+          {
+            id: 3,
+            name: "Latte",
+            price: 4.75,
+            category: "coffee",
+            image:
+              "https://images.unsplash.com/photo-1568649929103-28ffbefaca1e?auto=format&fit=crop&w=600&q=80",
+            description:
+              "Espresso with steamed milk and a light layer of foam.",
+          },
+          {
+            id: 4,
+            name: "Americano",
+            price: 3.75,
+            category: "coffee",
+            image:
+              "https://images.unsplash.com/photo-1551030173-122a2d19f587?auto=format&fit=crop&w=600&q=80",
+            description: "Espresso diluted with hot water.",
+          },
+          {
+            id: 5,
+            name: "Mocha",
+            price: 5.0,
+            category: "coffee",
+            image:
+              "https://images.unsplash.com/photo-1568649929103-28ffbefaca1e?auto=format&fit=crop&w=600&q=80",
+            description:
+              "Espresso with chocolate syrup, steamed milk and whipped cream.",
+          },
+          {
+            id: 6,
+            name: "Cold Brew",
+            price: 4.5,
+            category: "coffee",
+            image:
+              "https://images.unsplash.com/photo-1600857544200-b2f666a9a37c?auto=format&fit=crop&w=600&q=80",
+            description: "Coffee steeped in cold water for 12-24 hours.",
+          },
+          {
+            id: 7,
+            name: "Iced Latte",
+            price: 4.75,
+            category: "coffee",
+            image:
+              "https://images.unsplash.com/photo-1568649929103-28ffbefaca1e?auto=format&fit=crop&w=600&q=80",
+            description: "Espresso with cold milk and ice.",
+          },
+          {
+            id: 8,
+            name: "Flat White",
+            price: 4.5,
+            category: "coffee",
+            image:
+              "https://images.unsplash.com/photo-1551030173-122a2d19f587?auto=format&fit=crop&w=600&q=80",
+            description:
+              "Espresso with steamed milk and thin layer of microfoam.",
+          },
+          {
+            id: 9,
+            name: "Affogato",
+            price: 5.5,
+            category: "coffee",
+            image:
+              "https://images.unsplash.com/photo-1568649929103-28ffbefaca1e?auto=format&fit=crop&w=600&q=80",
+            description:
+              "A scoop of vanilla ice cream topped with a shot of hot espresso.",
+          },
+        ],
+        food: [
+          {
+            id: 10,
+            name: "បាយសាច់ជ្រូក",
+            price: 1.85,
+            category: "food",
+            image: "./picture/brakefast/បាយសាច់ជ្រូក.jpg",
+            description:
+              "Sourdough bread topped with avocado, cherry tomatoes, and feta cheese.",
+          },
+          {
+            id: 11,
+            name: "បាយមាន់ហៃណាំ",
+            price: 3.75,
+            category: "food",
+            image: "./picture/brakefast/បាយមាន់ហៃណាំ.jpg",
+            description: "Freshly baked muffin packed with juicy blueberries.",
+          },
+          {
+            id: 12,
+            name: "បាយឆាឡុកឡាក់",
+            price: 3.75,
+            category: "food",
+            image: "./picture/brakefast/បាយឆាឡុកឡាក់.jpg",
+            description: "Buttery, flaky French pastry.",
+          },
+          {
+            id: 13,
+            name: "បាយផាកឡូវ",
+            price: 3.5,
+            category: "food",
+            image: "./picture/brakefast/បាយផាកឡូវ.jpg",
+            description:
+              "Egg, cheese, and bacon or sausage on an English muffin.",
+          },
+          {
+            id: 14,
+            name: "គុយទាវពិសេស",
+            price: 4.0,
+            category: "food",
+            image: "./picture/brakefast/គុយទាវពិសេស.jpg",
+            description: "Greek yogurt layered with granola and fresh berries.",
+          },
+          {
+            id: 15,
+            name: "បបរគ្រឿង",
+            price: 2.75,
+            category: "food",
+            image: "./picture/brakefast/បបរគ្រឿង.jpg",
+            description: "Classic cookie with melty chocolate chips.",
+          },
+          {
+            id: 16,
+            name: "នំបញ្ចុក",
+            price: 3.0,
+            category: "food",
+            image: "./picture/brakefast/នំបញ្ចុក.jpg",
+            description: "Moist bread made with ripe bananas and walnuts.",
+          },
+          {
+            id: 17,
+            name: "ការីនំបុ័ង",
+            price: 3.25,
+            category: "food",
+            image: "./picture/brakefast/ការីនំបុ័ង.jpg",
+            description: "Savory pie filled with spinach, cheese, and eggs.",
+          },
+          {
+            id: 18,
+            name: "លតឆា",
+            price: 2.75,
+            category: "food",
+            image: "./picture/brakefast/លតឆា.jpg",
+            description: "Tangy lemon custard in a buttery crust.",
+          },
+        ],
+        mainDish: [
+          {
+            id: 19,
+            name: "Beef Lok Lak",
+            price: 8.0,
+            category: "mainDish",
+            image:
+              "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80",
+            description:
+              "Khmer-style stir-fried beef served with rice and fresh salad.",
+          },
+          {
+            id: 20,
+            name: "Fish Amok",
+            price: 9.5,
+            category: "mainDish",
+            image:
+              "https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=600&q=80",
+            description:
+              "Traditional Khmer fish curry steamed in banana leaves.",
+          },
+          {
+            id: 21,
+            name: "Khmer Fried Rice",
+            price: 6.0,
+            category: "mainDish",
+            image:
+              "https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=600&q=80",
+            description:
+              "Fragrant fried rice with vegetables, egg, and your choice of protein.",
+          },
+          {
+            id: 22,
+            name: "Nom Banh Chok",
+            price: 5.5,
+            category: "mainDish",
+            image:
+              "https://images.unsplash.com/photo-1585032226651-759b368d7246?auto=format&fit=crop&w=600&q=80",
+            description:
+              "Khmer rice noodles topped with fish-based green curry sauce.",
+          },
+          {
+            id: 23,
+            name: "Kuy Teav",
+            price: 5.0,
+            category: "mainDish",
+            image:
+              "https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?auto=format&fit=crop&w=600&q=80",
+            description: "Rice noodle soup with pork or beef and fresh herbs.",
+          },
+          {
+            id: 24,
+            name: "Grilled Pork Skewers",
+            price: 7.0,
+            category: "mainDish",
+            image:
+              "https://images.unsplash.com/photo-1562967916-eb82221dfb36?auto=format&fit=crop&w=600&q=80",
+            description:
+              "Marinated pork skewers grilled to perfection, served with dipping sauce.",
+          },
+          {
+            id: 25,
+            name: "Chicken Curry",
+            price: 8.5,
+            category: "mainDish",
+            image:
+              "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80",
+            description:
+              "Rich and flavorful chicken curry cooked with coconut milk and spices.",
+          },
+          {
+            id: 26,
+            name: "Vegetarian Stir-Fry",
+            price: 6.5,
+            category: "mainDish",
+            image:
+              "https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=600&q=80",
+            description:
+              "A colorful mix of fresh vegetables stir-fried with garlic and soy sauce.",
+          },
+          {
+            id: 27,
+            name: "Pork Rib Soup",
+            price: 7.5,
+            category: "mainDish",
+            image:
+              "https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=600&q=80",
+            description:
+              "Hearty soup made with tender pork ribs, vegetables, and herbs.",
+          },
+        ],
+        dessert: [
+          {
+            id: 28,
+            name: "នំអន្សមជ្រូក",
+            price: 1.75,
+            category: "dessert",
+            image: "./picture/dessert/អន្សមជ្រូក.jpg",
+            description:
+              "ក្លិនឈ្ងុយនៃម្រេច និងសាច់ជ្រូកបីជាន់ លាយចូលជាមួយសណ្តែកបាយ",
+          },
+          {
+            id: 29,
+            name: "នំអន្សមចេក",
+            price: 1.25,
+            category: "dessert",
+            image: "./picture/dessert/នំអន្សមចេក.jpg",
+            description:
+              "រសជាតិផ្អែមស្រទន់នៃចេកណាំវ៉ាទុំ ជ្រាបចូលក្នុងអង្ករដំណើបខ្ទិះដូង",
+          },
+          {
+            id: 30,
+            name: "នំក្រូច(10)",
+            price: 1.25,
+            category: "dessert",
+            image: "./picture/dessert/នំក្រូច.jpg",
+            description:
+              "ស្រួយសំបកខាងក្រៅ ទន់ស្អិតខាងក្នុង បង្កប់ដោយស្នូលសណ្តែក",
+          },
+          {
+            id: 31,
+            name: "នំចាក់ច័ន្ទ",
+            price: 0.75,
+            category: "dessert",
+            image: "./picture/dessert/នំចាក់ច័ន្ទ.jpg",
+            description: "សោភ័ណភាពនៃស្រទាប់ពណ៌ចម្រុះ លាយឡំជាមួយក្លិនស្លឹកតើយ",
+          },
+          {
+            id: 32,
+            name: "នំស្លឹកស្រស់(10)",
+            price: 1.25,
+            category: "dessert",
+            image: "./picture/dessert/នំស្លឹកស្រស់.jpg",
+            description: "ម្សៅដំណើបទន់ដែលស្រូបយកក្លិនឈ្ងុយពីស្លឹកចេកស្រស់ៗ",
+          },
+          {
+            id: 33,
+            name: "នំអាកោត្នោត(1ស្មុក)",
+            price: 1.75,
+            category: "dessert",
+            image: "./picture/dessert/នំអាកោត្នោត.jpg",
+            description: "សម្រាំងសាច់ត្នោតទុំពីដើមត្នោតធម្មជាតិ",
+          },
+          {
+            id: 34,
+            name: "សង់ខ្យា",
+            price: 2.25,
+            category: "dessert",
+            image: "./picture/dessert/សង់ខ្យា.jpg",
+            description: "រសជាតិផ្អែមស្រទន់ រលាយក្នុងមាត់ ជាមួយសាច់ល្ពៅ",
+          },
+          {
+            id: 35,
+            name: "នំល្ពៅ (10)",
+            price: 1.25,
+            category: "dessert",
+            image: "./picture/dessert/នំល្ពៅ.jpg",
+            description: "មរតករសជាតិ នំល្ពៅមាស ស្នាដៃអ្នកម៉ាក್",
+          },
+          {
+            id: 36,
+            name: "នំគម (10)",
+            price: 1.25,
+            category: "dessert",
+            image: "./picture/dessert/នំគម.jpg",
+            description: "រាងតូច",
+          },
+        ],
+        beverage: [
+          {
+            id: 37,
+            name: "Fresh Coconut",
+            price: 3.0,
+            category: "beverage",
+            image:
+              "https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?auto=format&fit=crop&w=600&q=80",
+            description: "Fresh young coconut served chilled.",
+          },
+          {
+            id: 38,
+            name: "Sugarcane Juice",
+            price: 2.5,
+            category: "beverage",
+            image:
+              "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?auto=format&fit=crop&w=600&q=80",
+            description:
+              "Freshly squeezed sugarcane juice with a hint of lime.",
+          },
+          {
+            id: 39,
+            name: "Iced Lemon Tea",
+            price: 2.75,
+            category: "beverage",
+            image:
+              "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=600&q=80",
+            description: "Refreshing iced tea with fresh lemon and mint.",
+          },
+          {
+            id: 40,
+            name: "Mango Smoothie",
+            price: 4.0,
+            category: "beverage",
+            image:
+              "https://images.unsplash.com/photo-1546173159-315724a31696?auto=format&fit=crop&w=600&q=80",
+            description:
+              "Blended fresh mango with yogurt and a touch of honey.",
+          },
+          {
+            id: 41,
+            name: "Roselle Juice",
+            price: 2.5,
+            category: "beverage",
+            image:
+              "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80",
+            description:
+              "Khmer-style hibiscus juice, naturally sweet and tangy.",
+          },
+          {
+            id: 42,
+            name: "Pineapple Juice",
+            price: 3.0,
+            category: "beverage",
+            image:
+              "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=600&q=80",
+            description:
+              "Freshly squeezed pineapple juice with a hint of mint.",
+          },
+          {
+            id: 43,
+            name: "Lemongrass Tea",
+            price: 2.75,
+            category: "beverage",
+            image:
+              "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=600&q=80",
+            description: "Aromatic tea brewed with fresh lemongrass stalks.",
+          },
+          {
+            id: 44,
+            name: "Tamarind Juice",
+            price: 2.5,
+            category: "beverage",
+            image:
+              "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80",
+            description: "Tangy and sweet tamarind juice, a Khmer favorite.",
+          },
+          {
+            id: 45,
+            name: "Watermelon Juice",
+            price: 3.0,
+            category: "beverage",
+            image:
+              "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=600&q=80",
+            description: "Refreshing juice made from ripe watermelons.",
+          },
+        ],
+      };
+
+      const allItems = Object.values(menuItems).flat();
+
+      /* ════════════════════════════════════════
+         2. TOAST HELPER
+      ════════════════════════════════════════ */
+      let toastTimer = null;
+
+      function showToast(msg, type = "success") {
+        const toast = document.getElementById("toast");
+        document.getElementById("toast-icon").className =
+          type === "success"
+            ? "fas fa-check-circle text-green-400"
+            : "fas fa-exclamation-circle text-red-400";
+        document.getElementById("toast-msg").textContent = msg;
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove("show"), 2500);
+      }
+
+      /* ════════════════════════════════════════
+         3. ITEM REVIEWS  (localStorage per item)
+      ════════════════════════════════════════ */
+      function getItemReviews(itemId) {
+        try {
+          return (
+            JSON.parse(localStorage.getItem(`item_reviews_${itemId}`)) || []
+          );
+        } catch {
+          return [];
+        }
+      }
+
+      function saveItemReviews(itemId, reviews) {
+        localStorage.setItem(`item_reviews_${itemId}`, JSON.stringify(reviews));
+      }
+
+      function getItemStats(itemId) {
+        const reviews = getItemReviews(itemId);
+        if (!reviews.length)
+          return { avg: 0, count: 0, breakdown: [0, 0, 0, 0, 0] };
+        const breakdown = [0, 0, 0, 0, 0];
+        let total = 0;
+        reviews.forEach((r) => {
+          total += r.rating;
+          breakdown[r.rating - 1]++;
+        });
+        return {
+          avg: (total / reviews.length).toFixed(1),
+          count: reviews.length,
+          breakdown,
+        };
+      }
+
+      /* ════════════════════════════════════════
+         4. ITEM REVIEW MODAL
+      ════════════════════════════════════════ */
+      let currentReviewItemId = null;
+      let itemSelectedRating = 0;
+      const itemRatingLabels = [
+        "",
+        "មិនពេញចិត្ត",
+        "ល្មមប្រហែល",
+        "ល្អ",
+        "ល្អណាស់",
+        "ល្អឥតខ្ចោះ!",
+      ];
+
+      function openItemReview(itemId) {
+        const item = allItems.find((i) => i.id === itemId);
+        if (!item) return;
+
+        currentReviewItemId = itemId;
+        itemSelectedRating = 0;
+
+        document.getElementById("modal-item-img").src = item.image;
+        document.getElementById("modal-item-name").textContent = item.name;
+        document.getElementById("item-review-name").value = "";
+        document.getElementById("item-review-comment").value = "";
+        document.getElementById("item-review-error").classList.add("hidden");
+        updateItemStars(0);
+        renderItemModalStats(itemId);
+        renderItemReviewsList(itemId);
+
+        const modal = document.getElementById("item-review-modal");
+        const panel = document.getElementById("item-review-panel");
+        panel.style.transform = "translateY(40px)";
+        modal.classList.remove("hidden");
+        modal.style.opacity = "0";
+        document.body.style.overflow = "hidden";
+        requestAnimationFrame(() => {
+          modal.style.opacity = "1";
+          panel.style.transform = "translateY(0)";
+        });
+      }
+
+      function closeItemReview() {
+        const modal = document.getElementById("item-review-modal");
+        modal.style.opacity = "0";
+        setTimeout(() => {
+          modal.classList.add("hidden");
+          document.body.style.overflow = "";
+          currentReviewItemId = null;
+        }, 220);
+      }
+
+      function renderItemModalStats(itemId) {
+        const stats = getItemStats(itemId);
+
+        document.getElementById("modal-avg-stars").innerHTML = [1, 2, 3, 4, 5]
+          .map((i) => {
+            const full = i <= Math.floor(stats.avg);
+            const half =
+              !full && i <= Math.ceil(stats.avg) && stats.avg % 1 >= 0.5;
+            const cls = full
+              ? "text-litter-700"
+              : half
+                ? "text-litter-700 opacity-60"
+                : "text-coffee-200 dark:text-gray-600";
+            return `<i class="fas fa-star text-xs ${cls}"></i>`;
+          })
+          .join("");
+
+        document.getElementById("modal-avg-score").textContent = stats.count
+          ? stats.avg
+          : "";
+        document.getElementById("modal-review-count").textContent = stats.count
+          ? `(${stats.count} review)`
+          : "មិនទាន់មាន review";
+
+        const breakdownEl = document.getElementById("modal-breakdown");
+        if (!stats.count) {
+          breakdownEl.innerHTML = "";
+          return;
+        }
+
+        breakdownEl.innerHTML = [5, 4, 3, 2, 1]
+          .map((star) => {
+            const count = stats.breakdown[star - 1];
+            const pct = Math.round((count / stats.count) * 100);
+            return `
+            <div class="flex items-center gap-2">
+              <span class="text-xs text-coffee-500 dark:text-coffee-400 w-4 text-right">${star}</span>
+              <i class="fas fa-star text-litter-700 text-xs"></i>
+              <div class="flex-1 h-1.5 bg-coffee-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                <div class="rating-bar-fill h-full bg-litter-700 rounded-full" style="width:${pct}%"></div>
+              </div>
+              <span class="text-xs text-coffee-400 w-6">${count}</span>
+            </div>`;
+          })
+          .join("");
+      }
+
+      function renderItemReviewsList(itemId) {
+        const reviews = getItemReviews(itemId);
+        const listEl = document.getElementById("item-reviews-list");
+
+        if (!reviews.length) {
+          listEl.innerHTML = `
+            <div class="text-center py-10 text-coffee-300 dark:text-gray-600">
+              <i class="fas fa-comment-slash text-3xl mb-2 block"></i>
+              <p class="text-sm">មិនទាន់មាន review សម្រាប់ម្ហូបនេះ</p>
+              <p class="text-xs mt-1 opacity-70">សូមជាអ្នកដំបូងបង្អស់!</p>
+            </div>`;
+          return;
+        }
+
+        const avatarColors = [
+          "bg-coffee-200 text-coffee-700",
+          "bg-amber-100 text-amber-700",
+          "bg-green-100 text-green-700",
+          "bg-blue-100 text-blue-700",
+          "bg-rose-100 text-rose-700",
+        ];
+
+        listEl.innerHTML =
+          `<div class="divide-y divide-coffee-50 dark:divide-gray-800 px-6">` +
+          reviews
+            .slice()
+            .reverse()
+            .map((r) => {
+              const stars = [1, 2, 3, 4, 5]
+                .map(
+                  (i) =>
+                    `<i class="fas fa-star text-xs ${i <= r.rating ? "text-litter-700" : "text-coffee-200 dark:text-gray-600"}"></i>`,
+                )
+                .join("");
+              const initial = r.name.charAt(0).toUpperCase();
+              const colorClass =
+                avatarColors[r.name.charCodeAt(0) % avatarColors.length];
+              return `
+              <div class="py-4">
+                <div class="flex items-center justify-between mb-1.5">
+                  <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-full ${colorClass} flex items-center justify-center font-bold text-xs flex-shrink-0">${initial}</div>
+                    <div>
+                      <p class="font-semibold text-coffee-800 dark:text-coffee-200 text-sm leading-none">${r.name}</p>
+                      <p class="text-xs text-coffee-400 mt-0.5">${r.date}</p>
+                    </div>
+                  </div>
+                  <div class="flex gap-0.5">${stars}</div>
+                </div>
+                <p class="text-coffee-600 dark:text-coffee-400 text-sm leading-relaxed pl-10">${r.comment}</p>
+              </div>`;
+            })
+            .join("") +
+          `</div>`;
+      }
+
+      function updateItemStars(val) {
+        document.querySelectorAll(".item-star-btn").forEach((s, i) => {
+          s.classList.toggle("active", i < val);
+          s.style.color = i < val ? "#FFB700" : "";
+        });
+        document.getElementById("item-star-label").textContent =
+          val > 0 ? itemRatingLabels[val] : "ជ្រើសរើសផ្កាយ";
+      }
+
+      function submitItemReview() {
+        const name = document.getElementById("item-review-name").value.trim();
+        const comment = document
+          .getElementById("item-review-comment")
+          .value.trim();
+        const errEl = document.getElementById("item-review-error");
+
+        if (!name || !comment || itemSelectedRating === 0) {
+          errEl.classList.remove("hidden");
+          return;
+        }
+        errEl.classList.add("hidden");
+
+        const reviews = getItemReviews(currentReviewItemId);
+        reviews.push({
+          name,
+          comment,
+          rating: itemSelectedRating,
+          date: new Date().toLocaleDateString("km-KH", {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          }),
+        });
+        saveItemReviews(currentReviewItemId, reviews);
+
+        document.getElementById("item-review-name").value = "";
+        document.getElementById("item-review-comment").value = "";
+        itemSelectedRating = 0;
+        updateItemStars(0);
+
+        renderItemModalStats(currentReviewItemId);
+        renderItemReviewsList(currentReviewItemId);
+
+        const first = document
+          .getElementById("item-reviews-list")
+          .querySelector(".py-4");
+        if (first) first.classList.add("review-new");
+
+        refreshCardReviewBadge(currentReviewItemId);
+        showToast("Review បានបញ្ជូនដោយជោគជ័យ!");
+      }
+
+      function refreshCardReviewBadge(itemId) {
+        const stats = getItemStats(itemId);
+        const badge = document.querySelector(
+          `.review-badge[data-item-id="${itemId}"]`,
+        );
+        if (!badge) return;
+        badge.querySelector(".badge-star").textContent =
+          stats.count > 0 ? `⭐ ${stats.avg}` : "⭐ -";
+        badge.querySelector(".badge-count").textContent =
+          stats.count > 0 ? `(${stats.count})` : "";
+        badge.classList.toggle("opacity-50", stats.count === 0);
+      }
+
+      /* ════════════════════════════════════════
+         5. CART
+      ════════════════════════════════════════ */
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      function findItem(id) {
+        return allItems.find((i) => i.id === id);
+      }
+
+      function addToCart(itemId) {
+        const item = findItem(itemId);
+        if (!item) return;
+        const existing = cart.find((i) => i.id === itemId);
+        if (existing) existing.quantity += 1;
+        else
+          cart.push({
+            id: item.id,
+            name: item.name,
+            price: item.price,
+            image: item.image,
+            quantity: 1,
+          });
+        updateCart();
+        showToast(`បានបន្ថែម "${item.name}" ទៅកន្ត្រក!`);
+      }
+
+      function removeFromCart(itemId) {
+        cart = cart.filter((i) => i.id !== itemId);
+        updateCart();
+      }
+
+      function updateQuantity(itemId, newQty) {
+        const item = cart.find((i) => i.id === itemId);
+        if (!item) return;
+        if (newQty <= 0) removeFromCart(itemId);
+        else {
+          item.quantity = newQty;
+          updateCart();
+        }
+      }
+
+      function updateCart() {
+        localStorage.setItem("cart", JSON.stringify(cart));
+
+        const total = cart.reduce((s, i) => s + i.quantity, 0);
+        // document.getElementById("cart-count").textContent = total;
+        if (total > 0) {
+          document.getElementById("cart-count").textContent = total;
+          document.getElementById("cart-count").classList.remove("hidden");
+        } else {
+          document.getElementById("cart-count").classList.add("hidden");
+        }
+        const cartItemsEl = document.getElementById("cart-items");
+        const emptyMsg = document.getElementById("empty-cart-message");
+        if (!cartItemsEl) return;
+        cartItemsEl.innerHTML = "";
+
+        if (cart.length === 0) {
+          emptyMsg.classList.remove("hidden");
+          ["cart-subtotal", "cart-tax", "cart-total"].forEach((id) => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = "$0.00";
+          });
+          return;
+        }
+
+        // if (cart.length === 0) {
+        //   emptyMsg.classList.remove("hidden");
+        //   ["cart-subtotal", "cart-tax", "cart-total"].forEach(
+        //     (id) => (document.getElementById(id).textContent = "$0.00")
+        //   );
+        //   return;
+        // }
+
+        emptyMsg?.classList.add("hidden");
+        let subtotal = 0;
+
+        cart.forEach((item) => {
+          subtotal += item.price * item.quantity;
+          const el = document.createElement("div");
+          el.className =
+            "py-4 flex gap-3 border-b border-gray-100 dark:border-gray-700";
+          el.innerHTML = `
+            <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-lg flex-shrink-0" />
+            <div class="flex-1 min-w-0">
+              <h4 class="font-medium text-sm truncate">${item.name}</h4>
+              <p class="text-xs text-gray-500 mt-0.5">$${item.price.toFixed(2)}</p>
+              <div class="flex items-center gap-2 mt-2">
+                <button onclick="updateQuantity(${item.id}, ${item.quantity - 1})"
+                  class="w-6 h-6 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center text-sm hover:bg-coffee-200 transition">−</button>
+                <span class="text-sm font-bold w-4 text-center">${item.quantity}</span>
+                <button onclick="updateQuantity(${item.id}, ${item.quantity + 1})"
+                  class="w-6 h-6 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center text-sm hover:bg-coffee-200 transition">+</button>
+              </div>
+            </div>
+            <button onclick="removeFromCart(${item.id})"
+              class="text-red-400 hover:text-red-600 transition self-start mt-1" aria-label="Remove item">
+              <i class="fas fa-trash text-sm"></i>
+            </button>`;
+          cartItemsEl.appendChild(el);
+        });
+
+        const tax = subtotal * 0.08;
+        const grand = subtotal + tax;
+        document.getElementById("cart-subtotal").textContent =
+          `$${subtotal.toFixed(2)}`;
+        document.getElementById("cart-tax").textContent = `$${tax.toFixed(2)}`;
+        document.getElementById("cart-total").textContent =
+          `$${grand.toFixed(2)}`;
+      }
+
+      function showCart() {
+        document
+          .getElementById("cart-sidebar")
+          .classList.remove("translate-x-full");
+        document.getElementById("cart-overlay").classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+      }
+
+      function hideCart() {
+        document
+          .getElementById("cart-sidebar")
+          .classList.add("translate-x-full");
+        document.getElementById("cart-overlay").classList.add("hidden");
+        document.body.style.overflow = "";
+      }
+
+      /* ════════════════════════════════════════
+         6. PAYMENT MODAL
+      ════════════════════════════════════════ */
+      function openPayment() {
+        const totalText = document.getElementById("cart-total").textContent;
+        const totalVal = parseFloat(totalText.replace("$", ""));
+        if (totalVal <= 0) {
+          showToast("សូមជ្រើសរើសម្ហូបជាមុនសិន!", "error");
+          return;
+        }
+        document.getElementById("payment-amount").textContent = totalText;
+        document.getElementById("payment-modal").classList.remove("hidden");
+        hideCart();
+      }
+
+      function closePayment() {
+        document.getElementById("payment-modal").classList.add("hidden");
+      }
+
+      /* ════════════════════════════════════════
+         7. DARK MODE
+      ════════════════════════════════════════ */
+      function updateThemeIcons() {
+        const isDark = document.documentElement.classList.contains("dark");
+        document.getElementById("icon-moon").classList.toggle("hidden", isDark);
+        document.getElementById("icon-sun").classList.toggle("hidden", !isDark);
+        document.getElementById("mobile-icon").className = isDark
+          ? "fas fa-sun w-4 text-litter-700"
+          : "fas fa-moon w-4 text-litter-700";
+        document.getElementById("mobile-label").textContent = isDark
+          ? "Light Mode"
+          : "Dark Mode";
+      }
+
+      function toggleTheme() {
+        const isDark = document.documentElement.classList.contains("dark");
+        document.documentElement.classList.toggle("dark", !isDark);
+        localStorage.setItem("color-theme", isDark ? "light" : "dark");
+        updateThemeIcons();
+      }
+
+      /* ════════════════════════════════════════
+         8. FEEDBACK STAR RATING
+      ════════════════════════════════════════ */
+      let selectedRating = 0;
+      const ratingLabels = [
+        "",
+        "មិនពេញចិត្ត",
+        "ល្មមប្រហែល",
+        "ល្អ",
+        "ល្អណាស់",
+        "ល្អឥតខ្ចោះ!",
+      ];
+
+      function updateStars(value) {
+        document.querySelectorAll(".star-btn").forEach((star, i) => {
+          star.classList.toggle("text-litter-700", i < value);
+          star.classList.toggle("text-coffee-200", i >= value);
+        });
+        document.getElementById("rating-label").textContent =
+          value > 0 ? ratingLabels[value] : "សូមចុចដើម្បីវាយតម្លៃ";
+      }
+
+      /* ════════════════════════════════════════
+         9. FEEDBACK FORM SUBMIT
+      ════════════════════════════════════════ */
+      function submitFeedback() {
+        const name = document.getElementById("fb-name").value.trim();
+        const message = document.getElementById("fb-message").value.trim();
+
+        document.getElementById("fb-success").classList.add("hidden");
+        document.getElementById("fb-error").classList.add("hidden");
+
+        if (!name || !message) {
+          document.getElementById("fb-error").classList.remove("hidden");
+          return;
+        }
+
+        document.getElementById("fb-name").value = "";
+        document.getElementById("fb-email").value = "";
+        document.getElementById("fb-message").value = "";
+        document.getElementById("fb-category").value = "";
+        selectedRating = 0;
+        updateStars(0);
+
+        document.getElementById("fb-success").classList.remove("hidden");
+        setTimeout(
+          () => document.getElementById("fb-success").classList.add("hidden"),
+          4000,
+        );
+      }
+
+      /* ════════════════════════════════════════
+         10. MENU TABS + SEARCH + RENDERING
+      ════════════════════════════════════════ */
+      let activeTab = "all";
+      let searchQuery = "";
+
+      const TAB_ACTIVE = "bg-coffee-700 text-white shadow-md scale-105";
+      const TAB_INACTIVE =
+        "bg-coffee-100 dark:bg-gray-800 text-coffee-700 dark:text-coffee-300 hover:bg-coffee-200 dark:hover:bg-gray-700";
+
+      function setActiveTab(tab) {
+        activeTab = tab;
+        document.querySelectorAll(".tab-btn").forEach((btn) => {
+          const isActive = btn.getAttribute("data-tab") === tab;
+          btn.className = `tab-btn px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 ${isActive ? TAB_ACTIVE : TAB_INACTIVE}`;
+        });
+        renderMenu();
+      }
+
+      function createMenuCard(item) {
+        const stats = getItemStats(item.id);
+        const hasReviews = stats.count > 0;
+        const badge = hasReviews
+          ? `<span class="badge-star text-xs font-bold text-litter-700">⭐ ${stats.avg}</span>
+             <span class="badge-count text-xs text-coffee-400">(${stats.count})</span>`
+          : `<span class="badge-star text-xs text-coffee-300 dark:text-gray-600">⭐ -</span>
+             <span class="badge-count text-xs"></span>`;
+
+        return `
+          <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
+            <div class="relative">
+              <img src="${item.image}" alt="${item.name}" class="w-full h-48 object-cover" loading="lazy" />
+              <span class="absolute top-2 right-2 bg-coffee-850/80 text-litter-700 text-xs font-bold px-2 py-1 rounded-full">
+                $${item.price.toFixed(2)}
+              </span>
+            </div>
+            <div class="p-4 flex flex-col flex-1">
+              <div class="flex items-start justify-between mb-1 gap-2">
+                <h3 class="font-bold text-base text-coffee-800 dark:text-coffee-200 leading-tight">${item.name}</h3>
+                <div class="review-badge flex items-center gap-1 flex-shrink-0 ${hasReviews ? "" : "opacity-50"}" data-item-id="${item.id}">
+                  ${badge}
+                </div>
+              </div>
+              <p class="text-coffee-500 dark:text-coffee-400 text-sm mb-4 line-clamp-2 flex-1">${item.description}</p>
+              <div class="flex gap-2 mt-auto">
+                <button class="add-to-cart flex-1 bg-coffee-600 hover:bg-coffee-700 active:scale-95 text-white py-2 rounded-lg transition-all duration-200 text-sm font-medium" data-id="${item.id}">
+                  <i class="fas fa-plus mr-1 text-xs"></i> Add to Cart
+                </button>
+                <button class="open-item-review flex-shrink-0 w-10 h-9 flex items-center justify-center rounded-lg border-2 border-coffee-200 dark:border-gray-600 hover:border-litter-700 hover:text-litter-700 text-coffee-400 dark:text-coffee-500 transition-all duration-200" data-id="${item.id}" title="Review ម្ហូបនេះ" aria-label="Review item">
+                  <i class="fas fa-comment-alt text-sm"></i>
+                </button>
+              </div>
+            </div>
+          </div>`;
+      }
+
+      function renderMenu() {
+        const grid = document.getElementById("menu-grid");
+        const empty = document.getElementById("menu-empty");
+        let items = activeTab === "all" ? allItems : menuItems[activeTab] || [];
+
+        if (searchQuery) {
+          const q = searchQuery.toLowerCase();
+          items = items.filter(
+            (i) =>
+              i.name.toLowerCase().includes(q) ||
+              i.description.toLowerCase().includes(q),
+          );
+        }
+
+        if (!items.length) {
+          grid.innerHTML = "";
+          empty.classList.remove("hidden");
+          return;
+        }
+
+        empty.classList.add("hidden");
+        grid.innerHTML = items.map(createMenuCard).join("");
+
+        grid
+          .querySelectorAll(".add-to-cart")
+          .forEach((btn) =>
+            btn.addEventListener("click", (e) =>
+              addToCart(parseInt(e.currentTarget.dataset.id)),
+            ),
+          );
+        grid
+          .querySelectorAll(".open-item-review")
+          .forEach((btn) =>
+            btn.addEventListener("click", (e) =>
+              openItemReview(parseInt(e.currentTarget.dataset.id)),
+            ),
+          );
+      }
+
+      /* ════════════════════════════════════════
+         11. INIT  (runs after DOM is ready)
+      ════════════════════════════════════════ */
+      document.addEventListener("DOMContentLoaded", function () {
+        // Dark mode
+        document
+          .getElementById("theme-toggle")
+          .addEventListener("click", toggleTheme);
+        document
+          .getElementById("theme-toggle-mobile")
+          .addEventListener("click", toggleTheme);
+        updateThemeIcons();
+
+        // Mobile menu toggle
+        const mobileBtn = document.getElementById("mobile-menu-btn");
+        const mobileMenu = document.getElementById("mobile-menu");
+        mobileBtn.addEventListener("click", () =>
+          mobileMenu.classList.toggle("hidden"),
+        );
+        mobileMenu
+          .querySelectorAll("a")
+          .forEach((link) =>
+            link.addEventListener("click", () =>
+              mobileMenu.classList.add("hidden"),
+            ),
+          );
+
+        // Search expand + live filter
+        const searchBtn = document.getElementById("search-btn");
+        const searchInput = document.getElementById("search-input");
+        let searchOpen = false;
+
+        searchBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          searchOpen = !searchOpen;
+          const w = window.innerWidth < 768 ? "w-32" : "w-48";
+          if (searchOpen) {
+            searchInput.classList.remove("w-0", "opacity-0");
+            searchInput.classList.add(w, "opacity-100");
+            searchInput.focus();
+          } else {
+            searchInput.classList.add("w-0", "opacity-0");
+            searchInput.classList.remove("w-32", "w-48", "opacity-100");
+            searchQuery = "";
+            renderMenu();
+          }
+        });
+
+        searchInput.addEventListener("input", (e) => {
+          searchQuery = e.target.value.trim();
+          renderMenu();
+        });
+
+        document.addEventListener("click", (e) => {
+          if (
+            !searchBtn.contains(e.target) &&
+            !searchInput.contains(e.target)
+          ) {
+            searchOpen = false;
+            searchInput.classList.add("w-0", "opacity-0");
+            searchInput.classList.remove("w-32", "w-48", "opacity-100");
+          }
+        });
+
+        // Cart
+        document.getElementById("cart-btn").addEventListener("click", showCart);
+        document
+          .getElementById("close-cart")
+          .addEventListener("click", hideCart);
+        document
+          .getElementById("cart-overlay")
+          .addEventListener("click", hideCart);
+        document
+          .getElementById("checkout-btn")
+          .addEventListener("click", openPayment);
+
+        // Payment modal close
+        document
+          .getElementById("payment-close-btn")
+          .addEventListener("click", closePayment);
+        document
+          .getElementById("payment-backdrop")
+          .addEventListener("click", closePayment);
+
+        // Menu tabs
+        document
+          .querySelectorAll(".tab-btn")
+          .forEach((btn) =>
+            btn.addEventListener("click", () =>
+              setActiveTab(btn.getAttribute("data-tab")),
+            ),
+          );
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute("href"));
+            if (target) target.scrollIntoView({ behavior: "smooth" });
+          });
+        });
+
+        // Feedback section star rating
+        document.querySelectorAll(".star-btn").forEach((star) => {
+          star.addEventListener("mouseenter", () =>
+            updateStars(parseInt(star.dataset.value)),
+          );
+          star.addEventListener("mouseleave", () =>
+            updateStars(selectedRating),
+          );
+          star.addEventListener("click", () => {
+            selectedRating = parseInt(star.dataset.value);
+            updateStars(selectedRating);
+          });
+        });
+
+        // Feedback submit
+        document
+          .getElementById("fb-submit")
+          .addEventListener("click", submitFeedback);
+
+        // Item review modal events
+        document
+          .getElementById("close-item-review")
+          .addEventListener("click", closeItemReview);
+        document
+          .getElementById("item-review-backdrop")
+          .addEventListener("click", closeItemReview);
+        document
+          .getElementById("item-review-submit")
+          .addEventListener("click", submitItemReview);
+
+        // Item star picker
+        document.querySelectorAll(".item-star-btn").forEach((star) => {
+          star.addEventListener("mouseenter", () =>
+            updateItemStars(parseInt(star.dataset.v)),
+          );
+          star.addEventListener("mouseleave", () =>
+            updateItemStars(itemSelectedRating),
+          );
+          star.addEventListener("click", () => {
+            itemSelectedRating = parseInt(star.dataset.v);
+            updateItemStars(itemSelectedRating);
+          });
+        });
+
+        // Submit review on Enter key
+        document
+          .getElementById("item-review-comment")
+          .addEventListener("keydown", (e) => {
+            if (e.key === "Enter") submitItemReview();
+          });
+
+        // Initial render
+        setActiveTab("all");
+        updateCart();
+      });
+    </script>
+  </body>
+</html>
