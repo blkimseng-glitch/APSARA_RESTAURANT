@@ -199,7 +199,7 @@
             </div>
 
             <!-- User (desktop only) -->
-            <a href="#" class="hidden md:block">
+            <a href="register.html" class="hidden md:block">
               <button
                 class="p-2 hover:text-coffee-300 transition"
                 aria-label="My account"
@@ -1237,7 +1237,7 @@
             name: "នំស្លឹកស្រស់(10)",
             price: 1.25,
             category: "dessert",
-            image: "./picture/dessert/នំស្លឹកស្រស់.jpg",
+            image: "./picture/dessert/Numslerksork.jpg",
             description: "ម្សៅដំណើបទន់ដែលស្រូបយកក្លិនឈ្ងុយពីស្លឹកចេកស្រស់ៗ",
           },
           {
@@ -1245,7 +1245,7 @@
             name: "នំអាកោត្នោត(1ស្មុក)",
             price: 1.75,
             category: "dessert",
-            image: "./picture/dessert/នំអាកោត្នោត.jpg",
+            image: "./picture/dessert/អាកោត្នោត.jpg",
             description: "សម្រាំងសាច់ត្នោតទុំពីដើមត្នោតធម្មជាតិ",
           },
           {
@@ -1262,7 +1262,7 @@
             price: 1.25,
             category: "dessert",
             image: "./picture/dessert/នំល្ពៅ.jpg",
-            description: "មរតករសជាតិ នំល្ពៅមាស ស្នាដៃអ្នកម៉ាក್",
+            description: "មរតករសជាតិ នំល្ពៅមាស ស្នាដៃអ្នកម៉ាក់",
           },
           {
             id: 36,
@@ -2106,6 +2106,27 @@
         setActiveTab("all");
         updateCart();
       });
+    </script>
+    <script>
+      const slider = document.getElementById("slider");
+      const slides = slider.children;
+      let currentIndex = 0;
+
+      function nextSlide() {
+        currentIndex++;
+
+        // If we reach the end, reset to the first slide
+        if (currentIndex >= slides.length) {
+          currentIndex = 0;
+        }
+
+        // Move the slider left/right
+        // -100% * index shifts the view to the next image
+        slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+      }
+
+      // Change image every 4 seconds
+      setInterval(nextSlide, 4000);
     </script>
   </body>
 </html>
