@@ -135,24 +135,48 @@
     <!-- ══════════════════════════════════════════
          NAVBAR
     ══════════════════════════════════════════ -->
-    <nav class="bg-coffee-850 dark:bg-gray-950 text-white shadow-lg sticky top-0 z-50">
+   <nav
+      class="bg-coffee-850 dark:bg-gray-950 text-white shadow-lg sticky top-0 z-50"
+    >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
           <!-- Logo -->
-           <div class="pr-0 md:pr-8 pb-6 md:pb-0">
-            <div class="flex items-center gap-3 mb-4">
-              <img src="./picture/Apsara-logo-2.png" alt="Apsara logo" class="w-12 h-12" />
-              <span class="text-litter-700 text-center font-bold text-xl uppercase leading-tight">
-                Apsara<br />Restaurant
-              </span>
-            </div>
+          <div class="flex items-center gap-2">
+            <img
+              src="./picture/Apsara-logo-2.png"
+              alt="Apsara logo"
+              class="w-12 h-12 md:w-16 md:h-16"
+            />
+            <a
+              href="#"
+              class="hidden md:block text-xl font-bold uppercase text-litter-700 leading-tight text-center"
+            >
+              apsara<br />restaurant
+            </a>
+          </div>
 
           <!-- Desktop nav -->
           <div class="hidden md:flex items-center space-x-6">
-            <a href="index.html" class="px-3 py-1 rounded-lg hover:bg-amber-500 transition">Home</a>
-            <a href="about-us.html" class="px-3 py-1 rounded-lg hover:bg-amber-500 transition">About</a>
-            <a href="menu.html" class="px-3 py-1 rounded-lg hover:bg-amber-500 transition">Menu</a>
-            <a href="contact.html" class="px-3 py-1 rounded-lg hover:bg-amber-500 transition">Contact</a>
+            <a
+              href="index.html"
+              class="px-3 py-1 rounded-lg hover:bg-amber-500 transition"
+              >Home</a
+            >
+            <a
+              href="about-us.html"
+              class="px-3 py-1 rounded-lg hover:bg-amber-500 transition"
+              >About</a
+            >
+            <a
+              href="menu.html"
+              class="px-3 py-1 rounded-lg hover:bg-amber-500 transition"
+              >Menu</a
+            >
+            <a
+              href="contact.html"
+              class="px-3 py-1 rounded-lg hover:bg-amber-500 transition"
+              >Contact</a
+            >
           </div>
 
           <!-- Action buttons -->
@@ -176,7 +200,10 @@
 
             <!-- User (desktop only) -->
             <a href="register.html" class="hidden md:block">
-              <button class="p-2 hover:text-coffee-300 transition" aria-label="My account">
+              <button
+                class="p-2 hover:text-coffee-300 transition"
+                aria-label="My account"
+              >
                 <i class="fa-solid fa-user"></i>
               </button>
             </a>
@@ -191,7 +218,9 @@
               <span
                 id="cart-count"
                 class="absolute -top-1 -right-1 bg-coffee-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"
-              >0</span>
+              >
+                0
+              </span>
             </button>
 
             <!-- Dark mode toggle (desktop) -->
@@ -201,11 +230,25 @@
               class="hidden md:block p-2 hover:text-coffee-300 transition"
               aria-label="Toggle theme"
             >
-              <svg id="icon-moon" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+              <svg
+                id="icon-moon"
+                class="w-5 h-5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
+                ></path>
               </svg>
-              <svg id="icon-sun" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" clip-rule="evenodd"
+              <svg
+                id="icon-sun"
+                class="w-5 h-5 hidden"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
                   d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
                 ></path>
               </svg>
@@ -225,20 +268,30 @@
 
       <!-- Mobile dropdown menu -->
       <div id="mobile-menu" class="md:hidden hidden">
-        <div class="bg-coffee-800 dark:bg-gray-900 px-4 py-3 space-y-1 border-t border-coffee-700 dark:border-gray-700">
-          <a href="index.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-coffee-700 dark:hover:bg-gray-800 transition">
-            <i class="fas fa-home w-4 text-litter-700"></i> Home
-          </a>
-          <a href="about-us.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-coffee-700 dark:hover:bg-gray-800 transition">
-            <i class="fas fa-info-circle w-4 text-litter-700"></i> About
-          </a>
-          <a href="menu.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-coffee-700 dark:hover:bg-gray-800 transition">
-            <i class="fas fa-utensils w-4 text-litter-700"></i> Menu
-          </a>
-          <a href="contact.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-coffee-700 dark:hover:bg-gray-800 transition">
-            <i class="fas fa-phone w-4 text-litter-700"></i> Contact
-          </a>
-          <div class="border-t border-coffee-700 dark:border-gray-700 my-2"></div>
+        <div
+          class="bg-coffee-800 dark:bg-gray-900 px-4 py-3 space-y-1 border-t border-coffee-700"
+        >
+          <a
+            href="index.html"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-coffee-700 dark:hover:bg-gray-800 transition"
+            ><i class="fas fa-home w-4 text-litter-700"></i> Home</a
+          >
+          <a
+            href="about-us.html"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-coffee-700 dark:hover:bg-gray-800 transition"
+            ><i class="fas fa-info-circle w-4 text-litter-700"></i> About</a
+          >
+          <a
+            href="menu.html"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-coffee-700 dark:hover:bg-gray-800 transition"
+            ><i class="fas fa-utensils w-4 text-litter-700"></i> Menu</a
+          >
+          <a
+            href="contact.html"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-coffee-700 dark:hover:bg-gray-800 transition"
+            ><i class="fas fa-phone w-4 text-litter-700"></i> Contact</a
+          >
+          <div class="border-t border-coffee-700 my-2"></div>
           <button
             id="theme-toggle-mobile"
             class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-coffee-700 dark:hover:bg-gray-800 transition w-full text-left"
@@ -246,12 +299,16 @@
             <i id="mobile-icon" class="fas fa-moon w-4 text-litter-700"></i>
             <span id="mobile-label">Dark Mode</span>
           </button>
-          <a href="register.html" class="flex items-center gap-2 px-3 py-2.5 rounded-lg hover:bg-coffee-700 dark:hover:bg-gray-800 transition">
+          <a
+            href="register.html"
+            class="flex items-center gap-2 px-3 py-2.5 rounded-lg hover:bg-coffee-700 dark:hover:bg-gray-800 transition"
+          >
             <i class="fas fa-user w-4 text-litter-700"></i> My Account
           </a>
         </div>
       </div>
     </nav>
+
 
     <!-- ══════════════════════════════════════════
          HERO SECTION
