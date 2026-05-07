@@ -11,7 +11,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
 
-    <!-- Dark mode: must run before first paint to avoid flash -->
+    <!-- ── Dark Mode Init (must run before first paint to avoid flash) ── -->
     <script>
       (function () {
         const saved = localStorage.getItem("color-theme");
@@ -23,6 +23,7 @@
       })();
     </script>
 
+    <!-- ── Tailwind Config ── -->
     <script>
       tailwind.config = {
         darkMode: "class",
@@ -49,7 +50,9 @@
     </script>
 
     <style>
-      /* ── Item Review Modal ── */
+      /* ══════════════════════════════════════════
+         ITEM REVIEW MODAL
+      ══════════════════════════════════════════ */
       #item-review-modal {
         transition: opacity 0.25s ease;
       }
@@ -60,7 +63,9 @@
         transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
       }
 
-      /* ── Star hover glow ── */
+      /* ══════════════════════════════════════════
+         STAR RATING
+      ══════════════════════════════════════════ */
       .item-star-btn:hover {
         filter: drop-shadow(0 0 6px #ffb700aa);
       }
@@ -69,7 +74,9 @@
         filter: drop-shadow(0 0 4px #ffb700);
       }
 
-      /* ── Review card slide-in ── */
+      /* ══════════════════════════════════════════
+         ANIMATIONS
+      ══════════════════════════════════════════ */
       @keyframes slideIn {
         from {
           opacity: 0;
@@ -83,13 +90,13 @@
       .review-new {
         animation: slideIn 0.35s ease forwards;
       }
-
-      /* ── Rating bar animation ── */
       .rating-bar-fill {
         transition: width 0.6s cubic-bezier(0.34, 1.2, 0.64, 1);
       }
 
-      /* ── Review list custom scrollbar ── */
+      /* ══════════════════════════════════════════
+         CUSTOM SCROLLBAR (Review List)
+      ══════════════════════════════════════════ */
       #item-reviews-list::-webkit-scrollbar {
         width: 4px;
       }
@@ -101,7 +108,9 @@
         border-radius: 99px;
       }
 
-      /* ── Toast notification ── */
+      /* ══════════════════════════════════════════
+         TOAST NOTIFICATION
+      ══════════════════════════════════════════ */
       #toast {
         transition:
           opacity 0.3s ease,
@@ -154,7 +163,7 @@
             </a>
           </div>
 
-          <!-- Desktop nav -->
+          <!-- Desktop Nav Links -->
           <div class="hidden md:flex items-center space-x-6">
             <a
               href="index.html"
@@ -178,7 +187,7 @@
             >
           </div>
 
-          <!-- Action buttons -->
+          <!-- Action Buttons -->
           <div class="flex items-center gap-1">
             <!-- Search -->
             <div class="flex items-center relative">
@@ -222,7 +231,7 @@
               </span>
             </button>
 
-            <!-- Dark mode toggle (desktop) -->
+            <!-- Dark Mode Toggle (desktop) -->
             <button
               id="theme-toggle"
               type="button"
@@ -253,7 +262,7 @@
               </svg>
             </button>
 
-            <!-- Mobile hamburger -->
+            <!-- Mobile Hamburger -->
             <button
               id="mobile-menu-btn"
               class="md:hidden p-2 hover:text-coffee-300 transition"
@@ -265,7 +274,7 @@
         </div>
       </div>
 
-      <!-- Mobile dropdown menu -->
+      <!-- Mobile Dropdown Menu -->
       <div id="mobile-menu" class="md:hidden hidden">
         <div
           class="bg-coffee-800 dark:bg-gray-900 px-4 py-3 space-y-1 border-t border-coffee-700"
@@ -309,7 +318,7 @@
     </nav>
 
     <!-- ══════════════════════════════════════════
-         MENU SECTION
+         MAIN — MENU SECTION
     ══════════════════════════════════════════ -->
     <main>
       <section id="menu" class="py-16 bg-white dark:bg-gray-900">
@@ -320,7 +329,7 @@
             Our Menu
           </h2>
 
-          <!-- Category tabs -->
+          <!-- Category Tabs -->
           <div class="flex flex-wrap justify-center gap-3 mb-10">
             <button
               data-tab="all"
@@ -360,13 +369,13 @@
             </button>
           </div>
 
-          <!-- Menu grid -->
+          <!-- Menu Grid -->
           <div
             id="menu-grid"
             class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-300"
           ></div>
 
-          <!-- Empty state -->
+          <!-- Empty State -->
           <div
             id="menu-empty"
             class="hidden text-center py-16 text-coffee-400 dark:text-coffee-600"
@@ -396,7 +405,7 @@
         id="item-review-panel"
         class="relative w-full sm:max-w-lg bg-white dark:bg-gray-900 rounded-t-3xl sm:rounded-2xl shadow-2xl flex flex-col max-h-[90vh] translate-y-8"
       >
-        <!-- Drag handle (mobile only) -->
+        <!-- Drag Handle (mobile only) -->
         <div class="sm:hidden flex justify-center pt-3 pb-1">
           <div
             class="w-10 h-1 bg-coffee-200 dark:bg-gray-700 rounded-full"
@@ -439,16 +448,16 @@
           </button>
         </div>
 
-        <!-- Rating breakdown bars -->
+        <!-- Rating Breakdown Bars -->
         <div
           id="modal-breakdown"
           class="px-6 py-3 bg-coffee-50 dark:bg-gray-800/50 space-y-1 border-b border-coffee-100 dark:border-gray-800"
         ></div>
 
-        <!-- Reviews list (scrollable) -->
+        <!-- Reviews List (scrollable) -->
         <div class="flex-1 overflow-y-auto" id="item-reviews-list"></div>
 
-        <!-- Write review form -->
+        <!-- Write Review Form -->
         <div
           class="px-6 py-5 border-t border-coffee-100 dark:border-gray-800 bg-white dark:bg-gray-900"
         >
@@ -458,7 +467,7 @@
             សរសេរ Review របស់អ្នក
           </p>
 
-          <!-- Star picker -->
+          <!-- Star Picker -->
           <div class="flex items-center gap-1 mb-3">
             <span id="item-star-label" class="text-xs text-coffee-400 mr-1"
               >ជ្រើសរើសផ្កាយ</span
@@ -503,7 +512,7 @@
             />
           </div>
 
-          <!-- Validation error -->
+          <!-- Validation Error -->
           <p id="item-review-error" class="hidden text-xs text-red-500 mb-2">
             <i class="fas fa-exclamation-circle mr-1"></i>សូមបំពេញឈ្មោះ,
             ជ្រើសផ្កាយ, និងមតិ
@@ -547,7 +556,7 @@
         </button>
       </div>
 
-      <!-- Cart items -->
+      <!-- Cart Items -->
       <div id="cart-items" class="flex-1 overflow-y-auto p-4"></div>
       <div
         id="empty-cart-message"
@@ -572,9 +581,8 @@
         >
           <span>Total</span><span id="cart-total">$0.00</span>
         </div>
+        <!-- NOTE: onclick removed — event handled via addEventListener in JS -->
         <button
-          
-          onclick="clearCart()"
           id="checkout-btn"
           class="w-full bg-coffee-600 text-white py-3 rounded-xl font-bold hover:bg-coffee-700 transition"
         >
@@ -639,9 +647,7 @@
     <!-- ══════════════════════════════════════════
          FOOTER
     ══════════════════════════════════════════ -->
-    <footer
-      class="bg-coffee-900 text-coffee-200 dark:bg-gray-950 dark:text-gray-400"
-    >
+    <footer class="bg-coffee-900 dark:bg-gray-950 text-coffee-200">
       <div class="max-w-7xl mx-auto px-8 py-8">
         <div
           class="grid grid-cols-1 md:grid-cols-3 gap-0 divide-y md:divide-y-0 md:divide-x divide-coffee-800 dark:divide-gray-800"
@@ -650,16 +656,19 @@
           <div class="pr-0 md:pr-8 pb-6 md:pb-0">
             <div class="flex items-center gap-3 mb-4">
               <img
-                src="/picture/Apsara-logo-2.png"
+                src="./picture/Apsara-logo-2.png"
                 alt="Apsara logo"
                 class="w-12 h-12"
               />
               <span
                 class="text-litter-700 text-center font-bold text-xl uppercase leading-tight"
-                >Apsara<br />Restaurant</span
               >
+                Apsara<br />Restaurant
+              </span>
             </div>
-            <p class="text-coffee-300 text-sm leading-relaxed mb-5">
+            <p
+              class="text-coffee-300 dark:text-gray-400 text-sm leading-relaxed mb-5"
+            >
               Bringing the authentic taste of the Kingdom of Wonder to your
               plate since 2024.
             </p>
@@ -667,55 +676,60 @@
               <a
                 href="#"
                 aria-label="Facebook"
-                class="w-9 h-9 rounded-full bg-coffee-700 hover:bg-litter-700 hover:text-coffee-900 flex items-center justify-center transition-all duration-200"
-                ><i class="fab fa-facebook-f text-sm"></i
-              ></a>
+                class="w-9 h-9 rounded-full bg-coffee-700 dark:bg-gray-800 hover:bg-litter-700 hover:text-coffee-900 flex items-center justify-center transition-all duration-200"
+              >
+                <i class="fab fa-facebook-f text-sm"></i>
+              </a>
               <a
                 href="#"
                 aria-label="Instagram"
-                class="w-9 h-9 rounded-full bg-coffee-700 hover:bg-litter-700 hover:text-coffee-900 flex items-center justify-center transition-all duration-200"
-                ><i class="fab fa-instagram text-sm"></i
-              ></a>
+                class="w-9 h-9 rounded-full bg-coffee-700 dark:bg-gray-800 hover:bg-litter-700 hover:text-coffee-900 flex items-center justify-center transition-all duration-200"
+              >
+                <i class="fab fa-instagram text-sm"></i>
+              </a>
               <a
                 href="#"
                 aria-label="TikTok"
-                class="w-9 h-9 rounded-full bg-coffee-700 hover:bg-litter-700 hover:text-coffee-900 flex items-center justify-center transition-all duration-200"
-                ><i class="fab fa-tiktok text-sm"></i
-              ></a>
+                class="w-9 h-9 rounded-full bg-coffee-700 dark:bg-gray-800 hover:bg-litter-700 hover:text-coffee-900 flex items-center justify-center transition-all duration-200"
+              >
+                <i class="fab fa-tiktok text-sm"></i>
+              </a>
               <a
                 href="#"
                 aria-label="YouTube"
-                class="w-9 h-9 rounded-full bg-coffee-700 hover:bg-litter-700 hover:text-coffee-900 flex items-center justify-center transition-all duration-200"
-                ><i class="fab fa-youtube text-sm"></i
-              ></a>
+                class="w-9 h-9 rounded-full bg-coffee-700 dark:bg-gray-800 hover:bg-litter-700 hover:text-coffee-900 flex items-center justify-center transition-all duration-200"
+              >
+                <i class="fab fa-youtube text-sm"></i>
+              </a>
               <a
                 href="#"
                 aria-label="Telegram"
-                class="w-9 h-9 rounded-full bg-coffee-700 hover:bg-litter-700 hover:text-coffee-900 flex items-center justify-center transition-all duration-200"
-                ><i class="fab fa-telegram text-sm"></i
-              ></a>
+                class="w-9 h-9 rounded-full bg-coffee-700 dark:bg-gray-800 hover:bg-litter-700 hover:text-coffee-900 flex items-center justify-center transition-all duration-200"
+              >
+                <i class="fab fa-telegram text-sm"></i>
+              </a>
             </div>
           </div>
 
           <!-- Opening hours -->
           <div class="px-0 md:px-8 py-6 md:py-0">
             <h4
-              class="text-white font-semibold text-base mb-5 pb-2 border-b border-coffee-700"
+              class="text-white font-semibold text-base mb-5 pb-2 border-b border-coffee-700 dark:border-gray-700"
             >
               Opening Hours
             </h4>
-            <ul class="space-y-2.5 text-sm text-coffee-300">
+            <ul class="space-y-2.5 text-sm text-coffee-300 dark:text-gray-400">
               <li class="flex justify-between gap-4">
-                <span>Mon – Fri</span
-                ><span class="text-white">7:00 AM – 9:00 PM</span>
+                <span>Mon – Fri</span>
+                <span class="text-white">7:00 AM – 9:00 PM</span>
               </li>
               <li class="flex justify-between gap-4">
-                <span>Sat – Sun</span
-                ><span class="text-white">6:00 AM – 11:00 PM</span>
+                <span>Sat – Sun</span>
+                <span class="text-white">6:00 AM – 11:00 PM</span>
               </li>
               <li class="flex justify-between gap-4">
-                <span>Public Holiday</span
-                ><span class="text-red-400">Closed</span>
+                <span>Public Holiday</span>
+                <span class="text-red-400">Closed</span>
               </li>
             </ul>
             <div
@@ -731,11 +745,11 @@
           <!-- Contact -->
           <div class="pl-0 md:pl-8 pt-6 md:pt-0">
             <h4
-              class="text-white font-semibold text-base mb-5 pb-2 border-b border-coffee-700"
+              class="text-white font-semibold text-base mb-5 pb-2 border-b border-coffee-700 dark:border-gray-700"
             >
               Contact Us
             </h4>
-            <ul class="space-y-3 text-sm text-coffee-300">
+            <ul class="space-y-3 text-sm text-coffee-300 dark:text-gray-400">
               <li class="flex items-start gap-3">
                 <i class="fas fa-map-marker-alt text-litter-700 mt-0.5 w-4"></i>
                 <span>Street 123, Phnom Penh, Cambodia</span>
@@ -766,9 +780,10 @@
           </div>
         </div>
       </div>
-      <div class="border-t border-coffee-800">
+
+      <div class="border-t border-coffee-800 dark:border-gray-800">
         <div
-          class="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-coffee-400"
+          class="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-coffee-400 dark:text-gray-500"
         >
           <span>© 2026 Apsara Restaurant Group. All rights reserved.</span>
           <div class="flex items-center gap-4">
@@ -787,9 +802,9 @@
          JAVASCRIPT
     ══════════════════════════════════════════ -->
     <script>
-      /* ─────────────────────────────────────────
-             MENU DATA
-          ───────────────────────────────────────── */
+      /* ════════════════════════════════════════════
+         1. MENU DATA
+      ════════════════════════════════════════════ */
       const menuItems = {
         coffee: [
           {
@@ -1220,11 +1235,12 @@
         ],
       };
 
+      // Flat array of all items for easy lookup
       const allItems = Object.values(menuItems).flat();
 
-      /* ─────────────────────────────────────────
-             TOAST HELPER
-          ───────────────────────────────────────── */
+      /* ════════════════════════════════════════════
+         2. TOAST HELPER
+      ════════════════════════════════════════════ */
       let toastTimer = null;
 
       function showToast(msg, type = "success") {
@@ -1239,9 +1255,9 @@
         toastTimer = setTimeout(() => toast.classList.remove("show"), 2500);
       }
 
-      /* ─────────────────────────────────────────
-             ITEM REVIEWS  (localStorage per item)
-          ───────────────────────────────────────── */
+      /* ════════════════════════════════════════════
+         3. ITEM REVIEWS  (persisted in localStorage)
+      ════════════════════════════════════════════ */
       function getItemReviews(itemId) {
         try {
           return (
@@ -1275,9 +1291,9 @@
         };
       }
 
-      /* ─────────────────────────────────────────
-             ITEM REVIEW MODAL
-          ───────────────────────────────────────── */
+      /* ════════════════════════════════════════════
+         4. ITEM REVIEW MODAL
+      ════════════════════════════════════════════ */
       let currentReviewItemId = null;
       let itemSelectedRating = 0;
 
@@ -1365,14 +1381,14 @@
             const count = stats.breakdown[star - 1];
             const pct = Math.round((count / stats.count) * 100);
             return `
-                  <div class="flex items-center gap-2">
-                    <span class="text-xs text-coffee-500 dark:text-coffee-400 w-4 text-right">${star}</span>
-                    <i class="fas fa-star text-litter-700 text-xs"></i>
-                    <div class="flex-1 h-1.5 bg-coffee-200 dark:bg-gray-700 rounded-full overflow-hidden">
-                      <div class="rating-bar-fill h-full bg-litter-700 rounded-full" style="width:${pct}%"></div>
-                    </div>
-                    <span class="text-xs text-coffee-400 w-6">${count}</span>
-                  </div>`;
+              <div class="flex items-center gap-2">
+                <span class="text-xs text-coffee-500 dark:text-coffee-400 w-4 text-right">${star}</span>
+                <i class="fas fa-star text-litter-700 text-xs"></i>
+                <div class="flex-1 h-1.5 bg-coffee-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                  <div class="rating-bar-fill h-full bg-litter-700 rounded-full" style="width:${pct}%"></div>
+                </div>
+                <span class="text-xs text-coffee-400 w-6">${count}</span>
+              </div>`;
           })
           .join("");
       }
@@ -1383,11 +1399,11 @@
 
         if (!reviews.length) {
           listEl.innerHTML = `
-                <div class="text-center py-10 text-coffee-300 dark:text-gray-600">
-                  <i class="fas fa-comment-slash text-3xl mb-2 block"></i>
-                  <p class="text-sm">មិនទាន់មាន review សម្រាប់ម្ហូបនេះ</p>
-                  <p class="text-xs mt-1 opacity-70">សូមជាអ្នកដំបូងបង្អស់!</p>
-                </div>`;
+            <div class="text-center py-10 text-coffee-300 dark:text-gray-600">
+              <i class="fas fa-comment-slash text-3xl mb-2 block"></i>
+              <p class="text-sm">មិនទាន់មាន review សម្រាប់ម្ហូបនេះ</p>
+              <p class="text-xs mt-1 opacity-70">សូមជាអ្នកដំបូងបង្អស់!</p>
+            </div>`;
           return;
         }
 
@@ -1415,19 +1431,19 @@
               const colorClass =
                 avatarColors[r.name.charCodeAt(0) % avatarColors.length];
               return `
-                  <div class="py-4">
-                    <div class="flex items-center justify-between mb-1.5">
-                      <div class="flex items-center gap-2">
-                        <div class="w-8 h-8 rounded-full ${colorClass} flex items-center justify-center font-bold text-xs flex-shrink-0">${initial}</div>
-                        <div>
-                          <p class="font-semibold text-coffee-800 dark:text-coffee-200 text-sm leading-none">${r.name}</p>
-                          <p class="text-xs text-coffee-400 mt-0.5">${r.date}</p>
-                        </div>
+                <div class="py-4">
+                  <div class="flex items-center justify-between mb-1.5">
+                    <div class="flex items-center gap-2">
+                      <div class="w-8 h-8 rounded-full ${colorClass} flex items-center justify-center font-bold text-xs flex-shrink-0">${initial}</div>
+                      <div>
+                        <p class="font-semibold text-coffee-800 dark:text-coffee-200 text-sm leading-none">${r.name}</p>
+                        <p class="text-xs text-coffee-400 mt-0.5">${r.date}</p>
                       </div>
-                      <div class="flex gap-0.5">${stars}</div>
                     </div>
-                    <p class="text-coffee-600 dark:text-coffee-400 text-sm leading-relaxed pl-10">${r.comment}</p>
-                  </div>`;
+                    <div class="flex gap-0.5">${stars}</div>
+                  </div>
+                  <p class="text-coffee-600 dark:text-coffee-400 text-sm leading-relaxed pl-10">${r.comment}</p>
+                </div>`;
             })
             .join("") +
           `</div>`;
@@ -1468,6 +1484,7 @@
         });
         saveItemReviews(currentReviewItemId, reviews);
 
+        // Reset form
         document.getElementById("item-review-name").value = "";
         document.getElementById("item-review-comment").value = "";
         itemSelectedRating = 0;
@@ -1476,6 +1493,7 @@
         renderItemModalStats(currentReviewItemId);
         renderItemReviewsList(currentReviewItemId);
 
+        // Animate newest review
         const first = document
           .getElementById("item-reviews-list")
           .querySelector(".py-4");
@@ -1498,9 +1516,9 @@
         badge.classList.toggle("opacity-50", stats.count === 0);
       }
 
-      /* ─────────────────────────────────────────
-             CART
-          ───────────────────────────────────────── */
+      /* ════════════════════════════════════════════
+         5. CART
+      ════════════════════════════════════════════ */
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
       function addToCart(itemId) {
@@ -1508,8 +1526,9 @@
         if (!item) return;
 
         const existing = cart.find((i) => i.id === itemId);
-        if (existing) existing.quantity += 1;
-        else
+        if (existing) {
+          existing.quantity += 1;
+        } else {
           cart.push({
             id: item.id,
             name: item.name,
@@ -1517,6 +1536,7 @@
             image: item.image,
             quantity: 1,
           });
+        }
 
         updateCart();
         showToast(`បានបន្ថែម "${item.name}" ទៅកន្ត្រក!`);
@@ -1536,6 +1556,7 @@
           updateCart();
         }
       }
+
       function updateCart() {
         localStorage.setItem("cart", JSON.stringify(cart));
 
@@ -1551,7 +1572,7 @@
         cartItemsEl.innerHTML = "";
 
         if (cart.length === 0) {
-          emptyMsg?.classList.remove("hidden"); // ← បន្ថែម ?
+          emptyMsg?.classList.remove("hidden");
           ["cart-subtotal", "cart-tax", "cart-total"].forEach((id) => {
             const el = document.getElementById(id);
             if (el) el.textContent = "$0.00";
@@ -1568,22 +1589,22 @@
           el.className =
             "py-4 flex gap-3 border-b border-gray-100 dark:border-gray-700";
           el.innerHTML = `
-      <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-lg flex-shrink-0" />
-      <div class="flex-1 min-w-0">
-        <h4 class="font-medium text-sm truncate">${item.name}</h4>
-        <p class="text-xs text-gray-500 mt-0.5">$${item.price.toFixed(2)}</p>
-        <div class="flex items-center gap-2 mt-2">
-          <button onclick="updateQuantity(${item.id}, ${item.quantity - 1})"
-            class="w-6 h-6 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center text-sm hover:bg-coffee-200 transition">−</button>
-          <span class="text-sm font-bold w-4 text-center">${item.quantity}</span>
-          <button onclick="updateQuantity(${item.id}, ${item.quantity + 1})"
-            class="w-6 h-6 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center text-sm hover:bg-coffee-200 transition">+</button>
-        </div>
-      </div>
-      <button onclick="removeFromCart(${item.id})"
-        class="text-red-400 hover:text-red-600 transition self-start mt-1" aria-label="Remove item">
-        <i class="fas fa-trash text-sm"></i>
-      </button>`;
+            <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-lg flex-shrink-0" />
+            <div class="flex-1 min-w-0">
+              <h4 class="font-medium text-sm truncate">${item.name}</h4>
+              <p class="text-xs text-gray-500 mt-0.5">$${item.price.toFixed(2)}</p>
+              <div class="flex items-center gap-2 mt-2">
+                <button onclick="updateQuantity(${item.id}, ${item.quantity - 1})"
+                  class="w-6 h-6 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center text-sm hover:bg-coffee-200 transition">−</button>
+                <span class="text-sm font-bold w-4 text-center">${item.quantity}</span>
+                <button onclick="updateQuantity(${item.id}, ${item.quantity + 1})"
+                  class="w-6 h-6 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center text-sm hover:bg-coffee-200 transition">+</button>
+              </div>
+            </div>
+            <button onclick="removeFromCart(${item.id})"
+              class="text-red-400 hover:text-red-600 transition self-start mt-1" aria-label="Remove item">
+              <i class="fas fa-trash text-sm"></i>
+            </button>`;
           cartItemsEl.appendChild(el);
         });
 
@@ -1612,11 +1633,16 @@
         document.body.style.overflow = "";
       }
 
- 
+      function clearCart() {
+        cart = [];
+        updateCart();
+        showToast("ការបញ្ជាទិញទទួលបានជោគជ័យ!");
+        hideCart();
+      }
 
-      /* ─────────────────────────────────────────
-             PAYMENT MODAL
-          ───────────────────────────────────────── */
+      /* ════════════════════════════════════════════
+         6. PAYMENT MODAL
+      ════════════════════════════════════════════ */
       function openPayment() {
         const totalText = document.getElementById("cart-total").textContent;
         const totalVal = parseFloat(totalText.replace("$", ""));
@@ -1633,9 +1659,9 @@
         document.getElementById("payment-modal").classList.add("hidden");
       }
 
-      /* ─────────────────────────────────────────
-             DARK MODE
-          ───────────────────────────────────────── */
+      /* ════════════════════════════════════════════
+         7. DARK MODE
+      ════════════════════════════════════════════ */
       function updateThemeIcons() {
         const isDark = document.documentElement.classList.contains("dark");
         document.getElementById("icon-moon").classList.toggle("hidden", isDark);
@@ -1655,9 +1681,9 @@
         updateThemeIcons();
       }
 
-      /* ─────────────────────────────────────────
-             MENU TABS + SEARCH + RENDERING
-          ───────────────────────────────────────── */
+      /* ════════════════════════════════════════════
+         8. MENU TABS + SEARCH + RENDERING
+      ════════════════════════════════════════════ */
       let activeTab = "all";
       let searchQuery = "";
 
@@ -1679,37 +1705,37 @@
         const hasReviews = stats.count > 0;
         const badge = hasReviews
           ? `<span class="badge-star text-xs font-bold text-litter-700">⭐ ${stats.avg}</span>
-                 <span class="badge-count text-xs text-coffee-400">(${stats.count})</span>`
+             <span class="badge-count text-xs text-coffee-400">(${stats.count})</span>`
           : `<span class="badge-star text-xs text-coffee-300 dark:text-gray-600">⭐ -</span>
-                 <span class="badge-count text-xs"></span>`;
+             <span class="badge-count text-xs"></span>`;
 
         return `
-              <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
-                <div class="relative">
-                  <img src="${item.image}" alt="${item.name}" class="w-full h-48 object-cover" loading="lazy" />
-                  <span class="absolute top-2 right-2 bg-coffee-850/80 text-litter-700 text-xs font-bold px-2 py-1 rounded-full">
-                    $${item.price.toFixed(2)}
-                  </span>
+          <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
+            <div class="relative">
+              <img src="${item.image}" alt="${item.name}" class="w-full h-48 object-cover" loading="lazy" />
+              <span class="absolute top-2 right-2 bg-coffee-850/80 text-litter-700 text-xs font-bold px-2 py-1 rounded-full">
+                $${item.price.toFixed(2)}
+              </span>
+            </div>
+            <div class="p-4 flex flex-col flex-1">
+              <div class="flex items-start justify-between mb-1 gap-2">
+                <h3 class="font-bold text-base text-coffee-800 dark:text-coffee-200 leading-tight">${item.name}</h3>
+                <div class="review-badge flex items-center gap-1 flex-shrink-0 ${hasReviews ? "" : "opacity-50"}" data-item-id="${item.id}">
+                  ${badge}
                 </div>
-                <div class="p-4 flex flex-col flex-1">
-                  <div class="flex items-start justify-between mb-1 gap-2">
-                    <h3 class="font-bold text-base text-coffee-800 dark:text-coffee-200 leading-tight">${item.name}</h3>
-                    <div class="review-badge flex items-center gap-1 flex-shrink-0 ${hasReviews ? "" : "opacity-50"}" data-item-id="${item.id}">
-                      ${badge}
-                    </div>
-                  </div>
-                  <p class="text-coffee-500 dark:text-coffee-400 text-sm mb-4 line-clamp-2 flex-1">${item.description}</p>
-                  <div class="flex gap-2 mt-auto">
-                    <button class="add-to-cart flex-1 bg-coffee-600 hover:bg-coffee-700 active:scale-95 text-white py-2 rounded-lg transition-all duration-200 text-sm font-medium" data-id="${item.id}">
-                      <i class="fas fa-plus mr-1 text-xs"></i> Add to Cart
-                    </button>
-                    <button class="open-item-review flex-shrink-0 w-10 h-9 flex items-center justify-center rounded-lg border-2 border-coffee-200 dark:border-gray-600 hover:border-litter-700 hover:text-litter-700 text-coffee-400 dark:text-coffee-500 transition-all duration-200"
-                      data-id="${item.id}" title="Review ម្ហូបនេះ" aria-label="Review item">
-                      <i class="fas fa-comment-alt text-sm"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>`;
+              </div>
+              <p class="text-coffee-500 dark:text-coffee-400 text-sm mb-4 line-clamp-2 flex-1">${item.description}</p>
+              <div class="flex gap-2 mt-auto">
+                <button class="add-to-cart flex-1 bg-coffee-600 hover:bg-coffee-700 active:scale-95 text-white py-2 rounded-lg transition-all duration-200 text-sm font-medium" data-id="${item.id}">
+                  <i class="fas fa-plus mr-1 text-xs"></i> Add to Cart
+                </button>
+                <button class="open-item-review flex-shrink-0 w-10 h-9 flex items-center justify-center rounded-lg border-2 border-coffee-200 dark:border-gray-600 hover:border-litter-700 hover:text-litter-700 text-coffee-400 dark:text-coffee-500 transition-all duration-200"
+                  data-id="${item.id}" title="Review ម្ហូបនេះ" aria-label="Review item">
+                  <i class="fas fa-comment-alt text-sm"></i>
+                </button>
+              </div>
+            </div>
+          </div>`;
       }
 
       function renderMenu() {
@@ -1751,11 +1777,11 @@
           );
       }
 
-      /* ─────────────────────────────────────────
-             INIT
-          ───────────────────────────────────────── */
+      /* ════════════════════════════════════════════
+         9. INIT — DOMContentLoaded
+      ════════════════════════════════════════════ */
       document.addEventListener("DOMContentLoaded", function () {
-        // Dark mode
+        // ── Dark Mode ──
         document
           .getElementById("theme-toggle")
           .addEventListener("click", toggleTheme);
@@ -1764,7 +1790,7 @@
           .addEventListener("click", toggleTheme);
         updateThemeIcons();
 
-        // Mobile menu
+        // ── Mobile Menu ──
         const mobileBtn = document.getElementById("mobile-menu-btn");
         const mobileMenu = document.getElementById("mobile-menu");
         mobileBtn.addEventListener("click", () =>
@@ -1778,7 +1804,7 @@
             ),
           );
 
-        // Search
+        // ── Search ──
         const searchBtn = document.getElementById("search-btn");
         const searchInput = document.getElementById("search-input");
         let searchOpen = false;
@@ -1815,7 +1841,7 @@
           }
         });
 
-        // Cart
+        // ── Cart ──
         document.getElementById("cart-btn").addEventListener("click", showCart);
         document
           .getElementById("close-cart")
@@ -1825,17 +1851,20 @@
           .addEventListener("click", hideCart);
         document
           .getElementById("checkout-btn")
-          .addEventListener("click", openPayment);
+          .addEventListener("click", openPayment); // opens QR payment first
 
-        // Payment modal
+        // ── Payment Modal ──
         document
           .getElementById("payment-close-btn")
-          .addEventListener("click", closePayment);
+          .addEventListener("click", () => {
+            closePayment();
+            clearCart(); // clear cart only after user confirms payment done
+          });
         document
           .getElementById("payment-backdrop")
           .addEventListener("click", closePayment);
 
-        // Menu tabs
+        // ── Menu Tabs ──
         document
           .querySelectorAll(".tab-btn")
           .forEach((btn) =>
@@ -1844,7 +1873,7 @@
             ),
           );
 
-        // Smooth scroll
+        // ── Smooth Scroll ──
         document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
           anchor.addEventListener("click", function (e) {
             e.preventDefault();
@@ -1853,7 +1882,7 @@
           });
         });
 
-        // Item review modal
+        // ── Item Review Modal Controls ──
         document
           .getElementById("close-item-review")
           .addEventListener("click", closeItemReview);
@@ -1869,7 +1898,7 @@
             if (e.key === "Enter") submitItemReview();
           });
 
-        // Item star picker
+        // ── Item Star Picker ──
         document.querySelectorAll(".item-star-btn").forEach((star) => {
           star.addEventListener("mouseenter", () =>
             updateItemStars(parseInt(star.dataset.v)),
@@ -1883,7 +1912,7 @@
           });
         });
 
-        // Initial render
+        // ── Initial Render ──
         setActiveTab("all");
         updateCart();
       });
