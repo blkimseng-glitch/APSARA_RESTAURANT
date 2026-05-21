@@ -1,502 +1,768 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Apsara Restaurant – Contact Us</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Apsara Restaurant – Contact Us</title>
     <link rel="icon" type="image/png" href="./picture/Apsara-logo-2.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Dark mode: apply saved preference before paint to avoid flash -->
-  <script>
-    (function () {
-      const saved = localStorage.getItem("color-theme");
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      if (saved === "dark" || (!saved && prefersDark))
-        document.documentElement.classList.add("dark");
-    })();
-  </script>
+    <!-- Dark mode: apply saved preference before paint to avoid flash -->
+    <script>
+      (function () {
+        const saved = localStorage.getItem("color-theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        if (saved === "dark" || (!saved && prefersDark))
+          document.documentElement.classList.add("dark");
+      })();
+    </script>
 
-  <script>
-    tailwind.config = {
-      darkMode: "class",
-      theme: {
-        extend: {
-          colors: {
-            coffee: {
-              100: "#f5ece5",
-              200: "#e6d5c3",
-              300: "#d4b997",
-              400: "#c49a6b",
-              500: "#b07d4a",
-              600: "#8e6439",
-              700: "#6b4b2a",
-              800: "#48321c",
-              850: "#432818",
-              900: "#25190e",
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              coffee: {
+                100: "#f5ece5",
+                200: "#e6d5c3",
+                300: "#d4b997",
+                400: "#c49a6b",
+                500: "#b07d4a",
+                600: "#8e6439",
+                700: "#6b4b2a",
+                800: "#48321c",
+                850: "#432818",
+                900: "#25190e",
+              },
+              litter: { 700: "#FFB700" },
             },
-            litter: { 700: "#FFB700" },
           },
         },
-      },
-    };
-  </script>
+      };
+    </script>
 
-  <style>
-    /* ── Smooth dark mode transitions ── */
-    *, *::before, *::after {
-      transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
-    }
-    img, video, button, a {
-      transition: background-color 0.25s ease, border-color 0.25s ease,
-                  color 0.25s ease, opacity 0.3s ease, transform 0.3s ease,
-                  box-shadow 0.3s ease, filter 0.3s ease;
-    }
+    <style>
+      /* ── Smooth dark mode transitions ── */
+      *,
+      *::before,
+      *::after {
+        transition:
+          background-color 0.25s ease,
+          border-color 0.25s ease,
+          color 0.25s ease;
+      }
+      img,
+      video,
+      button,
+      a {
+        transition:
+          background-color 0.25s ease,
+          border-color 0.25s ease,
+          color 0.25s ease,
+          opacity 0.3s ease,
+          transform 0.3s ease,
+          box-shadow 0.3s ease,
+          filter 0.3s ease;
+      }
 
-    /* ── Hero slider ── */
-    #hero-slider {
-      transition: transform 0.8s ease-in-out;
-    }
+      /* ── Hero slider ── */
+      #hero-slider {
+        transition: transform 0.8s ease-in-out;
+      }
 
-    /* ── Map slider ── */
-    #map-slider {
-      transition: transform 0.7s ease-in-out;
-    }
+      /* ── Map slider ── */
+      #map-slider {
+        transition: transform 0.7s ease-in-out;
+      }
 
-    /* ── Input focus ring ── */
-    .input-field:focus {
-      outline: none;
-      border-color: #b07d4a;
-      box-shadow: 0 0 0 3px rgba(176, 125, 74, 0.2);
-    }
+      /* ── Input focus ring ── */
+      .input-field:focus {
+        outline: none;
+        border-color: #b07d4a;
+        box-shadow: 0 0 0 3px rgba(176, 125, 74, 0.2);
+      }
 
-    /* ── Social button hover ── */
-    .social-btn {
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .social-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
-    }
+      /* ── Social button hover ── */
+      .social-btn {
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+      .social-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+      }
 
-    /* ── Send button hover ── */
-    .send-btn {
-      transition: background-color 0.2s ease, transform 0.15s ease;
-    }
-    .send-btn:hover {
-      background-color: #92400e;
-      transform: translateY(-1px);
-    }
-    .send-btn:active {
-      transform: translateY(0);
-    }
+      /* ── Send button hover ── */
+      .send-btn {
+        transition:
+          background-color 0.2s ease,
+          transform 0.15s ease;
+      }
+      .send-btn:hover {
+        background-color: #92400e;
+        transform: translateY(-1px);
+      }
+      .send-btn:active {
+        transform: translateY(0);
+      }
 
-    /* ── Toast ── */
-    #toast {
-      transition: opacity 0.3s ease, transform 0.3s ease;
-      opacity: 0;
-      transform: translateY(16px);
-      pointer-events: none;
-    }
-    #toast.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  </style>
-</head>
+      /* ── Toast ── */
+      #toast {
+        transition:
+          opacity 0.3s ease,
+          transform 0.3s ease;
+        opacity: 0;
+        transform: translateY(16px);
+        pointer-events: none;
+      }
+      #toast.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+  </head>
 
-<!-- ══════════════════════════════════════════════
+  <!-- ══════════════════════════════════════════════
      BODY
 ════════════════════════════════════════════════ -->
-<body class="font-sans bg-amber-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
-
-  <!-- ════════════════════════════
+  <body
+    class="font-sans bg-amber-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200"
+  >
+    <!-- ════════════════════════════
        NAVBAR
   ════════════════════════════ -->
-  <nav class="bg-coffee-850 dark:bg-gray-950 text-white shadow-lg sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
-
-        <!-- Logo -->
-        <div class="flex items-center gap-2">
-          <img src="./picture/Apsara-logo-2.png" alt="Apsara logo" class="w-12 h-12 md:w-16 md:h-16" />
-          <a href="#" class="hidden md:block text-xl font-bold uppercase text-litter-700 leading-tight text-center">
-            apsara<br />restaurant
-          </a>
-        </div>
-
-        <!-- Desktop links -->
-        <div class="hidden md:flex items-center space-x-6">
-          <a href="index.html"    class="px-3 py-1 rounded-lg hover:bg-amber-500 transition">Home</a>
-          <a href="about-us.html" class="px-3 py-1 rounded-lg hover:bg-amber-500 transition">About</a>
-          <a href="menu.html"     class="px-3 py-1 rounded-lg hover:bg-amber-500 transition">Menu</a>
-          <a href="contact.html"  class="px-3 py-1 rounded-lg bg-amber-500 transition">Contact</a>
-        </div>
-
-        <!-- Action buttons -->
-        <div class="flex items-center gap-1">
-
-          <!-- Search -->
-          <div class="flex items-center relative">
-            <input id="search-input" type="text" placeholder="Search menu..."
-              class="bg-coffee-700 dark:bg-gray-800 text-white placeholder-coffee-300
-                     rounded-full py-1.5 pl-4 pr-10 text-sm w-0 opacity-0
-                     transition-all duration-300 focus:outline-none focus:ring-1 focus:ring-coffee-400" />
-            <button id="search-btn" class="p-2 hover:text-coffee-300 transition relative z-10" aria-label="Search">
-              <i class="fas fa-search text-sm"></i>
-            </button>
+    <nav
+      class="bg-coffee-850 dark:bg-gray-950 text-white shadow-lg sticky top-0 z-50"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <!-- Logo -->
+          <div class="flex items-center gap-2">
+            <img
+              src="./picture/Apsara-logo-2.png"
+              alt="Apsara logo"
+              class="w-12 h-12 md:w-16 md:h-16"
+            />
+            <a
+              href="#"
+              class="hidden md:block text-xl font-bold uppercase text-litter-700 leading-tight text-center"
+            >
+              apsara<br />restaurant
+            </a>
           </div>
 
-          <!-- User (desktop) -->
-          <a href="register.html" class="hidden md:block">
-            <button class="p-2 hover:text-coffee-300 transition" aria-label="My account">
-              <i class="fa-solid fa-user"></i>
+          <!-- Desktop links -->
+          <div class="hidden md:flex items-center space-x-6">
+            <a
+              href="index.html"
+              class="px-3 py-1 rounded-lg hover:bg-amber-500 transition"
+              >Home</a
+            >
+            <a
+              href="about-us.html"
+              class="px-3 py-1 rounded-lg hover:bg-amber-500 transition"
+              >About</a
+            >
+            <a
+              href="menu.html"
+              class="px-3 py-1 rounded-lg hover:bg-amber-500 transition"
+              >Menu</a
+            >
+            <a
+              href="contact.html"
+              class="px-3 py-1 rounded-lg bg-amber-500 transition"
+              >Contact</a
+            >
+          </div>
+
+          <!-- Action buttons -->
+          <div class="flex items-center gap-1">
+            <!-- Search -->
+            <div class="flex items-center relative">
+              <input
+                id="search-input"
+                type="text"
+                placeholder="Search menu..."
+                class="bg-coffee-700 dark:bg-gray-800 text-white placeholder-coffee-300 rounded-full py-1.5 pl-4 pr-10 text-sm w-0 opacity-0 transition-all duration-300 focus:outline-none focus:ring-1 focus:ring-coffee-400"
+              />
+              <button
+                id="search-btn"
+                class="p-2 hover:text-coffee-300 transition relative z-10"
+                aria-label="Search"
+              >
+                <i class="fas fa-search text-sm"></i>
+              </button>
+            </div>
+
+            <!-- User (desktop) -->
+            <a href="register.html" class="hidden md:block">
+              <button
+                class="p-2 hover:text-coffee-300 transition"
+                aria-label="My account"
+              >
+                <i class="fa-solid fa-user"></i>
+              </button>
+            </a>
+
+            <!-- Cart -->
+            <button
+              id="cart-btn"
+              class="p-2 hover:text-coffee-300 transition relative"
+              aria-label="Shopping cart"
+            >
+              <i class="fas fa-shopping-cart"></i>
+              <span
+                id="cart-count"
+                class="absolute -top-1 -right-1 bg-coffee-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"
+                >0</span
+              >
             </button>
-          </a>
 
-          <!-- Cart -->
-          <button id="cart-btn" class="p-2 hover:text-coffee-300 transition relative" aria-label="Shopping cart">
-            <i class="fas fa-shopping-cart"></i>
-            <span id="cart-count"
-              class="absolute -top-1 -right-1 bg-coffee-500 text-white text-xs
-                     rounded-full h-5 w-5 flex items-center justify-center">0</span>
-          </button>
+            <!-- Dark mode toggle (desktop) -->
+            <button
+              id="theme-toggle"
+              type="button"
+              class="hidden md:block p-2 hover:text-coffee-300 transition"
+              aria-label="Toggle theme"
+            >
+              <svg
+                id="icon-moon"
+                class="w-5 h-5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
+                />
+              </svg>
+              <svg
+                id="icon-sun"
+                class="w-5 h-5 hidden"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                />
+              </svg>
+            </button>
 
-          <!-- Dark mode toggle (desktop) -->
-          <button id="theme-toggle" type="button"
-            class="hidden md:block p-2 hover:text-coffee-300 transition" aria-label="Toggle theme">
-            <svg id="icon-moon" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-            </svg>
-            <svg id="icon-sun" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" clip-rule="evenodd"
-                d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" />
-            </svg>
-          </button>
-
-          <!-- Mobile hamburger -->
-          <button id="mobile-menu-btn" class="md:hidden p-2 hover:text-coffee-300 transition" aria-label="Open menu">
-            <i class="fas fa-bars text-lg"></i>
-          </button>
+            <!-- Mobile hamburger -->
+            <button
+              id="mobile-menu-btn"
+              class="md:hidden p-2 hover:text-coffee-300 transition"
+              aria-label="Open menu"
+            >
+              <i class="fas fa-bars text-lg"></i>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- Mobile dropdown -->
-    <div id="mobile-menu" class="md:hidden hidden">
-      <div class="bg-coffee-800 dark:bg-gray-900 px-4 py-3 space-y-1 border-t border-coffee-700 dark:border-gray-700">
-        <a href="index.html"    class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-coffee-700 dark:hover:bg-gray-800 transition"><i class="fas fa-home w-4 text-litter-700"></i> Home</a>
-        <a href="about-us.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-coffee-700 dark:hover:bg-gray-800 transition"><i class="fas fa-info-circle w-4 text-litter-700"></i> About</a>
-        <a href="menu.html"     class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-coffee-700 dark:hover:bg-gray-800 transition"><i class="fas fa-utensils w-4 text-litter-700"></i> Menu</a>
-        <a href="contact.html"  class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-coffee-700 dark:hover:bg-gray-800 transition"><i class="fas fa-phone w-4 text-litter-700"></i> Contact</a>
-        <div class="border-t border-coffee-700 dark:border-gray-700 my-2"></div>
-        <button id="theme-toggle-mobile"
-          class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-coffee-700 dark:hover:bg-gray-800 transition w-full text-left">
-          <i id="mobile-icon" class="fas fa-moon w-4 text-litter-700"></i>
-          <span id="mobile-label">Dark Mode</span>
-        </button>
-        <a href="register.html" class="flex items-center gap-2 px-3 py-2.5 rounded-lg hover:bg-coffee-700 dark:hover:bg-gray-800 transition">
-          <i class="fas fa-user w-4 text-litter-700"></i> My Account
-        </a>
+      <!-- Mobile dropdown -->
+      <div id="mobile-menu" class="md:hidden hidden">
+        <div
+          class="bg-coffee-800 dark:bg-gray-900 px-4 py-3 space-y-1 border-t border-coffee-700 dark:border-gray-700"
+        >
+          <a
+            href="index.html"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-coffee-700 dark:hover:bg-gray-800 transition"
+            ><i class="fas fa-home w-4 text-litter-700"></i> Home</a
+          >
+          <a
+            href="about-us.html"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-coffee-700 dark:hover:bg-gray-800 transition"
+            ><i class="fas fa-info-circle w-4 text-litter-700"></i> About</a
+          >
+          <a
+            href="menu.html"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-coffee-700 dark:hover:bg-gray-800 transition"
+            ><i class="fas fa-utensils w-4 text-litter-700"></i> Menu</a
+          >
+          <a
+            href="contact.html"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-coffee-700 dark:hover:bg-gray-800 transition"
+            ><i class="fas fa-phone w-4 text-litter-700"></i> Contact</a
+          >
+          <div
+            class="border-t border-coffee-700 dark:border-gray-700 my-2"
+          ></div>
+          <button
+            id="theme-toggle-mobile"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-coffee-700 dark:hover:bg-gray-800 transition w-full text-left"
+          >
+            <i id="mobile-icon" class="fas fa-moon w-4 text-litter-700"></i>
+            <span id="mobile-label">Dark Mode</span>
+          </button>
+          <a
+            href="register.html"
+            class="flex items-center gap-2 px-3 py-2.5 rounded-lg hover:bg-coffee-700 dark:hover:bg-gray-800 transition"
+          >
+            <i class="fas fa-user w-4 text-litter-700"></i> My Account
+          </a>
+        </div>
       </div>
-    </div>
-  </nav>
+    </nav>
 
-  <!-- ════════════════════════════
+    <!-- ════════════════════════════
        HERO SLIDER
   ════════════════════════════ -->
-  <header class="relative overflow-hidden" style="height: 500px;">
-    <!-- Slides -->
-    <div id="hero-slider" class="flex h-full">
-      <img src="./picture/Contact-us-pic/photo_2026-05-05_14-07-24.jpg" class="min-w-full h-full object-cover" alt="Restaurant interior" />
-      <img src="./picture/Contact-us-pic/photo_2026-05-05_14-07-44.jpg" class="min-w-full h-full object-cover" alt="Restaurant view" />
-      <img src="./picture/Contact-us-pic/khoal.webp"                    class="min-w-full h-full object-cover" alt="Khmer cuisine" />
-      <img src="./picture/Contact-us-pic/apsara.jpg"                    class="min-w-full h-full object-cover" alt="Apsara dance" />
-    </div>
+    <header class="relative overflow-hidden" style="height: 500px">
+      <!-- Slides -->
+      <div id="hero-slider" class="flex h-full">
+        <img
+          src="./picture/Contact-us-pic/photo_2026-05-05_14-07-24.jpg"
+          class="min-w-full h-full object-cover"
+          alt="Restaurant interior"
+        />
+        <img
+          src="./picture/Contact-us-pic/photo_2026-05-05_14-07-44.jpg"
+          class="min-w-full h-full object-cover"
+          alt="Restaurant view"
+        />
+        <img
+          src="./picture/Contact-us-pic/khoal.webp"
+          class="min-w-full h-full object-cover"
+          alt="Khmer cuisine"
+        />
+        <img
+          src="./picture/Contact-us-pic/apsara.jpg"
+          class="min-w-full h-full object-cover"
+          alt="Apsara dance"
+        />
+      </div>
 
-    <!-- Dark overlay -->
-    <div class="absolute inset-0 bg-black/45"></div>
+      <!-- Dark overlay -->
+      <div class="absolute inset-0 bg-black/45"></div>
 
-    <!-- Hero text -->
-    <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
-      <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-amber-400 drop-shadow-lg">
-        Contact Us
-      </h1>
-      <p class="text-lg md:text-xl text-blue-100 max-w-lg mx-auto leading-relaxed">
-        Apsara Restaurant is ready to provide the right solution<br class="hidden md:block" />
-        according to your needs.
-      </p>
-    </div>
-  </header>
+      <!-- Hero text -->
+      <div
+        class="absolute inset-0 flex flex-col items-center justify-center text-center px-6"
+      >
+        <h1
+          class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-amber-400 drop-shadow-lg"
+        >
+          Contact Us
+        </h1>
+        <p
+          class="text-lg md:text-xl text-blue-100 max-w-lg mx-auto leading-relaxed"
+        >
+          Apsara Restaurant is ready to provide the right solution<br
+            class="hidden md:block"
+          />
+          according to your needs.
+        </p>
+      </div>
+    </header>
 
-  <!-- ════════════════════════════
+    <!-- ════════════════════════════
        CONTACT CARD
   ════════════════════════════ -->
-  <section class="relative z-10 -mt-12 max-w-5xl mx-auto px-4 pb-20">
-    <div class="rounded-2xl overflow-hidden grid md:grid-cols-2 shadow-2xl shadow-gray-500 dark:shadow-black/60">
-
-      <!-- LEFT – Get in touch -->
-      <div class="p-8 md:p-10 bg-gray-200 dark:bg-gray-800
-                  border-b md:border-b-0 md:border-r border-gray-300 dark:border-gray-700">
-
-        <!-- Logo + brand -->
-        <div class="flex items-center gap-2 mb-2">
-          <img src="./picture/Apsara-logo-2.png" width="80" height="80" alt="Apsara logo" />
-          <h2 class="font-serif font-bold text-orange-700 dark:text-amber-400 tracking-widest text-2xl">
-            APSARA
-          </h2>
-        </div>
-
-        <p class="text-sm text-gray-500 dark:text-gray-400 mb-8 leading-relaxed">
-          Thank you for supporting our restaurant.
-        </p>
-
-        <!-- Contact info -->
-        <div class="space-y-6">
-
-          <!-- Address -->
-          <div class="flex items-start gap-4">
-            <div class="w-11 h-11 rounded-full bg-blue-600 dark:bg-blue-700
-                        flex items-center justify-center shrink-0 shadow-md shadow-blue-200 dark:shadow-blue-900">
-              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
-                <circle cx="12" cy="9" r="2.5" />
-              </svg>
-            </div>
-            <div>
-              <p class="font-semibold text-gray-800 dark:text-gray-100">Head Office</p>
-              <p class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
-                ផ្ទះលេខ ៤០, ភូមិ ១៣, Street 273,<br />Phnom Penh 12151
-              </p>
-            </div>
+    <section class="relative z-10 -mt-12 max-w-5xl mx-auto px-4 pb-20">
+      <div
+        class="rounded-2xl overflow-hidden grid md:grid-cols-2 shadow-2xl shadow-gray-500 dark:shadow-black/60"
+      >
+        <!-- LEFT – Get in touch -->
+        <div
+          class="p-8 md:p-10 bg-gray-200 dark:bg-gray-800 border-b md:border-b-0 md:border-r border-gray-300 dark:border-gray-700"
+        >
+          <!-- Logo + brand -->
+          <div class="flex items-center gap-2 mb-2">
+            <img
+              src="./picture/Apsara-logo-2.png"
+              width="80"
+              height="80"
+              alt="Apsara logo"
+            />
+            <h2
+              class="font-serif font-bold text-orange-700 dark:text-amber-400 tracking-widest text-2xl"
+            >
+              APSARA
+            </h2>
           </div>
 
-          <!-- Email -->
-          <div class="flex items-start gap-4">
-            <div class="w-11 h-11 rounded-full bg-blue-600 dark:bg-blue-700
-                        flex items-center justify-center shrink-0 shadow-md shadow-blue-200 dark:shadow-blue-900">
-              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                <polyline points="22,6 12,13 2,6" />
-              </svg>
-            </div>
-            <div>
-              <p class="font-semibold text-gray-800 dark:text-gray-100">Email Us</p>
-              <p class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">absora@gmail.com</p>
-            </div>
-          </div>
+          <p
+            class="text-sm text-gray-500 dark:text-gray-400 mb-8 leading-relaxed"
+          >
+            Thank you for supporting our restaurant.
+          </p>
 
-          <!-- Phone -->
-          <div class="flex items-start gap-4">
-            <div class="w-11 h-11 rounded-full bg-blue-600 dark:bg-blue-700
-                        flex items-center justify-center shrink-0 shadow-md shadow-blue-200 dark:shadow-blue-900">
-              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12
+          <!-- Contact info -->
+          <div class="space-y-6">
+            <!-- Address -->
+            <div class="flex items-start gap-4">
+              <div
+                class="w-11 h-11 rounded-full bg-blue-600 dark:bg-blue-700 flex items-center justify-center shrink-0 shadow-md shadow-blue-200 dark:shadow-blue-900"
+              >
+                <svg
+                  class="w-5 h-5 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"
+                  />
+                  <circle cx="12" cy="9" r="2.5" />
+                </svg>
+              </div>
+              <div>
+                <p class="font-semibold text-gray-800 dark:text-gray-100">
+                  Head Office
+                </p>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
+                  ផ្ទះលេខ ៤០, ភូមិ ១៣, Street 273,<br />Phnom Penh 12151
+                </p>
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="flex items-start gap-4">
+              <div
+                class="w-11 h-11 rounded-full bg-blue-600 dark:bg-blue-700 flex items-center justify-center shrink-0 shadow-md shadow-blue-200 dark:shadow-blue-900"
+              >
+                <svg
+                  class="w-5 h-5 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                  />
+                  <polyline points="22,6 12,13 2,6" />
+                </svg>
+              </div>
+              <div>
+                <p class="font-semibold text-gray-800 dark:text-gray-100">
+                  Email Us
+                </p>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
+                  absora@gmail.com
+                </p>
+              </div>
+            </div>
+
+            <!-- Phone -->
+            <div class="flex items-start gap-4">
+              <div
+                class="w-11 h-11 rounded-full bg-blue-600 dark:bg-blue-700 flex items-center justify-center shrink-0 shadow-md shadow-blue-200 dark:shadow-blue-900"
+              >
+                <svg
+                  class="w-5 h-5 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12
                          19.79 19.79 0 0 1 1.61 3.44 2 2 0 0 1 3.58 1.27h3a2 2 0 0 1 2 1.72
                          c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6 6
-                         l.82-.82a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z" />
-              </svg>
-            </div>
-            <div>
-              <p class="font-semibold text-gray-800 dark:text-gray-100">Call Us</p>
-              <p class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">+855 88 202 1815</p>
+                         l.82-.82a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"
+                  />
+                </svg>
+              </div>
+              <div>
+                <p class="font-semibold text-gray-800 dark:text-gray-100">
+                  Call Us
+                </p>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
+                  +855 88 202 1815
+                </p>
+              </div>
             </div>
           </div>
-        </div>
 
-        <!-- Social media -->
-        <div class="mt-10">
-          <p class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Follow our social media</p>
-          <div class="flex gap-4">
-            <!-- Facebook -->
-            <a href="https://www.facebook.com/apsara.restaurant" aria-label="Facebook"
-               class="social-btn w-12 h-12 rounded-full bg-blue-600 dark:bg-blue-700
-                      flex items-center justify-center text-white shadow-sm">
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-              </svg>
-            </a>
-            <!-- Instagram -->
-            <a href="https://www.instagram.com/apsara.restaurant/" aria-label="Instagram"
-               class="social-btn w-12 h-12 rounded-full bg-blue-600 dark:bg-blue-700
-                      flex items-center justify-center text-white shadow-sm">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-              </svg>
-            </a>
-            <!-- X / Twitter -->
-            <a href="#" aria-label="X (Twitter)"
-               class="social-btn w-12 h-12 rounded-full bg-blue-600 dark:bg-blue-700
-                      flex items-center justify-center text-white shadow-sm">
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68
-                         l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-              </svg>
-            </a>
-            <!-- YouTube -->
-            <a href="#" aria-label="YouTube"
-               class="social-btn w-12 h-12 rounded-full bg-blue-600 dark:bg-blue-700
-                      flex items-center justify-center text-white shadow-sm">
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46
+          <!-- Social media -->
+          <div class="mt-10">
+            <p
+              class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3"
+            >
+              Follow our social media
+            </p>
+            <div class="flex gap-4">
+              <!-- Facebook -->
+              <a
+                href="https://www.facebook.com/apsara.restaurant"
+                aria-label="Facebook"
+                class="social-btn w-12 h-12 rounded-full bg-blue-600 dark:bg-blue-700 flex items-center justify-center text-white shadow-sm"
+              >
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"
+                  />
+                </svg>
+              </a>
+              <!-- Instagram -->
+              <a
+                href="https://www.instagram.com/apsara.restaurant/"
+                aria-label="Instagram"
+                class="social-btn w-12 h-12 rounded-full bg-blue-600 dark:bg-blue-700 flex items-center justify-center text-white shadow-sm"
+              >
+                <svg
+                  class="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                </svg>
+              </a>
+              <!-- X / Twitter -->
+              <a
+                href="#"
+                aria-label="X (Twitter)"
+                class="social-btn w-12 h-12 rounded-full bg-blue-600 dark:bg-blue-700 flex items-center justify-center text-white shadow-sm"
+              >
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68
+                         l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+                  />
+                </svg>
+              </a>
+              <!-- YouTube -->
+              <a
+                href="#"
+                aria-label="YouTube"
+                class="social-btn w-12 h-12 rounded-full bg-blue-600 dark:bg-blue-700 flex items-center justify-center text-white shadow-sm"
+              >
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46
                          a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58
                          a2.78 2.78 0 0 0 1.95 1.95C5.12 20 12 20 12 20s6.88 0 8.59-.47
-                         a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" />
-                <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white" />
-              </svg>
-            </a>
+                         a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"
+                  />
+                  <polygon
+                    points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"
+                    fill="white"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT – Send a message -->
+        <div class="p-8 md:p-10 bg-gray-100 dark:bg-gray-900">
+          <h2
+            class="text-2xl font-serif font-bold text-orange-700 dark:text-amber-400 tracking-widest mb-6"
+          >
+            Send us a message
+          </h2>
+
+          <div class="space-y-4">
+            <!-- Name -->
+            <div>
+              <label
+                class="block text-xs font-semibold text-gray-600 dark:text-gray-400 mb-1"
+                >Name</label
+              >
+              <input
+                type="text"
+                placeholder="Your name"
+                class="input-field w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3.5 py-2.5 text-sm placeholder-gray-400 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100"
+              />
+            </div>
+
+            <!-- Phone + Email -->
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label
+                  class="block text-xs font-semibold text-gray-600 dark:text-gray-400 mb-1"
+                  >Phone</label
+                >
+                <input
+                  type="tel"
+                  placeholder="+855 ..."
+                  class="input-field w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3.5 py-2.5 text-sm placeholder-gray-400 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100"
+                />
+              </div>
+              <div>
+                <label
+                  class="block text-xs font-semibold text-gray-600 dark:text-gray-400 mb-1"
+                  >Email</label
+                >
+                <input
+                  type="email"
+                  placeholder="you@email.com"
+                  class="input-field w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3.5 py-2.5 text-sm placeholder-gray-400 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100"
+                />
+              </div>
+            </div>
+
+            <!-- Subject -->
+            <div>
+              <label
+                class="block text-xs font-semibold text-gray-600 dark:text-gray-400 mb-1"
+                >Subject</label
+              >
+              <input
+                type="text"
+                placeholder="How can we help?"
+                class="input-field w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3.5 py-2.5 text-sm placeholder-gray-400 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100"
+              />
+            </div>
+
+            <!-- Message -->
+            <div>
+              <label
+                class="block text-xs font-semibold text-gray-600 dark:text-gray-400 mb-1"
+                >Message</label
+              >
+              <textarea
+                rows="4"
+                placeholder="Write your message..."
+                class="input-field w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3.5 py-2.5 text-sm placeholder-gray-400 resize-none bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100"
+              ></textarea>
+            </div>
+
+            <!-- Submit -->
+            <button
+              class="send-btn w-full py-3 rounded-lg font-semibold text-sm tracking-wide bg-amber-700 dark:bg-amber-600 text-white"
+            >
+              Submit
+            </button>
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- RIGHT – Send a message -->
-      <div class="p-8 md:p-10 bg-gray-100 dark:bg-gray-900">
-        <h2 class="text-2xl font-serif font-bold text-orange-700 dark:text-amber-400 tracking-widest mb-6">
-          Send us a message
-        </h2>
-
-        <div class="space-y-4">
-          <!-- Name -->
-          <div>
-            <label class="block text-xs font-semibold text-gray-600 dark:text-gray-400 mb-1">Name</label>
-            <input type="text" placeholder="Your name"
-              class="input-field w-full border border-gray-300 dark:border-gray-600
-                     rounded-lg px-3.5 py-2.5 text-sm placeholder-gray-400
-                     bg-white dark:bg-gray-800
-                     text-gray-800 dark:text-gray-100" />
-          </div>
-
-          <!-- Phone + Email -->
-          <div class="grid grid-cols-2 gap-3">
-            <div>
-              <label class="block text-xs font-semibold text-gray-600 dark:text-gray-400 mb-1">Phone</label>
-              <input type="tel" placeholder="+855 ..."
-                class="input-field w-full border border-gray-300 dark:border-gray-600
-                       rounded-lg px-3.5 py-2.5 text-sm placeholder-gray-400
-                       bg-white dark:bg-gray-800
-                       text-gray-800 dark:text-gray-100" />
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-gray-600 dark:text-gray-400 mb-1">Email</label>
-              <input type="email" placeholder="you@email.com"
-                class="input-field w-full border border-gray-300 dark:border-gray-600
-                       rounded-lg px-3.5 py-2.5 text-sm placeholder-gray-400
-                       bg-white dark:bg-gray-800
-                       text-gray-800 dark:text-gray-100" />
-            </div>
-          </div>
-
-          <!-- Subject -->
-          <div>
-            <label class="block text-xs font-semibold text-gray-600 dark:text-gray-400 mb-1">Subject</label>
-            <input type="text" placeholder="How can we help?"
-              class="input-field w-full border border-gray-300 dark:border-gray-600
-                     rounded-lg px-3.5 py-2.5 text-sm placeholder-gray-400
-                     bg-white dark:bg-gray-800
-                     text-gray-800 dark:text-gray-100" />
-          </div>
-
-          <!-- Message -->
-          <div>
-            <label class="block text-xs font-semibold text-gray-600 dark:text-gray-400 mb-1">Message</label>
-            <textarea rows="4" placeholder="Write your message..."
-              class="input-field w-full border border-gray-300 dark:border-gray-600
-                     rounded-lg px-3.5 py-2.5 text-sm placeholder-gray-400 resize-none
-                     bg-white dark:bg-gray-800
-                     text-gray-800 dark:text-gray-100"></textarea>
-          </div>
-
-          <!-- Submit -->
-          <button class="send-btn w-full py-3 rounded-lg font-semibold text-sm tracking-wide
-                         bg-amber-700 dark:bg-amber-600 text-white">
-            Submit
-          </button>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ════════════════════════════
+    <!-- ════════════════════════════
        MAP SLIDER
   ════════════════════════════ -->
-  <div class="bg-gray-100 dark:bg-gray-800 pb-16 px-4">
-    <div class="relative max-w-5xl mx-auto overflow-hidden rounded-xl shadow-xl" style="height: 500px;">
+    <div class="bg-gray-100 dark:bg-gray-800 pb-16 px-4">
+      <div
+        class="relative max-w-5xl mx-auto overflow-hidden rounded-xl shadow-xl"
+        style="height: 500px"
+      >
+        <!-- Slides -->
+        <div id="map-slider" class="flex h-full">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3908.533595529737!2d104.89882747481758!3d11.58525598861698!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310951e96d257a6f%3A0x6b66703c5fc0c7cc!2sScience%20and%20Technology%20Advanced%20Development%20Co.%2C%20Ltd.!5e0!3m2!1sen!2skh!4v1777224688027!5m2!1sen!2skh"
+            class="min-w-full h-full border-0"
+            allowfullscreen
+            title="STAD Office location"
+          >
+          </iframe>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125063.51371583418!2d104.8089540279269!3d11.60660237222337!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310951165ff4e519%3A0xe27c9eb725bf4eb!2sNational%20Olympic%20Stadium!5e0!3m2!1sen!2skh!4v1777226642188!5m2!1sen!2skh"
+            class="min-w-full h-full border-0"
+            allowfullscreen
+            title="National Olympic Stadium"
+          >
+          </iframe>
+        </div>
 
-      <!-- Slides -->
-      <div id="map-slider" class="flex h-full">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3908.533595529737!2d104.89882747481758!3d11.58525598861698!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310951e96d257a6f%3A0x6b66703c5fc0c7cc!2sScience%20and%20Technology%20Advanced%20Development%20Co.%2C%20Ltd.!5e0!3m2!1sen!2skh!4v1777224688027!5m2!1sen!2skh"
-          class="min-w-full h-full border-0" allowfullscreen title="STAD Office location">
-        </iframe>
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125063.51371583418!2d104.8089540279269!3d11.60660237222337!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310951165ff4e519%3A0xe27c9eb725bf4eb!2sNational%20Olympic%20Stadium!5e0!3m2!1sen!2skh!4v1777226642188!5m2!1sen!2skh"
-          class="min-w-full h-full border-0" allowfullscreen title="National Olympic Stadium">
-        </iframe>
+        <!-- Prev / Next arrows -->
+        <button
+          id="map-prev"
+          class="absolute left-3 top-1/2 -translate-y-1/2 bg-white/40 dark:bg-black/40 hover:bg-white/70 dark:hover:bg-black/60 text-black dark:text-white rounded-full w-10 h-10 text-xl flex items-center justify-center shadow transition"
+          aria-label="Previous map"
+        >
+          &#8592;
+        </button>
+        <button
+          id="map-next"
+          class="absolute right-3 top-1/2 -translate-y-1/2 bg-white/40 dark:bg-black/40 hover:bg-white/70 dark:hover:bg-black/60 text-black dark:text-white rounded-full w-10 h-10 text-xl flex items-center justify-center shadow transition"
+          aria-label="Next map"
+        >
+          &#8594;
+        </button>
       </div>
-
-      <!-- Prev / Next arrows -->
-      <button id="map-prev"
-        class="absolute left-3 top-1/2 -translate-y-1/2
-               bg-white/40 dark:bg-black/40 hover:bg-white/70 dark:hover:bg-black/60
-               text-black dark:text-white rounded-full w-10 h-10 text-xl
-               flex items-center justify-center shadow transition"
-        aria-label="Previous map">&#8592;</button>
-      <button id="map-next"
-        class="absolute right-3 top-1/2 -translate-y-1/2
-               bg-white/40 dark:bg-black/40 hover:bg-white/70 dark:hover:bg-black/60
-               text-black dark:text-white rounded-full w-10 h-10 text-xl
-               flex items-center justify-center shadow transition"
-        aria-label="Next map">&#8594;</button>
     </div>
-  </div>
 
-  <!-- ════════════════════════════
+    <!-- ════════════════════════════
        TOAST
   ════════════════════════════ -->
-  <div id="toast"
-    class="fixed bottom-6 right-6 z-50 flex items-center gap-3
-           bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-500
-           rounded-xl shadow-lg px-4 py-3 text-sm text-gray-700 dark:text-gray-200">
-    <i id="toast-icon" class="fas fa-check-circle text-green-400"></i>
-    <span id="toast-msg"></span>
-  </div>
+    <div
+      id="toast"
+      class="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-500 rounded-xl shadow-lg px-4 py-3 text-sm text-gray-700 dark:text-gray-200"
+    >
+      <i id="toast-icon" class="fas fa-check-circle text-green-400"></i>
+      <span id="toast-msg"></span>
+    </div>
 
-
-   <footer class="bg-coffee-900 dark:bg-gray-950 text-coffee-200">
+    <footer class="bg-coffee-900 dark:bg-gray-950 text-coffee-200">
       <div class="max-w-7xl mx-auto px-8 py-8">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-0 divide-y md:divide-y-0 md:divide-x divide-coffee-800 dark:divide-gray-800 ">
-
+        <div
+          class="grid grid-cols-1 md:grid-cols-4 gap-0 divide-y md:divide-y-0 md:divide-x divide-coffee-800 dark:divide-gray-800"
+        >
           <!-- Brand -->
           <div class="pr-0 md:pr-8 pb-6 md:pb-0">
             <div class="flex items-center gap-3 mb-4">
-              <img src="./picture/Apsara-logo-2.png" alt="Apsara logo" class="w-12 h-12" />
-              <span class="text-litter-700 text-center font-bold text-xl uppercase leading-tight">
+              <img
+                src="./picture/Apsara-logo-2.png"
+                alt="Apsara logo"
+                class="w-12 h-12"
+              />
+              <span
+                class="text-litter-700 text-center font-bold text-xl uppercase leading-tight"
+              >
                 Apsara<br />Restaurant
               </span>
             </div>
-            <p class="text-coffee-300 dark:text-gray-400 text-sm leading-relaxed mb-5">
+            <p
+              class="text-coffee-300 dark:text-gray-400 text-sm leading-relaxed mb-5"
+            >
               Bringing the authentic taste of the Kingdom of Wonder to your
               plate since 2024.
             </p>
             <div class="flex items-center gap-3">
-              <a href="#" aria-label="Facebook" class="w-9 h-9 rounded-full bg-coffee-700 dark:bg-gray-800 hover:bg-litter-700 hover:text-coffee-900 flex items-center justify-center transition-all duration-200">
+              <a
+                href="#"
+                aria-label="Facebook"
+                class="w-9 h-9 rounded-full bg-coffee-700 dark:bg-gray-800 hover:bg-litter-700 hover:text-coffee-900 flex items-center justify-center transition-all duration-200"
+              >
                 <i class="fab fa-facebook-f text-sm"></i>
               </a>
-              <a href="#" aria-label="Instagram" class="w-9 h-9 rounded-full bg-coffee-700 dark:bg-gray-800 hover:bg-litter-700 hover:text-coffee-900 flex items-center justify-center transition-all duration-200">
+              <a
+                href="#"
+                aria-label="Instagram"
+                class="w-9 h-9 rounded-full bg-coffee-700 dark:bg-gray-800 hover:bg-litter-700 hover:text-coffee-900 flex items-center justify-center transition-all duration-200"
+              >
                 <i class="fab fa-instagram text-sm"></i>
               </a>
-              <a href="#" aria-label="TikTok" class="w-9 h-9 rounded-full bg-coffee-700 dark:bg-gray-800 hover:bg-litter-700 hover:text-coffee-900 flex items-center justify-center transition-all duration-200">
+              <a
+                href="#"
+                aria-label="TikTok"
+                class="w-9 h-9 rounded-full bg-coffee-700 dark:bg-gray-800 hover:bg-litter-700 hover:text-coffee-900 flex items-center justify-center transition-all duration-200"
+              >
                 <i class="fab fa-tiktok text-sm"></i>
               </a>
-              <a href="#" aria-label="YouTube" class="w-9 h-9 rounded-full bg-coffee-700 dark:bg-gray-800 hover:bg-litter-700 hover:text-coffee-900 flex items-center justify-center transition-all duration-200">
+              <a
+                href="#"
+                aria-label="YouTube"
+                class="w-9 h-9 rounded-full bg-coffee-700 dark:bg-gray-800 hover:bg-litter-700 hover:text-coffee-900 flex items-center justify-center transition-all duration-200"
+              >
                 <i class="fab fa-youtube text-sm"></i>
               </a>
-              <a href="#" aria-label="Telegram" class="w-9 h-9 rounded-full bg-coffee-700 dark:bg-gray-800 hover:bg-litter-700 hover:text-coffee-900 flex items-center justify-center transition-all duration-200">
+              <a
+                href="#"
+                aria-label="Telegram"
+                class="w-9 h-9 rounded-full bg-coffee-700 dark:bg-gray-800 hover:bg-litter-700 hover:text-coffee-900 flex items-center justify-center transition-all duration-200"
+              >
                 <i class="fab fa-telegram text-sm"></i>
               </a>
             </div>
@@ -504,7 +770,9 @@
 
           <!-- Opening hours -->
           <div class="px-0 md:px-8 py-6 md:py-0">
-            <h4 class="text-white font-semibold text-base mb-5 pb-2 border-b border-coffee-700 dark:border-gray-700">
+            <h4
+              class="text-white font-semibold text-base mb-5 pb-2 border-b border-coffee-700 dark:border-gray-700"
+            >
               Opening Hours
             </h4>
             <ul class="space-y-2.5 text-sm text-coffee-300 dark:text-gray-400">
@@ -521,15 +789,21 @@
                 <span class="text-red-400">Closed</span>
               </li>
             </ul>
-            <div class="mt-5 inline-flex items-center gap-2 bg-green-900/40 border border-green-700 text-green-400 text-xs px-3 py-1.5 rounded-full">
-              <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+            <div
+              class="mt-5 inline-flex items-center gap-2 bg-green-900/40 border border-green-700 text-green-400 text-xs px-3 py-1.5 rounded-full"
+            >
+              <span
+                class="w-2 h-2 bg-green-400 rounded-full animate-pulse"
+              ></span>
               Open Now
             </div>
           </div>
 
           <!-- Contact -->
           <div class="pl-0 md:pl-8 pt-6 md:pt-0">
-            <h4 class="text-white font-semibold text-base mb-5 pb-2 border-b border-coffee-700 dark:border-gray-700">
+            <h4
+              class="text-white font-semibold text-base mb-5 pb-2 border-b border-coffee-700 dark:border-gray-700"
+            >
               Contact Us
             </h4>
             <ul class="space-y-3 text-sm text-coffee-300 dark:text-gray-400">
@@ -539,151 +813,211 @@
               </li>
               <li class="flex items-center gap-3">
                 <i class="fas fa-phone text-litter-700 w-4"></i>
-                <a href="tel:+85512345678" class="hover:text-litter-700 transition">+855 12 345 678</a>
+                <a
+                  href="tel:+85512345678"
+                  class="hover:text-litter-700 transition"
+                  >+855 12 345 678</a
+                >
               </li>
               <li class="flex items-center gap-3">
                 <i class="fas fa-envelope text-litter-700 w-4"></i>
-                <a href="mailto:info@apsara.com" class="hover:text-litter-700 transition">info@apsara.com</a>
+                <a
+                  href="mailto:info@apsara.com"
+                  class="hover:text-litter-700 transition"
+                  >info@apsara.com</a
+                >
               </li>
               <li class="flex items-center gap-3">
                 <i class="fab fa-telegram text-litter-700 w-4"></i>
-                <a href="#" class="hover:text-litter-700 transition">@apsararestaurant</a>
+                <a href="#" class="hover:text-litter-700 transition"
+                  >@apsararestaurant</a
+                >
               </li>
             </ul>
           </div>
 
+          <div class="pl-0 md:pl-8 pt-6 md:pt-0">
+            <h4
+              class="text-white font-semibold text-base mb-5 pb-2 border-b border-coffee-700 dark:border-gray-700"
+            >
+              Organization by
+            </h4>
+            <div class="flex items-center justify-center gap-3 mb-4">
+              <img
+                src="./picture/ISATD2.png"
+                alt="Ministry of Tourism logo"
+                class="w-20 h-20 object-contain"
+              />
+              <span
+                class="text-litter-700 text-center font-bold text-2xl uppercase leading-tight"
+              >
+                ISATD<br />Cambodia
+              </span>
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="border-t border-coffee-800 dark:border-gray-800">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-coffee-400 dark:text-gray-500">
+        <div
+          class="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-coffee-400 dark:text-gray-500"
+        >
           <span>© 2026 Apsara Restaurant Group. All rights reserved.</span>
           <div class="flex items-center gap-4">
-            <a href="#" class="hover:text-litter-700 transition">Privacy Policy</a>
-            <a href="#" class="hover:text-litter-700 transition">Terms of Service</a>
+            <a href="#" class="hover:text-litter-700 transition"
+              >Privacy Policy</a
+            >
+            <a href="#" class="hover:text-litter-700 transition"
+              >Terms of Service</a
+            >
           </div>
         </div>
       </div>
     </footer>
 
-
-  <!-- ════════════════════════════
+    <!-- ════════════════════════════
        SCRIPTS
   ════════════════════════════ -->
-  <script>
-    /* ── Dark mode ── */
-    function updateThemeIcons() {
-      const isDark = document.documentElement.classList.contains("dark");
-      document.getElementById("icon-moon")?.classList.toggle("hidden", isDark);
-      document.getElementById("icon-sun")?.classList.toggle("hidden", !isDark);
-      const mobileIcon  = document.getElementById("mobile-icon");
-      const mobileLabel = document.getElementById("mobile-label");
-      if (mobileIcon)  mobileIcon.className   = isDark ? "fas fa-sun w-4 text-litter-700"  : "fas fa-moon w-4 text-litter-700";
-      if (mobileLabel) mobileLabel.textContent = isDark ? "Light Mode" : "Dark Mode";
-    }
-
-    function toggleTheme() {
-      const isDark = document.documentElement.classList.contains("dark");
-      document.documentElement.classList.toggle("dark", !isDark);
-      localStorage.setItem("color-theme", isDark ? "light" : "dark");
-      updateThemeIcons();
-    }
-
-    /* ── Toast helper ── */
-    let toastTimer = null;
-    function showToast(msg, type = "success") {
-      const toast = document.getElementById("toast");
-      if (!toast) return;
-      document.getElementById("toast-icon").className =
-        type === "success" ? "fas fa-check-circle text-green-400" : "fas fa-exclamation-circle text-red-400";
-      document.getElementById("toast-msg").textContent = msg;
-      toast.classList.add("show");
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => toast.classList.remove("show"), 2500);
-    }
-
-    /* ── Hero slider ── */
-    (function () {
-      const slider = document.getElementById("hero-slider");
-      const total  = slider.children.length;
-      let idx = 0;
-
-      function goTo(i) {
-        idx = (i + total) % total;
-        slider.style.transform = `translateX(-${idx * 100}%)`;
+    <script>
+      /* ── Dark mode ── */
+      function updateThemeIcons() {
+        const isDark = document.documentElement.classList.contains("dark");
+        document
+          .getElementById("icon-moon")
+          ?.classList.toggle("hidden", isDark);
+        document
+          .getElementById("icon-sun")
+          ?.classList.toggle("hidden", !isDark);
+        const mobileIcon = document.getElementById("mobile-icon");
+        const mobileLabel = document.getElementById("mobile-label");
+        if (mobileIcon)
+          mobileIcon.className = isDark
+            ? "fas fa-sun w-4 text-litter-700"
+            : "fas fa-moon w-4 text-litter-700";
+        if (mobileLabel)
+          mobileLabel.textContent = isDark ? "Light Mode" : "Dark Mode";
       }
 
-      setInterval(() => goTo(idx + 1), 4000);
-    })();
-
-    /* ── Map slider ── */
-    (function () {
-      const slider = document.getElementById("map-slider");
-      const TOTAL  = 2;
-      let current  = 0;
-      let autoPlay;
-
-      function goTo(i) {
-        current = (i + TOTAL) % TOTAL;
-        slider.style.transform = `translateX(-${current * 100}%)`;
+      function toggleTheme() {
+        const isDark = document.documentElement.classList.contains("dark");
+        document.documentElement.classList.toggle("dark", !isDark);
+        localStorage.setItem("color-theme", isDark ? "light" : "dark");
+        updateThemeIcons();
       }
 
-      document.getElementById("map-next").addEventListener("click", () => goTo(current + 1));
-      document.getElementById("map-prev").addEventListener("click", () => goTo(current - 1));
-
-      function startAuto() {
-        clearInterval(autoPlay);
-        autoPlay = setInterval(() => goTo(current + 1), 3000);
+      /* ── Toast helper ── */
+      let toastTimer = null;
+      function showToast(msg, type = "success") {
+        const toast = document.getElementById("toast");
+        if (!toast) return;
+        document.getElementById("toast-icon").className =
+          type === "success"
+            ? "fas fa-check-circle text-green-400"
+            : "fas fa-exclamation-circle text-red-400";
+        document.getElementById("toast-msg").textContent = msg;
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove("show"), 2500);
       }
 
-      slider.addEventListener("mouseenter", () => clearInterval(autoPlay));
-      slider.addEventListener("mouseleave", startAuto);
-      startAuto();
-    })();
+      /* ── Hero slider ── */
+      (function () {
+        const slider = document.getElementById("hero-slider");
+        const total = slider.children.length;
+        let idx = 0;
 
-    /* ── Init ── */
-    document.addEventListener("DOMContentLoaded", function () {
-      // Theme toggles
-      document.getElementById("theme-toggle")?.addEventListener("click", toggleTheme);
-      document.getElementById("theme-toggle-mobile")?.addEventListener("click", toggleTheme);
-      updateThemeIcons();
-
-      // Mobile menu
-      const mobileBtn  = document.getElementById("mobile-menu-btn");
-      const mobileMenu = document.getElementById("mobile-menu");
-      mobileBtn?.addEventListener("click", () => mobileMenu?.classList.toggle("hidden"));
-      mobileMenu?.querySelectorAll("a").forEach(link =>
-        link.addEventListener("click", () => mobileMenu.classList.add("hidden"))
-      );
-
-      // Search expand
-      const searchBtn   = document.getElementById("search-btn");
-      const searchInput = document.getElementById("search-input");
-      let searchOpen = false;
-
-      searchBtn?.addEventListener("click", e => {
-        e.stopPropagation();
-        searchOpen = !searchOpen;
-        const w = window.innerWidth < 768 ? "w-32" : "w-48";
-        if (searchOpen) {
-          searchInput.classList.remove("w-0", "opacity-0");
-          searchInput.classList.add(w, "opacity-100");
-          searchInput.focus();
-        } else {
-          searchInput.classList.add("w-0", "opacity-0");
-          searchInput.classList.remove("w-32", "w-48", "opacity-100");
+        function goTo(i) {
+          idx = (i + total) % total;
+          slider.style.transform = `translateX(-${idx * 100}%)`;
         }
-      });
 
-      document.addEventListener("click", e => {
-        if (!searchBtn?.contains(e.target) && !searchInput?.contains(e.target)) {
-          searchOpen = false;
-          searchInput?.classList.add("w-0", "opacity-0");
-          searchInput?.classList.remove("w-32", "w-48", "opacity-100");
+        setInterval(() => goTo(idx + 1), 4000);
+      })();
+
+      /* ── Map slider ── */
+      (function () {
+        const slider = document.getElementById("map-slider");
+        const TOTAL = 2;
+        let current = 0;
+        let autoPlay;
+
+        function goTo(i) {
+          current = (i + TOTAL) % TOTAL;
+          slider.style.transform = `translateX(-${current * 100}%)`;
         }
-      });
-    });
-  </script>
 
-</body>
+        document
+          .getElementById("map-next")
+          .addEventListener("click", () => goTo(current + 1));
+        document
+          .getElementById("map-prev")
+          .addEventListener("click", () => goTo(current - 1));
+
+        function startAuto() {
+          clearInterval(autoPlay);
+          autoPlay = setInterval(() => goTo(current + 1), 3000);
+        }
+
+        slider.addEventListener("mouseenter", () => clearInterval(autoPlay));
+        slider.addEventListener("mouseleave", startAuto);
+        startAuto();
+      })();
+
+      /* ── Init ── */
+      document.addEventListener("DOMContentLoaded", function () {
+        // Theme toggles
+        document
+          .getElementById("theme-toggle")
+          ?.addEventListener("click", toggleTheme);
+        document
+          .getElementById("theme-toggle-mobile")
+          ?.addEventListener("click", toggleTheme);
+        updateThemeIcons();
+
+        // Mobile menu
+        const mobileBtn = document.getElementById("mobile-menu-btn");
+        const mobileMenu = document.getElementById("mobile-menu");
+        mobileBtn?.addEventListener("click", () =>
+          mobileMenu?.classList.toggle("hidden"),
+        );
+        mobileMenu
+          ?.querySelectorAll("a")
+          .forEach((link) =>
+            link.addEventListener("click", () =>
+              mobileMenu.classList.add("hidden"),
+            ),
+          );
+
+        // Search expand
+        const searchBtn = document.getElementById("search-btn");
+        const searchInput = document.getElementById("search-input");
+        let searchOpen = false;
+
+        searchBtn?.addEventListener("click", (e) => {
+          e.stopPropagation();
+          searchOpen = !searchOpen;
+          const w = window.innerWidth < 768 ? "w-32" : "w-48";
+          if (searchOpen) {
+            searchInput.classList.remove("w-0", "opacity-0");
+            searchInput.classList.add(w, "opacity-100");
+            searchInput.focus();
+          } else {
+            searchInput.classList.add("w-0", "opacity-0");
+            searchInput.classList.remove("w-32", "w-48", "opacity-100");
+          }
+        });
+
+        document.addEventListener("click", (e) => {
+          if (
+            !searchBtn?.contains(e.target) &&
+            !searchInput?.contains(e.target)
+          ) {
+            searchOpen = false;
+            searchInput?.classList.add("w-0", "opacity-0");
+            searchInput?.classList.remove("w-32", "w-48", "opacity-100");
+          }
+        });
+      });
+    </script>
+  </body>
 </html>
