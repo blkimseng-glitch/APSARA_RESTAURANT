@@ -1,178 +1,262 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Register for Apsara Restaurant</title>
-    <link rel="stylesheet" href="../src/output.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <link rel="stylesheet" href="../src/output.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+      defer
+    ></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
-        body {
-            font-family: 'Poppins', sans-serif;
-        }
-       
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap");
+      body {
+        font-family: "Poppins", sans-serif;
+      }
     </style>
-</head>
-<body 
-    class="bg-cover bg-center bg-no-repeat bg-fixed bg-blend-overlay bg-black/40 min-h-screen flex flex-col items-center py-10 px-4" style="background-image: url(https://i.pinimg.com/1200x/88/c6/9b/88c69b5a9cd258a0865ba01df5d38b54.jpg);"  
->
-
+  </head>
+  <body
+    class="bg-cover bg-center bg-no-repeat bg-fixed bg-blend-overlay bg-black/40 min-h-screen flex flex-col items-center py-10 px-4"
+    style="
+      background-image: url(https://i.pinimg.com/1200x/88/c6/9b/88c69b5a9cd258a0865ba01df5d38b54.jpg);
+    "
+  >
     <div class="container mx-auto px-4" x-data="{ tab: 'signup' }">
-        <div class="max-w-4xl w-full m-auto bg-amber-50 rounded-3xl shadow-lg p-8 md:p-12">
-             <div
-        class="w-full h-64 md:h-80 rounded-3xl overflow-hidden mb-12 relative"
+      <div
+        class="max-w-4xl w-full m-auto bg-amber-50 rounded-3xl shadow-lg p-8 md:p-12"
       >
         <div
-          id="slider"
-          class="flex w-full h-full transition-transform duration-700 ease-in-out"
+          class="w-full h-64 md:h-80 rounded-3xl overflow-hidden mb-12 relative"
         >
-          <img
-            src="../images/Apsara.jpg"
-            class="w-full h-full object-cover flex-shrink-0"
-            alt="Slide 1"
-          />
-          <img
-            src="../images/image-chef1.jpg"
-            class="w-full h-full object-cover flex-shrink-0"
-            alt="Slide 2"
-          />
-          <img
-            src="../images/image-chef2.jpg"
-            class="w-full h-full object-cover flex-shrink-0"
-            alt="Slide 3"
-          />
-          <img
-            src="../images/image-chef3.jpg"
-            class="w-full h-full object-cover flex-shrink-0"
-            alt="Slide 4"
-          />
-        </div>
-        <div
-          class="absolute inset-0 flex flex-col justify-center p-8 text-white pointer-events-none"
-        >
-          <h2 class="text-4xl underline font-bold italic font-serif">
-            Apsara Restaurant
-          </h2>
-          <p class="text-gray-300">Register with us to receive priority reservations, <br> exclusive
-            invitations to tasting events.</p>
-        </div>
-      </div>
-      <h2 class="text-2xl font-bold text-gray-800 text-center">Welcome To Our Restaurant</h2>
-      <p class="text-gray-500 text-center mt-2">Sign up if you don't have an account but if you have account please Sign in</p>
-            <div class=" md:flex-row gap-12 items-start">
-            <div class="p-8">
-                <div class="flex justify-center mb-6">
-                    <button @click="tab = 'signup'" :class="{ 'bg-blue-500 text-white': tab === 'signup', 'bg-gray-200 text-gray-700': tab !== 'signup' }" class="px-4 py-2 rounded-l-md focus:outline-none transition-colors duration-300">Sign Up</button>
-                    <button @click="tab = 'login'" :class="{ 'bg-blue-500 text-white': tab === 'login', 'bg-gray-200 text-gray-700': tab !== 'login' }" class="px-4 py-2 rounded-r-md focus:outline-none transition-colors duration-300">Sign in</button>
-                </div>
-                <form x-show="tab === 'signup'" class="space-y-4">
-                    <div class="relative">
-                        <label for="name" class="block text-gray-800 font-bold">Full Name:</label>
-                        <input type="text" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 pl-10" placeholder="Full Name">
-                        <i class="fas fa-user absolute left-3 top-9 text-gray-400"></i>
-                    </div>
-                    <div class="relative">
-                        <label for="email" class="block text-gray-800 font-bold">Email:</label>
-                        <input type="email" placeholder="Email" required class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 pl-10">
-                        <i class="fas fa-envelope absolute left-3 top-9 text-gray-400"></i>
-                    </div>
-                    <div class="relative">
-                        <label for="password" class="block text-gray-800 font-bold">Password:</label>
-                        <input type="password"  placeholder="Password" required class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 pl-10">
-                        <i class="fas fa-lock absolute left-3 top-9 text-gray-400"></i>
-                    </div>
-                    <!-- Sign Up Form -->
-                    <button class="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-2 rounded-md hover:opacity-90 transition-opacity duration-300 transform hover:scale-105">Sign Up</button>
-                </form>
-                <form x-show="tab === 'login'" class="space-y-4">
-                    <div class="relative">
-                        <label for="email" class="block text-gray-800 font-bold">Email:</label>
-                        <input type="email" placeholder="Email" required class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 pl-10">
-                        <i class="fas fa-envelope absolute left-3 top-9 text-gray-400"></i>
-                    </div>
-                    <div class="relative">
-                        <label for="password" class="block text-gray-800 font-bold">Password:</label>
-                        <input type="password" placeholder="Password" required class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 pl-10">
-                        <i class="fas fa-lock absolute left-3 top-9 text-gray-400"></i>
-                         <a href="#" class="text-sm font-thin text-gray-800 hover:underline mt-2 inline-block hover:text-indigo-600">Forget Password</a>
-                    </div>
-                    <!-- Sign In Form -->
-                    <button class="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-2 rounded-md hover:opacity-90 transition-opacity duration-300 transform hover:scale-105">Sign in</button>
-                </form>
-                <div
-            id="third-party-auth"
-            class="flex items-center justify-center mt-5 flex-wrap"
+          <div
+            id="slider"
+            class="flex w-full h-full transition-transform duration-700 ease-in-out"
           >
-            <button
-              href="#"
-              class="hover:scale-105 ease-in-out duration-300 shadow-lg p-2 rounded-lg m-1"
-            >
-              <img
-                class="max-w-[25px]"
-                src="https://ucarecdn.com/8f25a2ba-bdcf-4ff1-b596-088f330416ef/"
-                alt="Google"
-              />
-            </button>
-            <button
-              href="#"
-              class="hover:scale-105 ease-in-out duration-300 shadow-lg p-2 rounded-lg m-1"
-            >
-              <img
-                class="max-w-[25px] filter dark:invert"
-                src="https://ucarecdn.com/be5b0ffd-85e8-4639-83a6-5162dfa15a16/"
-                alt="Github"
-              />
-            </button>
-
-            <button
-              href="#"
-              class="hover:scale-105 ease-in-out duration-300 shadow-lg p-2 rounded-lg m-1"
-            >
-              <img
-                class="max-w-[25px]"
-                src="https://ucarecdn.com/6f56c0f1-c9c0-4d72-b44d-51a79ff38ea9/"
-                alt="Facebook"
-              />
-            </button>
-
+            <img
+              src="../images/Apsara.jpg"
+              class="w-full h-full object-cover flex-shrink-0"
+              alt="Slide 1"
+            />
+            <img
+              src="../images/image-chef1.jpg"
+              class="w-full h-full object-cover flex-shrink-0"
+              alt="Slide 2"
+            />
+            <img
+              src="../images/image-chef2.jpg"
+              class="w-full h-full object-cover flex-shrink-0"
+              alt="Slide 3"
+            />
+            <img
+              src="../images/image-chef3.jpg"
+              class="w-full h-full object-cover flex-shrink-0"
+              alt="Slide 4"
+            />
           </div>
           <div
-            class="text-gray-500 flex text-center flex-col mt-4 items-center text-sm"
+            class="absolute inset-0 flex flex-col justify-center p-8 text-white pointer-events-none"
           >
-            <p class="cursor-default">
-              By signing in, you agree to our
-              <a
-                class="group text-blue-400 transition-all duration-100 ease-in-out"
-                href="#"
-              >
-                <span
-                  class="cursor-pointer bg-left-bottom bg-gradient-to-r from-blue-400 to-blue-400 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out"
-                >
-                  Terms
-                </span>
-              </a>
-              and
-              <a
-                class="group text-blue-400 transition-all duration-100 ease-in-out"
-                href="#"
-              >
-                <span
-                  class="cursor-pointer bg-left-bottom bg-gradient-to-r from-blue-400 to-blue-400 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out"
-                >
-                  Privacy Policy
-                </span>
-              </a>
+            <h2 class="text-4xl underline font-bold italic font-serif">
+              Apsara Restaurant
+            </h2>
+            <p class="text-gray-300">
+              Register with us to receive priority reservations, <br />
+              exclusive invitations to tasting events.
             </p>
           </div>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800 text-center">
+          Welcome To Our Restaurant
+        </h2>
+        <div>
+          <p class="text-gray-500 text-center mt-2">
+            Sign up if you don't have an account but if you have account please
+            Sign in
+          </p>
+          <div class="md:flex-row gap-12 items-start">
+            <div class="p-8">
+              <div class="flex justify-center mb-6">
+                <button
+                  @click="tab = 'signup'"
+                  :class="{ 'bg-blue-500 text-white': tab === 'signup', 'bg-gray-200 text-gray-700': tab !== 'signup' }"
+                  class="px-4 py-2 rounded-l-md focus:outline-none transition-colors duration-300"
+                >
+                  Sign Up
+                </button>
+                <button
+                  @click="tab = 'login'"
+                  :class="{ 'bg-blue-500 text-white': tab === 'login', 'bg-gray-200 text-gray-700': tab !== 'login' }"
+                  class="px-4 py-2 rounded-r-md focus:outline-none transition-colors duration-300"
+                >
+                  Sign in
+                </button>
+              </div>
+              <form x-show="tab === 'signup'" class="space-y-4">
+                <div class="relative">
+                  <label for="name" class="block text-gray-800 font-bold"
+                    >Full Name:</label
+                  >
+                  <input
+                    type="text"
+                    class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 pl-10"
+                    placeholder="Full Name"
+                  />
+                  <i
+                    class="fas fa-user absolute left-3 top-9 text-gray-400"
+                  ></i>
                 </div>
+                <div class="relative">
+                  <label for="email" class="block text-gray-800 font-bold"
+                    >Email:</label
+                  >
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    required
+                    class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 pl-10"
+                  />
+                  <i
+                    class="fas fa-envelope absolute left-3 top-9 text-gray-400"
+                  ></i>
+                </div>
+                <div class="relative">
+                  <label for="password" class="block text-gray-800 font-bold"
+                    >Password:</label
+                  >
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    required
+                    class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 pl-10"
+                  />
+                  <i
+                    class="fas fa-lock absolute left-3 top-9 text-gray-400"
+                  ></i>
+                </div>
+                <!-- Sign Up Form -->
+                <button
+                  class="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-2 rounded-md hover:opacity-90 transition-opacity duration-300 transform hover:scale-105"
+                >
+                  Sign Up
+                </button>
+              </form>
+              <form x-show="tab === 'login'" class="space-y-4">
+                <div class="relative">
+                  <label for="email" class="block text-gray-800 font-bold"
+                    >Email:</label
+                  >
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    required
+                    class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 pl-10"
+                  />
+                  <i
+                    class="fas fa-envelope absolute left-3 top-9 text-gray-400"
+                  ></i>
+                </div>
+                <div class="relative">
+                  <label for="password" class="block text-gray-800 font-bold"
+                    >Password:</label
+                  >
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    required
+                    class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 pl-10"
+                  />
+                  <i
+                    class="fas fa-lock absolute left-3 top-9 text-gray-400"
+                  ></i>
+                  <a
+                    href="#"
+                    class="text-sm font-thin text-gray-800 hover:underline mt-2 inline-block hover:text-indigo-600"
+                    >Forget Password</a
+                  >
+                </div>
+                <!-- Sign In Form -->
+                <button
+                  class="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-2 rounded-md hover:opacity-90 transition-opacity duration-300 transform hover:scale-105"
+                >
+                  Sign in
+                </button>
+              </form>
+              <div
+                id="third-party-auth"
+                class="flex items-center justify-center mt-5 flex-wrap"
+              >
+                <button
+                  href="#"
+                  class="hover:scale-105 ease-in-out duration-300 shadow-lg p-2 rounded-lg m-1"
+                >
+                  <img
+                    class="max-w-[25px]"
+                    src="https://ucarecdn.com/8f25a2ba-bdcf-4ff1-b596-088f330416ef/"
+                    alt="Google"
+                  />
+                </button>
+                <button
+                  href="#"
+                  class="hover:scale-105 ease-in-out duration-300 shadow-lg p-2 rounded-lg m-1"
+                >
+                  <img
+                    class="max-w-[25px] filter dark:invert"
+                    src="https://ucarecdn.com/be5b0ffd-85e8-4639-83a6-5162dfa15a16/"
+                    alt="Github"
+                  />
+                </button>
+
+                <button
+                  href="#"
+                  class="hover:scale-105 ease-in-out duration-300 shadow-lg p-2 rounded-lg m-1"
+                >
+                  <img
+                    class="max-w-[25px]"
+                    src="https://ucarecdn.com/6f56c0f1-c9c0-4d72-b44d-51a79ff38ea9/"
+                    alt="Facebook"
+                  />
+                </button>
+              </div>
+              <div
+                class="text-gray-500 flex text-center flex-col mt-4 items-center text-sm"
+              >
+                <p class="cursor-default">
+                  By signing in, you agree to our
+                  <a
+                    class="group text-blue-400 transition-all duration-100 ease-in-out"
+                    href="#"
+                  >
+                    <span
+                      class="cursor-pointer bg-left-bottom bg-gradient-to-r from-blue-400 to-blue-400 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out"
+                    >
+                      Terms
+                    </span>
+                  </a>
+                  and
+                  <a
+                    class="group text-blue-400 transition-all duration-100 ease-in-out"
+                    href="#"
+                  >
+                    <span
+                      class="cursor-pointer bg-left-bottom bg-gradient-to-r from-blue-400 to-blue-400 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out"
+                    >
+                      Privacy Policy
+                    </span>
+                  </a>
+                </p>
+              </div>
             </div>
+          </div>
         </div>
-        </div>
+      </div>
     </div>
-</body>
-<script>
+  </body>
+  <script>
     const slider = document.getElementById("slider");
     const slides = slider.children;
     let currentIndex = 0;
