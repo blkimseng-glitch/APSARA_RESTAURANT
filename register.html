@@ -14,259 +14,380 @@
       defer
     ></script>
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap");
+
+      * {
+        box-sizing: border-box;
+      }
       body {
         font-family: "Poppins", sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      #slider-wrapper {
+        overflow: hidden;
+        border-radius: 1.5rem;
+        width: 100%;
+      }
+      #slider {
+        display: flex;
+        transition: transform 0.7s ease-in-out;
+      }
+      #slider img {
+        flex-shrink: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.5);
+        cursor: pointer;
+        border: none;
+        transition:
+          background 0.3s,
+          transform 0.3s;
+      }
+      .dot.active {
+        background: #fff;
+        transform: scale(1.3);
+      }
+
+      .inp {
+        width: 100%;
+        padding: 0.6rem 0.75rem 0.6rem 2.5rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+        font-size: 0.9rem;
+        outline: none;
+        background: #fff;
+        transition:
+          box-shadow 0.2s,
+          border-color 0.2s;
+      }
+      .inp:focus {
+        border-color: #6366f1;
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+      }
+
+      .tab-btn {
+        padding: 0.5rem 1.5rem;
+        font-weight: 600;
+        font-size: 0.875rem;
+        cursor: pointer;
+        border: none;
+        transition:
+          background 0.25s,
+          color 0.25s;
+      }
+
+      .btn-submit {
+        width: 100%;
+        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        color: #fff;
+        padding: 0.65rem;
+        border-radius: 0.5rem;
+        border: none;
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        letter-spacing: 0.03em;
+        transition:
+          opacity 0.25s,
+          transform 0.2s;
+      }
+      .btn-submit:hover {
+        opacity: 0.88;
+        transform: scale(1.02);
+      }
+
+      .oauth-btn {
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        border: none;
+        background: #fff;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.2s;
+      }
+      .oauth-btn:hover {
+        transform: scale(1.1);
+      }
+
+      @media (max-width: 480px) {
+        .card {
+          padding: 1.25rem !important;
+        }
+        .img-box {
+          height: 175px !important;
+        }
+        h1.resto-name {
+          font-size: 1.5rem !important;
+        }
+        .tab-btn {
+          padding: 0.4rem 0.9rem;
+          font-size: 0.8rem;
+        }
       }
     </style>
   </head>
+
   <body
-    class="bg-cover bg-center bg-no-repeat bg-fixed bg-blend-overlay bg-black/40 min-h-screen flex flex-col items-center py-10 px-4"
+    class="min-h-screen flex items-center justify-center py-8 px-4 bg-cover bg-center bg-fixed"
     style="
-      background-image: url(https://i.pinimg.com/1200x/88/c6/9b/88c69b5a9cd258a0865ba01df5d38b54.jpg);
+      background-image:
+        linear-gradient(rgba(0, 0, 0, 0.48), rgba(0, 0, 0, 0.48)),
+        url(https://i.pinimg.com/1200x/88/c6/9b/88c69b5a9cd258a0865ba01df5d38b54.jpg);
+      background-size: cover;
     "
   >
-    <div class="container mx-auto px-4" x-data="{ tab: 'signup' }">
-      <div
-        class="max-w-4xl w-full m-auto bg-amber-50 rounded-3xl shadow-lg p-8 md:p-12"
-      >
+    <div class="w-full max-w-lg" x-data="{ tab: 'signup' }">
+      <div class="card bg-amber-50 rounded-3xl shadow-2xl p-6 sm:p-8 md:p-10">
+        <!-- image slider -->
         <div
-          class="w-full h-64 md:h-80 rounded-3xl overflow-hidden mb-12 relative"
+          class="img-box relative w-full rounded-2xl overflow-hidden mb-6"
+          style="height: 215px"
         >
-          <div
-            id="slider"
-            class="flex w-full h-full transition-transform duration-700 ease-in-out"
-          >
-            <img
-              src="./picture/apsara-sign-in/Apsara.jpg"
-              class="w-full h-full object-cover flex-shrink-0"
-              alt="Slide 1"
-            />
-            <img
-              src="./picture/apsara-sign-in/image-chef1.jpg"
-              class="w-full h-full object-cover flex-shrink-0"
-              alt="Slide 2"
-            />
-            <img
-              src="./picture/apsara-sign-in/image-chef2.jpg"
-              class="w-full h-full object-cover flex-shrink-0"
-              alt="Slide 3"
-            />
-            <img
-              src="./picture/apsara-sign-in/image-chef3.jpg"
-              class="w-full h-full object-cover flex-shrink-0"
-              alt="Slide 4"
-            />
+          <div id="slider-wrapper" style="height: 100%">
+            <div id="slider" style="height: 100%">
+              <img src="./picture/apsara-sign-in/Apsara.jpg" alt="Apsara" />
+              <img
+                src="./picture/apsara-sign-in/image-chef1.jpg"
+                alt="Chef 1"
+              />
+              <img
+                src="./picture/apsara-sign-in/image-chef2.jpg"
+                alt="Chef 2"
+              />
+              <img
+                src="./picture/apsara-sign-in/image-chef3.jpg"
+                alt="Chef 3"
+              />
+            </div>
           </div>
+
           <div
-            class="absolute inset-0 flex flex-col justify-center p-8 text-white pointer-events-none"
+            class="absolute inset-0 flex flex-col justify-end p-5 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"
           >
-            <h2 class="text-4xl underline font-bold italic font-serif">
+            <h1
+              class="resto-name text-white font-bold italic"
+              style="
+                font-family: &quot;Playfair Display&quot;, serif;
+                font-size: 1.75rem;
+              "
+            >
               Apsara Restaurant
-            </h2>
-            <p class="text-gray-300">
-              Register with us to receive priority reservations, <br />
-              exclusive invitations to tasting events.
+            </h1>
+            <p class="text-gray-300 text-xs sm:text-sm mt-1">
+              Register for priority reservations &amp; exclusive tasting events.
             </p>
           </div>
-        </div>
-        <h2 class="text-2xl font-bold text-gray-800 text-center">
-          Welcome To Our Restaurant
-        </h2>
-        <p class="text-gray-500 text-center mt-2">
-          Sign up if you don't have an account but if you have account please
-          Sign in
-        </p>
-        <div class="md:flex-row gap-12 items-start">
-          <div class="p-8">
-            <div class="flex justify-center mb-6">
-              <button
-                @click="tab = 'signup'"
-                :class="{ 'bg-blue-500 text-white': tab === 'signup', 'bg-gray-200 text-gray-700': tab !== 'signup' }"
-                class="px-4 py-2 rounded-l-md focus:outline-none transition-colors duration-300"
-              >
-                Sign Up
-              </button>
-              <button
-                @click="tab = 'login'"
-                :class="{ 'bg-blue-500 text-white': tab === 'login', 'bg-gray-200 text-gray-700': tab !== 'login' }"
-                class="px-4 py-2 rounded-r-md focus:outline-none transition-colors duration-300"
-              >
-                Sign in
-              </button>
-            </div>
-            <form x-show="tab === 'signup'" class="space-y-4">
-              <div class="relative">
-                <label for="name" class="block text-gray-800 font-bold"
-                  >Full Name:</label
-                >
-                <input
-                  type="text"
-                  class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 pl-10"
-                  placeholder="Full Name"
-                />
-                <i class="fas fa-user absolute left-3 top-9 text-gray-400"></i>
-              </div>
-              <div class="relative">
-                <label for="email" class="block text-gray-800 font-bold"
-                  >Email:</label
-                >
-                <input
-                  type="email"
-                  placeholder="Email"
-                  required
-                  class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 pl-10"
-                />
-                <i
-                  class="fas fa-envelope absolute left-3 top-9 text-gray-400"
-                ></i>
-              </div>
-              <div class="relative">
-                <label for="password" class="block text-gray-800 font-bold"
-                  >Password:</label
-                >
-                <input
-                  type="password"
-                  placeholder="Password"
-                  required
-                  class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 pl-10"
-                />
-                <i class="fas fa-lock absolute left-3 top-9 text-gray-400"></i>
-              </div>
-              <!-- Sign Up Form -->
-              <button
-                class="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-2 rounded-md hover:opacity-90 transition-opacity duration-300 transform hover:scale-105"
-              >
-                Sign Up
-              </button>
-            </form>
-            <form x-show="tab === 'login'" class="space-y-4">
-              <div class="relative">
-                <label for="email" class="block text-gray-800 font-bold"
-                  >Email:</label
-                >
-                <input
-                  type="email"
-                  placeholder="Email"
-                  required
-                  class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 pl-10"
-                />
-                <i
-                  class="fas fa-envelope absolute left-3 top-9 text-gray-400"
-                ></i>
-              </div>
-              <div class="relative">
-                <label for="password" class="block text-gray-800 font-bold"
-                  >Password:</label
-                >
-                <input
-                  type="password"
-                  placeholder="Password"
-                  required
-                  class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 pl-10"
-                />
-                <i class="fas fa-lock absolute left-3 top-9 text-gray-400"></i>
-                <a
-                  href="#"
-                  class="text-sm font-thin text-gray-800 hover:underline mt-2 inline-block hover:text-indigo-600"
-                  >Forget Password</a
-                >
-              </div>
-              <!-- Sign In Form -->
-              <button
-                class="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-2 rounded-md hover:opacity-90 transition-opacity duration-300 transform hover:scale-105"
-              >
-                Sign in
-              </button>
-            </form>
-            <div
-              id="third-party-auth"
-              class="flex items-center justify-center mt-5 flex-wrap"
-            >
-              <button
-                href="#"
-                class="hover:scale-105 ease-in-out duration-300 shadow-lg p-2 rounded-lg m-1"
-              >
-                <img
-                  class="max-w-[25px]"
-                  src="https://ucarecdn.com/8f25a2ba-bdcf-4ff1-b596-088f330416ef/"
-                  alt="Google"
-                />
-              </button>
-              <button
-                href="#"
-                class="hover:scale-105 ease-in-out duration-300 shadow-lg p-2 rounded-lg m-1"
-              >
-                <img
-                  class="max-w-[25px] filter dark:invert"
-                  src="https://ucarecdn.com/be5b0ffd-85e8-4639-83a6-5162dfa15a16/"
-                  alt="Github"
-                />
-              </button>
 
-              <button
-                href="#"
-                class="hover:scale-105 ease-in-out duration-300 shadow-lg p-2 rounded-lg m-1"
-              >
-                <img
-                  class="max-w-[25px]"
-                  src="https://ucarecdn.com/6f56c0f1-c9c0-4d72-b44d-51a79ff38ea9/"
-                  alt="Facebook"
-                />
-              </button>
-            </div>
-            <div
-              class="text-gray-500 flex text-center flex-col mt-4 items-center text-sm"
+          <div id="dots" class="absolute bottom-3 right-4 flex gap-1.5"></div>
+        </div>
+
+        <!-- title -->
+        <div class="text-center mb-5">
+          <h2 class="text-xl sm:text-2xl font-bold text-gray-800">
+            Welcome To Our Restaurant
+          </h2>
+          <p class="text-gray-500 text-sm mt-1">
+            Sign up if you don't have an account, otherwise Sign in
+          </p>
+        </div>
+
+        <!-- tabs -->
+        <div class="flex justify-center mb-5">
+          <button
+            @click="tab = 'signup'"
+            :class="tab === 'signup' ? 'bg-indigo-500 text-white' : 'bg-gray-200 text-gray-600'"
+            class="tab-btn rounded-l-lg"
+          >
+            Sign Up
+          </button>
+          <button
+            @click="tab = 'login'"
+            :class="tab === 'login' ? 'bg-indigo-500 text-white' : 'bg-gray-200 text-gray-600'"
+            class="tab-btn rounded-r-lg"
+          >
+            Sign In
+          </button>
+        </div>
+
+        <!-- signup -->
+        <form
+          x-show="tab === 'signup'"
+          x-transition
+          class="space-y-4"
+          action="index.html"
+          method="GET"
+        >
+          <div class="relative">
+            <label class="block text-gray-700 text-sm font-semibold mb-1"
+              >Full Name:</label
             >
-              <p class="cursor-default">
-                By signing in, you agree to our
-                <a
-                  class="group text-blue-400 transition-all duration-100 ease-in-out"
-                  href="#"
-                >
-                  <span
-                    class="cursor-pointer bg-left-bottom bg-gradient-to-r from-blue-400 to-blue-400 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out"
-                  >
-                    Terms
-                  </span>
-                </a>
-                and
-                <a
-                  class="group text-blue-400 transition-all duration-100 ease-in-out"
-                  href="#"
-                >
-                  <span
-                    class="cursor-pointer bg-left-bottom bg-gradient-to-r from-blue-400 to-blue-400 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out"
-                  >
-                    Privacy Policy
-                  </span>
-                </a>
-              </p>
+            <i
+              class="fas fa-user absolute left-3 text-gray-400"
+              style="top: 2.35rem"
+            ></i>
+            <input
+              type="text"
+              class="inp"
+              placeholder="Full Name"
+              name="fullname"
+            />
+          </div>
+          <div class="relative">
+            <label class="block text-gray-700 text-sm font-semibold mb-1"
+              >Email:</label
+            >
+            <i
+              class="fas fa-envelope absolute left-3 text-gray-400"
+              style="top: 2.35rem"
+            ></i>
+            <input
+              type="email"
+              class="inp"
+              placeholder="Email"
+              name="email"
+              required
+            />
+          </div>
+          <div class="relative">
+            <label class="block text-gray-700 text-sm font-semibold mb-1"
+              >Password:</label
+            >
+            <i
+              class="fas fa-lock absolute left-3 text-gray-400"
+              style="top: 2.35rem"
+            ></i>
+            <input
+              type="password"
+              class="inp"
+              placeholder="Password"
+              name="password"
+              required
+            />
+          </div>
+          <button type="submit" class="btn-submit mt-2">Sign Up</button>
+        </form>
+
+        <!-- login -->
+        <form
+          x-show="tab === 'login'"
+          x-transition
+          class="space-y-4"
+          action="index.html"
+          method="GET"
+        >
+          <div class="relative">
+            <label class="block text-gray-700 text-sm font-semibold mb-1"
+              >Email:</label
+            >
+            <i
+              class="fas fa-envelope absolute left-3 text-gray-400"
+              style="top: 2.35rem"
+            ></i>
+            <input type="email" class="inp" placeholder="Email" name="email" required />
+          </div>
+          <div class="relative">
+            <label class="block text-gray-700 text-sm font-semibold mb-1"
+              >Password:</label
+            >
+            <i
+              class="fas fa-lock absolute left-3 text-gray-400"
+              style="top: 2.35rem"
+            ></i>
+            <input
+              type="password"
+              class="inp"
+              placeholder="Password"
+              required
+            />
+            <div class="text-right mt-1">
+              <a
+                href="#"
+                class="text-xs text-gray-500 hover:text-indigo-600 hover:underline"
+                >Forget Password</a
+              >
             </div>
           </div>
+          <button type="submit" class="btn-submit mt-2"> Sign In</button>
+        </form>
+
+        <div class="flex items-center my-4 gap-3">
+          <div class="flex-1 h-px bg-gray-300"></div>
+          <span class="text-xs text-gray-400">or continue with</span>
+          <div class="flex-1 h-px bg-gray-300"></div>
         </div>
+
+        <div class="flex justify-center gap-3">
+          <button class="oauth-btn">
+            <img
+              class="w-5 h-5"
+              src="https://ucarecdn.com/8f25a2ba-bdcf-4ff1-b596-088f330416ef/"
+              alt="Google"
+            />
+          </button>
+          <button class="oauth-btn">
+            <img
+              class="w-5 h-5"
+              src="https://ucarecdn.com/be5b0ffd-85e8-4639-83a6-5162dfa15a16/"
+              alt="Github"
+            />
+          </button>
+          <button class="oauth-btn">
+            <img
+              class="w-5 h-5"
+              src="https://ucarecdn.com/6f56c0f1-c9c0-4d72-b44d-51a79ff38ea9/"
+              alt="Facebook"
+            />
+          </button>
+        </div>
+
+        <p class="text-center text-xs text-gray-400 mt-4">
+          By signing in, you agree to our
+          <a href="#" class="text-blue-400 hover:underline">Terms</a> and
+          <a href="#" class="text-blue-400 hover:underline">Privacy Policy</a>.
+        </p>
       </div>
     </div>
-  </body>
-  <script>
-    const slider = document.getElementById("slider");
-    const slides = slider.children;
-    let currentIndex = 0;
 
-    function nextSlide() {
-      currentIndex++;
+    <script>
+      var slider = document.getElementById("slider");
+      var dotsContainer = document.getElementById("dots");
+      var total = slider.children.length;
+      var idx = 0;
 
-      // If we reach the end, reset to the first slide
-      if (currentIndex >= slides.length) {
-        currentIndex = 0;
+      // create dots
+      for (var i = 0; i < total; i++) {
+        var btn = document.createElement("button");
+        btn.className = "dot" + (i == 0 ? " active" : "");
+        btn.dataset.i = i;
+        btn.onclick = function () {
+          goTo(+this.dataset.i);
+        };
+        dotsContainer.appendChild(btn);
       }
 
-      // Move the slider left/right
-      // -100% * index shifts the view to the next image
-      slider.style.transform = `translateX(-${currentIndex * 100}%)`;
-    }
+      function goTo(n) {
+        idx = (n + total) % total;
+        slider.style.transform = "translateX(-" + idx * 100 + "%)";
+        document.querySelectorAll(".dot").forEach(function (d, i) {
+          d.classList.toggle("active", i == idx);
+        });
+      }
 
-    // Change image every 4 seconds
-    setInterval(nextSlide, 4000);
-  </script>
+      setInterval(function () {
+        goTo(idx + 1);
+      }, 4000);
+    </script>
+  </body>
 </html>

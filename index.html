@@ -6,7 +6,6 @@
     <title>APSARA RESTAURANT</title>
 
     <!-- Facebook Meta Tags -->
-    
 
     <link rel="icon" type="image/png" href="../picture/Apsara-logo-2.png" />
 
@@ -150,15 +149,12 @@
   <body
     class="bg-amber-50 text-stone-900 dark:bg-gray-900 dark:text-gray-100 font-sans"
   >
-    <!-- ══════════════════════════════════════════
-         NAVBAR
-    ══════════════════════════════════════════ -->
-    <nav
+   
+   <nav
       class="bg-coffee-850 dark:bg-gray-950 text-white shadow-lg sticky top-0 z-50"
     >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
-          <!-- Logo -->
           <div class="flex items-center gap-2">
             <img
               src="./picture/Apsara-logo-2.png"
@@ -167,14 +163,13 @@
             />
             <a
               href="#"
-              class="hidden md:block text-xl font-bold uppercase text-litter-700 leading-tight text-center"
+              class=" text-xl font-bold uppercase text-litter-700 leading-tight text-center"
             >
               apsara<br />restaurant
             </a>
           </div>
 
-          <!-- Desktop nav -->
-          <div class="hidden md:flex items-center space-x-6">
+          <div class="hidden lg:flex items-center space-x-6">
             <a
               href="index.html"
               class="px-3 py-1 rounded-lg hover:bg-amber-500 transition"
@@ -197,9 +192,8 @@
             >
           </div>
 
-          <!-- Action buttons -->
           <div class="flex items-center gap-1">
-            <!-- Search -->
+            <!-- search -->
             <div class="flex items-center relative">
               <input
                 id="search-input"
@@ -216,8 +210,7 @@
               </button>
             </div>
 
-            <!-- User (desktop only) -->
-            <a href="register.html" class="hidden md:block">
+            <a href="register.html" class="hidden lg:block">
               <button
                 class="p-2 hover:text-coffee-300 transition"
                 aria-label="My account"
@@ -226,7 +219,7 @@
               </button>
             </a>
 
-            <!-- Cart -->
+            <!-- cart -->
             <button
               id="cart-btn"
               class="p-2 hover:text-coffee-300 transition relative"
@@ -235,17 +228,16 @@
               <i class="fas fa-shopping-cart"></i>
               <span
                 id="cart-count"
-                class="absolute -top-1 -right-1 bg-coffee-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"
+                class="hidden absolute -top-1 -right-1 bg-coffee-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"
+                >0</span
               >
-                0
-              </span>
             </button>
 
-            <!-- Dark mode toggle (desktop) -->
+            <!-- dark mode toggle (desktop) -->
             <button
               id="theme-toggle"
               type="button"
-              class="hidden md:block p-2 hover:text-coffee-300 transition"
+              class="hidden lg:block p-2 hover:text-coffee-300 transition"
               aria-label="Toggle theme"
             >
               <svg
@@ -272,10 +264,9 @@
               </svg>
             </button>
 
-            <!-- Mobile hamburger -->
             <button
               id="mobile-menu-btn"
-              class="md:hidden p-2 hover:text-coffee-300 transition"
+              class="lg:hidden p-2 hover:text-coffee-300 transition"
               aria-label="Open menu"
             >
               <i class="fas fa-bars text-lg"></i>
@@ -284,8 +275,8 @@
         </div>
       </div>
 
-      <!-- Mobile dropdown menu -->
-      <div id="mobile-menu" class="md:hidden hidden">
+      <!-- mobile dropdown -->
+      <div id="mobile-menu" class="lg:hidden hidden">
         <div
           class="bg-coffee-800 dark:bg-gray-900 px-4 py-3 space-y-1 border-t border-coffee-700"
         >
@@ -1033,11 +1024,11 @@
             <div class="flex items-center justify-center gap-3 mb-4">
               <img
                 src="./picture/istad (1).png"
-                alt="Ministry of Tourism logo"
-                class="w-20 h-20 object-contain"
+                alt="ISTAD logo"
+                class="w-20 h-20 sm:w-12 sm:h-12 lg:w-14 lg:h-14 object-contain"
               />
               <span
-                class="text-litter-700 text-center font-bold text-2xl uppercase leading-tight"
+                class="text-litter-700 text-center font-bold uppercase leading-tight text-sm sm:text-base lg:text-lg"
               >
                 ISTAD<br />Cambodia
               </span>
@@ -1065,9 +1056,6 @@
   </body>
 
   <script>
-    /* ════════════════════════════════════════
-         TOAST HELPER
-    ════════════════════════════════════════ */
     let toastTimer = null;
 
     function showToast(msg, type = "success") {
@@ -1083,9 +1071,6 @@
       toastTimer = setTimeout(() => toast.classList.remove("show"), 2500);
     }
 
-    /* ════════════════════════════════════════
-         DARK MODE
-    ════════════════════════════════════════ */
     function updateThemeIcons() {
       const isDark = document.documentElement.classList.contains("dark");
       document.getElementById("icon-moon")?.classList.toggle("hidden", isDark);
@@ -1107,9 +1092,6 @@
       updateThemeIcons();
     }
 
-    /* ════════════════════════════════════════
-         INIT
-    ════════════════════════════════════════ */
     document.addEventListener("DOMContentLoaded", function () {
       // Dark mode
       document

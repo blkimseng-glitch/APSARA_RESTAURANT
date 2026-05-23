@@ -13,11 +13,9 @@
     <meta property="og:title" content="APSARA RESTAURANT" />
     <meta
       property="og:description"
-      content="APSARA is a high-end Cambodian restaurant that prides itself on offering Living Cambodian Cuisine. Through dedicated research, practice, and promotion of Cambodian culinary traditions, APSARA strives to preserve the nation's rich food heritage for generations to come. APSARA Cambodian Cuisine draws inspiration from the ancient Angkor period, offering a unique flavor profile created through a masterful blend of spices. Each dish reflects Cambodia's rich botanical heritage."
+      content="APSARA is a high-end Cambodian restaurant that prides itself on offering Living Cambodian Cuisine."
     />
     <meta property="og:image" content="./picture/apsara-sign-in/Apsara.jpg" />
-
-    <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta property="twitter:domain" content="blkimseng-glitch.github.io" />
     <meta
@@ -25,34 +23,28 @@
       content="https://blkimseng-glitch.github.io/APSARA_RESTAURANT/?authuser=0"
     />
     <meta name="twitter:title" content="APSARA RESTAURANT" />
-    <meta
-      name="twitter:description"
-      content="APSARA is a high-end Cambodian restaurant that prides itself on offering Living Cambodian Cuisine. Through dedicated research, practice, and promotion of Cambodian culinary traditions, APSARA strives to preserve the nation's rich food heritage for generations to come. APSARA Cambodian Cuisine draws inspiration from the ancient Angkor period, offering a unique flavor profile created through a masterful blend of spices. Each dish reflects Cambodia's rich botanical heritage."
-    />
     <meta name="twitter:image" content="./picture/apsara-sign-in/Apsara.jpg" />
 
-
     <link rel="icon" type="image/png" href="./picture/Apsara-logo-2.png" />
-
     <script src="https://cdn.tailwindcss.com"></script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
 
-    <!-- ── Dark Mode Init (must run before first paint to avoid flash) ── -->
+    <!-- run before first paint so no flicker -->
     <script>
       (function () {
-        const saved = localStorage.getItem("color-theme");
-        const prefersDark = window.matchMedia(
+        var saved = localStorage.getItem("color-theme");
+        var prefersDark = window.matchMedia(
           "(prefers-color-scheme: dark)",
         ).matches;
-        if (saved === "dark" || (!saved && prefersDark))
+        if (saved === "dark" || (!saved && prefersDark)) {
           document.documentElement.classList.add("dark");
+        }
       })();
     </script>
 
-    <!-- ── Tailwind Config ── -->
     <script>
       tailwind.config = {
         darkMode: "class",
@@ -79,9 +71,7 @@
     </script>
 
     <style>
-      /* ══════════════════════════════════════════
-         ITEM REVIEW MODAL
-      ══════════════════════════════════════════ */
+      /* review modal */
       #item-review-modal {
         transition: opacity 0.25s ease;
       }
@@ -92,9 +82,6 @@
         transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
       }
 
-      /* 
-         STAR RATING
- */
       .item-star-btn:hover {
         filter: drop-shadow(0 0 6px #ffb700aa);
       }
@@ -103,9 +90,6 @@
         filter: drop-shadow(0 0 4px #ffb700);
       }
 
-      /* 
-         ANIMATIONS
-       */
       @keyframes slideIn {
         from {
           opacity: 0;
@@ -123,9 +107,6 @@
         transition: width 0.6s cubic-bezier(0.34, 1.2, 0.64, 1);
       }
 
-      /* ══════════════════════════════════════════
-         CUSTOM SCROLLBAR (Review List)
-      ══════════════════════════════════════════ */
       #item-reviews-list::-webkit-scrollbar {
         width: 4px;
       }
@@ -137,9 +118,7 @@
         border-radius: 99px;
       }
 
-      /* ══════════════════════════════════════════
-         TOAST NOTIFICATION
-      ══════════════════════════════════════════ */
+      /* toast */
       #toast {
         transition:
           opacity 0.3s ease,
@@ -152,15 +131,80 @@
         opacity: 1;
         transform: translateY(0);
       }
+
+      /* cart sidebar slide */
+      #cart-sidebar {
+        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      /* cart item hover */
+      .cart-item {
+        transition: background 0.15s ease;
+      }
+      .cart-item:hover {
+        background: rgba(196, 154, 107, 0.05);
+      }
+
+      /* qty button */
+      .qty-btn {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        font-weight: 600;
+        transition: all 0.15s ease;
+        cursor: pointer;
+        border: none;
+        outline: none;
+      }
+      .qty-btn:active {
+        transform: scale(0.88);
+      }
+
+      /* cart scrollbar */
+      #cart-items::-webkit-scrollbar {
+        width: 4px;
+      }
+      #cart-items::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      #cart-items::-webkit-scrollbar-thumb {
+        background: #d4b99755;
+        border-radius: 99px;
+      }
+
+      /* cart item remove button */
+      .remove-btn {
+        opacity: 0;
+        transition: opacity 0.15s ease;
+      }
+      .cart-item:hover .remove-btn {
+        opacity: 1;
+      }
+      @keyframes slideFromLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      .hero-title {
+        animation: slideFromLeft 0.8s ease forwards;
+      }
     </style>
   </head>
 
   <body
     class="bg-coffee-100 dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300"
   >
-    <!-- ══════════════════════════════════════════
-         TOAST NOTIFICATION
-    ══════════════════════════════════════════ -->
+    <!-- Toast -->
     <div
       id="toast"
       class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[200] bg-coffee-800 text-white text-sm font-medium px-5 py-3 rounded-full shadow-lg flex items-center gap-2"
@@ -169,15 +213,12 @@
       <span id="toast-msg"></span>
     </div>
 
-    <!-- ══════════════════════════════════════════
-         NAVBAR
-    ══════════════════════════════════════════ -->
+    <!-- Navbar -->
     <nav
       class="bg-coffee-850 dark:bg-gray-950 text-white shadow-lg sticky top-0 z-50"
     >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
-          <!-- Logo -->
           <div class="flex items-center gap-2">
             <img
               src="./picture/Apsara-logo-2.png"
@@ -186,14 +227,13 @@
             />
             <a
               href="#"
-              class="hidden md:block text-xl font-bold uppercase text-litter-700 leading-tight text-center"
+              class="text-xl font-bold uppercase text-litter-700 leading-tight text-center"
             >
               apsara<br />restaurant
             </a>
           </div>
 
-          <!-- Desktop Nav Links -->
-          <div class="hidden md:flex items-center space-x-6">
+          <div class="hidden lg:flex items-center space-x-6">
             <a
               href="index.html"
               class="px-3 py-1 rounded-lg hover:bg-amber-500 transition"
@@ -216,9 +256,8 @@
             >
           </div>
 
-          <!-- Action Buttons -->
           <div class="flex items-center gap-1">
-            <!-- Search -->
+            <!-- search -->
             <div class="flex items-center relative">
               <input
                 id="search-input"
@@ -235,8 +274,7 @@
               </button>
             </div>
 
-            <!-- User (desktop only) -->
-            <a href="register.html" class="hidden md:block">
+            <a href="register.html" class="hidden lg:block">
               <button
                 class="p-2 hover:text-coffee-300 transition"
                 aria-label="My account"
@@ -245,7 +283,7 @@
               </button>
             </a>
 
-            <!-- Cart -->
+            <!-- cart -->
             <button
               id="cart-btn"
               class="p-2 hover:text-coffee-300 transition relative"
@@ -254,17 +292,16 @@
               <i class="fas fa-shopping-cart"></i>
               <span
                 id="cart-count"
-                class="absolute -top-1 -right-1 bg-coffee-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"
+                class="hidden absolute -top-1 -right-1 bg-coffee-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"
+                >0</span
               >
-                0
-              </span>
             </button>
 
-            <!-- Dark Mode Toggle (desktop) -->
+            <!-- dark mode toggle (desktop) -->
             <button
               id="theme-toggle"
               type="button"
-              class="hidden md:block p-2 hover:text-coffee-300 transition"
+              class="hidden lg:block p-2 hover:text-coffee-300 transition"
               aria-label="Toggle theme"
             >
               <svg
@@ -291,10 +328,9 @@
               </svg>
             </button>
 
-            <!-- Mobile Hamburger -->
             <button
               id="mobile-menu-btn"
-              class="md:hidden p-2 hover:text-coffee-300 transition"
+              class="lg:hidden p-2 hover:text-coffee-300 transition"
               aria-label="Open menu"
             >
               <i class="fas fa-bars text-lg"></i>
@@ -303,8 +339,8 @@
         </div>
       </div>
 
-      <!-- Mobile Dropdown Menu -->
-      <div id="mobile-menu" class="md:hidden hidden">
+      <!-- mobile dropdown -->
+      <div id="mobile-menu" class="lg:hidden hidden">
         <div
           class="bg-coffee-800 dark:bg-gray-900 px-4 py-3 space-y-1 border-t border-coffee-700"
         >
@@ -346,10 +382,32 @@
       </div>
     </nav>
 
-    <!-- ══════════════════════════════════════════
-         MAIN — MENU SECTION
-    ══════════════════════════════════════════ -->
+    <!-- Main -->
     <main>
+      <section class="relative">
+        <div
+          class="relative h-96 md:h-[500px] overflow-hidden bg-gray-800/50 flex items-center justify-start"
+        >
+          <div class="absolute inset-0 z-10 bg-coffee- 900/20">
+            <img
+              src="./picture/main-course/menupic.png"
+              alt="Apsara Restaurant"
+              class="w-full h-full object-cover object-center opacity-60"
+            />
+          </div>
+          <div
+            class="hero-title relative z-20 pl-6 md:pl-16 text-white max-w-2xl"
+          >
+            <h1 class="text-4xl font-bold mb-3 drop-shadow-lg">
+              Our Authentic Cambodian Menu
+            </h1>
+            <p class="text-coffee-200 text-lg drop-shadow-md">
+              Crafted from ancient Angkor recipes
+            </p>
+          </div>
+        </div>
+      </section>
+
       <section id="menu" class="py-16 bg-white dark:bg-gray-900">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2
@@ -358,7 +416,7 @@
             Our Menu
           </h2>
 
-          <!-- Category Tabs -->
+          <!-- tabs -->
           <div class="flex flex-wrap justify-center gap-3 mb-10">
             <button
               data-tab="all"
@@ -370,7 +428,7 @@
               data-tab="coffee"
               class="tab-btn px-5 py-2 rounded-full text-sm font-medium transition-all duration-200"
             >
-              Coffe
+              Coffee
             </button>
             <button
               data-tab="food"
@@ -382,7 +440,7 @@
               data-tab="mainDish"
               class="tab-btn px-5 py-2 rounded-full text-sm font-medium transition-all duration-200"
             >
-              Main-Dish
+              Main Dish
             </button>
             <button
               data-tab="dessert"
@@ -394,54 +452,46 @@
               data-tab="beverage"
               class="tab-btn px-5 py-2 rounded-full text-sm font-medium transition-all duration-200"
             >
-             Drink
+              Drinks
             </button>
           </div>
 
-          <!-- Menu Grid -->
           <div
             id="menu-grid"
             class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-300"
           ></div>
 
-          <!-- Empty State -->
           <div
             id="menu-empty"
             class="hidden text-center py-16 text-coffee-400 dark:text-coffee-600"
           >
             <i class="fas fa-search text-4xl mb-3 block"></i>
-            <p>Search not found try again.</p>
+            <p>No results found. Try a different keyword.</p>
           </div>
         </div>
       </section>
     </main>
 
-    <!-- ══════════════════════════════════════════
-         ITEM REVIEW MODAL
-    ══════════════════════════════════════════ -->
+    <!-- Item Review Modal -->
     <div
       id="item-review-modal"
       class="hidden fixed inset-0 z-50 flex items-end sm:items-center justify-center"
     >
-      <!-- Backdrop -->
       <div
         id="item-review-backdrop"
         class="absolute inset-0 bg-black/60 backdrop-blur-sm"
       ></div>
 
-      <!-- Panel -->
       <div
         id="item-review-panel"
         class="relative w-full sm:max-w-lg bg-white dark:bg-gray-900 rounded-t-3xl sm:rounded-2xl shadow-2xl flex flex-col max-h-[90vh] translate-y-8"
       >
-        <!-- Drag Handle (mobile only) -->
         <div class="sm:hidden flex justify-center pt-3 pb-1">
           <div
             class="w-10 h-1 bg-coffee-200 dark:bg-gray-700 rounded-full"
           ></div>
         </div>
 
-        <!-- Header -->
         <div
           class="flex items-start gap-4 px-6 pt-4 pb-4 border-b border-coffee-100 dark:border-gray-800"
         >
@@ -477,16 +527,12 @@
           </button>
         </div>
 
-        <!-- Rating Breakdown Bars -->
         <div
           id="modal-breakdown"
           class="px-6 py-3 bg-coffee-50 dark:bg-gray-800/50 space-y-1 border-b border-coffee-100 dark:border-gray-800"
         ></div>
-
-        <!-- Reviews List (scrollable) -->
         <div class="flex-1 overflow-y-auto" id="item-reviews-list"></div>
 
-        <!-- Write Review Form -->
         <div
           class="px-6 py-5 border-t border-coffee-100 dark:border-gray-800 bg-white dark:bg-gray-900"
         >
@@ -495,8 +541,6 @@
           >
             សរសេរ Review របស់អ្នក
           </p>
-
-          <!-- Star Picker -->
           <div class="flex items-center gap-1 mb-3">
             <span id="item-star-label" class="text-xs text-coffee-400 mr-1"
               >ជ្រើសរើសផ្កាយ</span
@@ -524,8 +568,6 @@
               ></i>
             </div>
           </div>
-
-          <!-- Name + Comment -->
           <div class="flex gap-2 mb-2">
             <input
               id="item-review-name"
@@ -540,13 +582,10 @@
               class="flex-1 border border-coffee-200 dark:border-gray-700 bg-coffee-50 dark:bg-gray-800 text-coffee-800 dark:text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-coffee-400 placeholder-coffee-300 dark:placeholder-gray-500"
             />
           </div>
-
-          <!-- Validation Error -->
           <p id="item-review-error" class="hidden text-xs text-red-500 mb-2">
-            <i class="fas fa-exclamation-circle mr-1"></i>Please fill in your name,
-            select a star, and comment. 
+            <i class="fas fa-exclamation-circle mr-1"></i>Please fill in your
+            name, select a star, and write a comment.
           </p>
-
           <button
             id="item-review-submit"
             class="w-full bg-coffee-700 hover:bg-coffee-800 active:scale-[0.98] text-white font-semibold py-2.5 rounded-xl transition-all duration-200 text-sm flex items-center justify-center gap-2"
@@ -557,72 +596,113 @@
       </div>
     </div>
 
-    <!-- ══════════════════════════════════════════
-         CART SIDEBAR
-    ══════════════════════════════════════════ -->
+    <!-- Cart Overlay -->
     <div
       id="cart-overlay"
-      class="hidden fixed inset-0 bg-black bg-opacity-50 z-40"
+      class="hidden fixed inset-0 bg-black/50 z-40 backdrop-blur-[2px]"
     ></div>
 
+    <!-- Cart Sidebar (improved) -->
     <div
       id="cart-sidebar"
-      class="fixed right-0 top-0 h-full w-80 bg-white dark:bg-gray-900 shadow-xl z-50 transform translate-x-full transition-transform duration-300 flex flex-col"
+      class="fixed right-0 top-0 h-full w-[340px] bg-white dark:bg-gray-900 shadow-2xl z-50 transform translate-x-full flex flex-col"
     >
-      <!-- Header -->
+      <!-- header -->
       <div
-        class="flex items-center justify-between p-4 border-b border-coffee-200 dark:border-gray-700"
+        class="flex items-center justify-between px-5 py-4 border-b border-coffee-100 dark:border-gray-800"
       >
-        <h3 class="font-bold text-lg text-coffee-800 dark:text-coffee-200">
-          Your Cart
-        </h3>
+        <div class="flex items-center gap-2">
+          <div
+            class="w-8 h-8 bg-coffee-700 rounded-lg flex items-center justify-center"
+          >
+            <i class="fas fa-shopping-basket text-white text-sm"></i>
+          </div>
+          <div>
+            <h3
+              class="font-bold text-coffee-800 dark:text-coffee-100 leading-none"
+            >
+              Your Order
+            </h3>
+            <p
+              id="cart-item-count-label"
+              class="text-xs text-coffee-400 mt-0.5"
+            >
+              0 items
+            </p>
+          </div>
+        </div>
         <button
           id="close-cart"
-          class="text-coffee-500 hover:text-coffee-700 transition"
+          class="w-8 h-8 rounded-full hover:bg-coffee-100 dark:hover:bg-gray-800 flex items-center justify-center text-coffee-500 hover:text-coffee-800 transition"
           aria-label="Close cart"
         >
-          <i class="fas fa-times text-xl"></i>
+          <i class="fas fa-times"></i>
         </button>
       </div>
 
-      <!-- Cart Items -->
-      <div id="cart-items" class="flex-1 overflow-y-auto p-4"></div>
+      <!-- items list -->
+      <div id="cart-items" class="flex-1 overflow-y-auto px-4 py-2"></div>
+
+      <!-- empty state -->
       <div
         id="empty-cart-message"
-        class="hidden text-center text-coffee-400 py-8 px-4"
+        class="hidden flex-1 flex flex-col items-center justify-center text-center px-6 pb-10"
       >
-        <i class="fas fa-shopping-cart text-4xl mb-3 block"></i>
-        Your cart is empty
+        <div
+          class="w-20 h-20 bg-coffee-50 dark:bg-gray-800 rounded-full flex items-center justify-center mb-4"
+        >
+          <i
+            class="fas fa-shopping-basket text-3xl text-coffee-300 dark:text-gray-600"
+          ></i>
+        </div>
+        <p class="font-semibold text-coffee-500 dark:text-coffee-400 mb-1">
+          Your cart is empty
+        </p>
+        <p class="text-xs text-coffee-300 dark:text-gray-600">
+          Add something delicious from the menu!
+        </p>
       </div>
 
-      <!-- Totals + Checkout -->
+      <!-- totals + checkout -->
       <div
-        class="p-4 border-t border-coffee-200 dark:border-gray-700 space-y-2 text-sm"
+        class="px-5 py-4 border-t border-coffee-100 dark:border-gray-800 bg-coffee-50 dark:bg-gray-800/50"
       >
-        <div class="flex justify-between text-coffee-600 dark:text-coffee-300">
-          <span>Subtotal</span><span id="cart-subtotal">$0.00</span>
+        <div class="space-y-2 mb-4">
+          <div
+            class="flex justify-between text-sm text-coffee-500 dark:text-coffee-400"
+          >
+            <span>Subtotal</span>
+            <span id="cart-subtotal" class="font-medium">$0.00</span>
+          </div>
+          <div
+            class="flex justify-between text-sm text-coffee-500 dark:text-coffee-400"
+          >
+            <span>Tax (8%)</span>
+            <span id="cart-tax" class="font-medium">$0.00</span>
+          </div>
+          <div
+            class="flex justify-between text-base font-bold text-coffee-800 dark:text-coffee-100 pt-2 border-t border-coffee-200 dark:border-gray-700"
+          >
+            <span>Total</span>
+            <span id="cart-total" class="text-litter-700">$0.00</span>
+          </div>
         </div>
-        <div class="flex justify-between text-coffee-600 dark:text-coffee-300">
-          <span>Tax (8%)</span><span id="cart-tax">$0.00</span>
-        </div>
-        <div
-          class="flex justify-between font-bold text-coffee-800 dark:text-coffee-200 text-base pt-1 border-t border-coffee-200 dark:border-gray-700"
-        >
-          <span>Total</span><span id="cart-total">$0.00</span>
-        </div>
-        <!-- NOTE: onclick removed — event handled via addEventListener in JS -->
+
         <button
           id="checkout-btn"
-          class="w-full bg-coffee-600 text-white py-3 rounded-xl font-bold hover:bg-coffee-700 transition"
+          class="w-full bg-coffee-700 hover:bg-coffee-800 active:scale-[0.98] text-white font-bold py-3 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-md"
         >
-          Checkout Now
+          <i class="fas fa-qrcode text-base"></i>
+          <span>Checkout Now</span>
         </button>
+
+        <p class="text-center text-xs text-coffee-400 mt-2">
+          Scan QR to pay after confirming
+        </p>
       </div>
     </div>
 
-    <!-- ══════════════════════════════════════════
-         PAYMENT MODAL
-    ══════════════════════════════════════════ -->
+    <!-- Payment Modal -->
     <div
       id="payment-modal"
       class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4"
@@ -640,9 +720,7 @@
         </div>
         <div class="p-8 flex flex-col items-center">
           <div class="text-center mb-4">
-            <p class="text-sm text-gray-500 dark:text-gray-400">
-              Total pay
-            </p>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Total to pay</p>
             <h2
               id="payment-amount"
               class="text-3xl font-black text-coffee-800 dark:text-litter-700"
@@ -660,28 +738,25 @@
             />
           </div>
           <p class="mt-6 text-xs text-gray-400 text-center">
-            Please scan to pay. Our team will prepare your food immediately
-             after receiving your payment.
+            Scan to pay. Our team will start preparing your order right after
+            receiving payment.
           </p>
           <button
             id="payment-close-btn"
             class="mt-6 w-full bg-coffee-700 hover:bg-coffee-800 text-white font-bold py-3 rounded-xl transition"
           >
-            Done
+            Done — Order Placed!
           </button>
         </div>
       </div>
     </div>
 
-    <!-- ══════════════════════════════════════════
-         FOOTER
-    ══════════════════════════════════════════ -->
+    <!-- Footer -->
     <footer class="bg-coffee-900 dark:bg-gray-950 text-coffee-200">
       <div class="max-w-7xl mx-auto px-8 py-8">
         <div
           class="grid grid-cols-1 md:grid-cols-4 gap-0 divide-y md:divide-y-0 md:divide-x divide-coffee-800 dark:divide-gray-800"
         >
-          <!-- Brand -->
           <div class="pr-0 md:pr-8 pb-6 md:pb-0">
             <div class="flex items-center gap-3 mb-4">
               <img
@@ -691,9 +766,8 @@
               />
               <span
                 class="text-litter-700 text-center font-bold text-xl uppercase leading-tight"
+                >Apsara<br />Restaurant</span
               >
-                Apsara<br />Restaurant
-              </span>
             </div>
             <p
               class="text-coffee-300 dark:text-gray-400 text-sm leading-relaxed mb-5"
@@ -706,41 +780,35 @@
                 href="#"
                 aria-label="Facebook"
                 class="w-9 h-9 rounded-full bg-coffee-700 dark:bg-gray-800 hover:bg-litter-700 hover:text-coffee-900 flex items-center justify-center transition-all duration-200"
-              >
-                <i class="fab fa-facebook-f text-sm"></i>
-              </a>
+                ><i class="fab fa-facebook-f text-sm"></i
+              ></a>
               <a
                 href="#"
                 aria-label="Instagram"
                 class="w-9 h-9 rounded-full bg-coffee-700 dark:bg-gray-800 hover:bg-litter-700 hover:text-coffee-900 flex items-center justify-center transition-all duration-200"
-              >
-                <i class="fab fa-instagram text-sm"></i>
-              </a>
+                ><i class="fab fa-instagram text-sm"></i
+              ></a>
               <a
                 href="#"
                 aria-label="TikTok"
                 class="w-9 h-9 rounded-full bg-coffee-700 dark:bg-gray-800 hover:bg-litter-700 hover:text-coffee-900 flex items-center justify-center transition-all duration-200"
-              >
-                <i class="fab fa-tiktok text-sm"></i>
-              </a>
+                ><i class="fab fa-tiktok text-sm"></i
+              ></a>
               <a
                 href="#"
                 aria-label="YouTube"
                 class="w-9 h-9 rounded-full bg-coffee-700 dark:bg-gray-800 hover:bg-litter-700 hover:text-coffee-900 flex items-center justify-center transition-all duration-200"
-              >
-                <i class="fab fa-youtube text-sm"></i>
-              </a>
+                ><i class="fab fa-youtube text-sm"></i
+              ></a>
               <a
                 href="#"
                 aria-label="Telegram"
                 class="w-9 h-9 rounded-full bg-coffee-700 dark:bg-gray-800 hover:bg-litter-700 hover:text-coffee-900 flex items-center justify-center transition-all duration-200"
-              >
-                <i class="fab fa-telegram text-sm"></i>
-              </a>
+                ><i class="fab fa-telegram text-sm"></i
+              ></a>
             </div>
           </div>
 
-          <!-- Opening hours -->
           <div class="px-0 md:px-8 py-6 md:py-0">
             <h4
               class="text-white font-semibold text-base mb-5 pb-2 border-b border-coffee-700 dark:border-gray-700"
@@ -749,16 +817,16 @@
             </h4>
             <ul class="space-y-2.5 text-sm text-coffee-300 dark:text-gray-400">
               <li class="flex justify-between gap-4">
-                <span>Mon – Fri</span>
-                <span class="text-white">7:00 AM – 9:00 PM</span>
+                <span>Mon – Fri</span
+                ><span class="text-white">7:00 AM – 9:00 PM</span>
               </li>
               <li class="flex justify-between gap-4">
-                <span>Sat – Sun</span>
-                <span class="text-white">6:00 AM – 11:00 PM</span>
+                <span>Sat – Sun</span
+                ><span class="text-white">6:00 AM – 11:00 PM</span>
               </li>
               <li class="flex justify-between gap-4">
-                <span>Public Holiday</span>
-                <span class="text-red-400">Closed</span>
+                <span>Public Holiday</span
+                ><span class="text-red-400">Closed</span>
               </li>
             </ul>
             <div
@@ -771,7 +839,6 @@
             </div>
           </div>
 
-          <!-- Contact -->
           <div class="pl-0 md:pl-8 pt-6 md:pt-0">
             <h4
               class="text-white font-semibold text-base mb-5 pb-2 border-b border-coffee-700 dark:border-gray-700"
@@ -780,28 +847,28 @@
             </h4>
             <ul class="space-y-3 text-sm text-coffee-300 dark:text-gray-400">
               <li class="flex items-start gap-3">
-                <i class="fas fa-map-marker-alt text-litter-700 mt-0.5 w-4"></i>
-                <span>Street 123, Phnom Penh, Cambodia</span>
+                <i class="fas fa-map-marker-alt text-litter-700 mt-0.5 w-4"></i
+                ><span>Street 123, Phnom Penh, Cambodia</span>
               </li>
               <li class="flex items-center gap-3">
-                <i class="fas fa-phone text-litter-700 w-4"></i>
-                <a
+                <i class="fas fa-phone text-litter-700 w-4"></i
+                ><a
                   href="tel:+85512345678"
                   class="hover:text-litter-700 transition"
                   >+855 12 345 678</a
                 >
               </li>
               <li class="flex items-center gap-3">
-                <i class="fas fa-envelope text-litter-700 w-4"></i>
-                <a
+                <i class="fas fa-envelope text-litter-700 w-4"></i
+                ><a
                   href="mailto:info@apsara.com"
                   class="hover:text-litter-700 transition"
                   >info@apsara.com</a
                 >
               </li>
               <li class="flex items-center gap-3">
-                <i class="fab fa-telegram text-litter-700 w-4"></i>
-                <a href="#" class="hover:text-litter-700 transition"
+                <i class="fab fa-telegram text-litter-700 w-4"></i
+                ><a href="#" class="hover:text-litter-700 transition"
                   >@apsararestaurant</a
                 >
               </li>
@@ -817,11 +884,11 @@
             <div class="flex items-center justify-center gap-3 mb-4">
               <img
                 src="./picture/istad (1).png"
-                alt="Ministry of Tourism logo"
-                class="w-20 h-20 object-contain"
+                alt="ISTAD logo"
+                class="w-20 h-20 sm:w-12 sm:h-12 lg:w-14 lg:h-14 object-contain"
               />
               <span
-                class="text-litter-700 text-center font-bold text-2xl uppercase leading-tight"
+                class="text-litter-700 text-center font-bold uppercase leading-tight text-sm sm:text-base lg:text-lg"
               >
                 ISTAD<br />Cambodia
               </span>
@@ -847,14 +914,9 @@
       </div>
     </footer>
 
-    <!-- ══════════════════════════════════════════
-         JAVASCRIPT
-    ══════════════════════════════════════════ -->
     <script>
-      /* ════════════════════════════════════════════
-         1. MENU DATA
-      ════════════════════════════════════════════ */
-      const menuItems = {
+      // menu data
+      var menuItems = {
         coffee: [
           {
             id: 1,
@@ -883,7 +945,7 @@
             image:
               "https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?auto=format&fit=crop&w=600&q=80",
             description:
-              "Hot coffee, Irish whiskey, and sugar, topped with thick cream.",
+              "Hot coffee, Irish whiskey, and sugar topped with thick cream.",
           },
           {
             id: 4,
@@ -934,13 +996,12 @@
           },
           {
             id: 9,
-            name: "Caramel-latte",
+            name: "Caramel Latte",
             price: 5.5,
             category: "coffee",
             image:
               "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-ORnyko76qFbcmANQpzS26J7Jrhb_HIB47g&s",
-            description:
-              "A scoop of vanilla ice cream topped with a shot of hot espresso.",
+            description: "Creamy caramel latte with a smooth espresso base.",
           },
         ],
         food: [
@@ -951,7 +1012,7 @@
             category: "food",
             image: "./picture/brakefast/បាយសាច់ជ្រូក.jpg",
             description:
-              "Sourdough bread topped with avocado, cherry tomatoes, and feta cheese.",
+              "Cambodian grilled pork rice, a beloved morning staple.",
           },
           {
             id: 11,
@@ -959,7 +1020,7 @@
             price: 3.75,
             category: "food",
             image: "./picture/brakefast/បាយមាន់ហៃណាំ.jpg",
-            description: "Freshly baked muffin packed with juicy blueberries.",
+            description: "Hainanese-style chicken rice with fragrant broth.",
           },
           {
             id: 12,
@@ -967,7 +1028,7 @@
             price: 3.75,
             category: "food",
             image: "./picture/brakefast/បាយឆាឡុកឡាក់.jpg",
-            description: "Buttery, flaky French pastry.",
+            description: "Stir-fried lok lak beef served over steamed rice.",
           },
           {
             id: 13,
@@ -975,8 +1036,7 @@
             price: 3.5,
             category: "food",
             image: "./picture/brakefast/បាយផាកឡូវ.jpg",
-            description:
-              "Egg, cheese, and bacon or sausage on an English muffin.",
+            description: "Rice with fresh morning glory and a soft egg.",
           },
           {
             id: 14,
@@ -984,7 +1044,7 @@
             price: 4.0,
             category: "food",
             image: "./picture/brakefast/គុយទាវពិសេស.jpg",
-            description: "Greek yogurt layered with granola and fresh berries.",
+            description: "Special Khmer noodle soup with pork and fresh herbs.",
           },
           {
             id: 15,
@@ -992,15 +1052,17 @@
             price: 2.75,
             category: "food",
             image: "./picture/brakefast/បបរគ្រឿង.jpg",
-            description: "Classic cookie with melty chocolate chips.",
+            description:
+              "Spiced Cambodian rice porridge, perfect for breakfast.",
           },
           {
             id: 16,
-            name: "Khmer Noddle",
+            name: "Khmer Noodle",
             price: 3.0,
             category: "food",
             image: "./picture/brakefast/នំបញ្ចុក.jpg",
-            description: "Moist bread made with ripe bananas and walnuts.",
+            description:
+              "Num banh chok with green fish curry sauce and fresh vegetables.",
           },
           {
             id: 17,
@@ -1008,7 +1070,8 @@
             price: 3.25,
             category: "food",
             image: "./picture/brakefast/ការីនំបុ័ង.jpg",
-            description: "Savory pie filled with spinach, cheese, and eggs.",
+            description:
+              "Soft baguette filled with savory Cambodian-style curry.",
           },
           {
             id: 18,
@@ -1016,7 +1079,8 @@
             price: 2.75,
             category: "food",
             image: "./picture/brakefast/លតឆា.jpg",
-            description: "Tangy lemon custard in a buttery crust.",
+            description:
+              "Stir-fried morning glory with garlic and oyster sauce.",
           },
         ],
         mainDish: [
@@ -1035,7 +1099,7 @@
             price: 5.0,
             category: "mainDish",
             image: "./picture/main-course/ឆាងាវអំពិលទំ.jpg",
-            description: "Traditional Khmer dish with tamarind and beef.",
+            description: "Tender beef stir-fried with fresh tamarind leaves.",
           },
           {
             id: 21,
@@ -1044,7 +1108,7 @@
             category: "mainDish",
             image: "./picture/main-course/ឆាជូអែម.jpeg",
             description:
-              "Fragrant fried rice with vegetables, egg, and your choice of protein.",
+              "Sweet and sour stir-fry with mixed vegetables and pork.",
           },
           {
             id: 22,
@@ -1052,8 +1116,7 @@
             price: 5.5,
             category: "mainDish",
             image: "./picture/main-course/ឆាមីសួគ្រឿងសមុទ្រ.jpg",
-            description:
-              "Khmer rice noodles topped with fish-based green curry sauce.",
+            description: "Glass noodles stir-fried with fresh seafood.",
           },
           {
             id: 23,
@@ -1061,7 +1124,8 @@
             price: 6.0,
             category: "mainDish",
             image: "./picture/main-course/នំបញ្ចុកទឹកប្រហុក.jpeg",
-            description: "Rice noodle soup with pork or beef and fresh herbs.",
+            description:
+              "Rice noodles served with fermented fish sauce and fresh herbs.",
           },
           {
             id: 24,
@@ -1070,7 +1134,7 @@
             category: "mainDish",
             image: "./picture/main-course/ពងទាចៀនត្រីប្រម៉ា.jpg",
             description:
-              "Marinated pork skewers grilled to perfection, served with dipping sauce.",
+              "Duck egg fried with tilapia fish, a classic Khmer combo.",
           },
           {
             id: 25,
@@ -1079,7 +1143,7 @@
             category: "mainDish",
             image: "./picture/main-course/មច្ឆាដុតខ្លួន.jpg",
             description:
-              "Rich and flavorful chicken curry cooked with coconut milk and spices.",
+              "Whole grilled fish marinated in Khmer herbs and spices.",
           },
           {
             id: 26,
@@ -1088,7 +1152,7 @@
             category: "mainDish",
             image: "./picture/main-course/សម្លម្ជូតបង្គារ.jpg",
             description:
-              "A colorful mix of fresh vegetables stir-fried with garlic and soy sauce.",
+              "Sour prawn soup with lemongrass and fresh vegetables.",
           },
           {
             id: 27,
@@ -1096,8 +1160,7 @@
             price: 15.0,
             category: "mainDish",
             image: "./picture/main-course/មាន់ដុត.jpg",
-            description:
-              "Hearty soup made with tender pork ribs, vegetables, and herbs.",
+            description: "Whole roasted chicken rubbed with Khmer spice blend.",
           },
           {
             id: 28,
@@ -1126,7 +1189,7 @@
             category: "dessert",
             image: "./picture/dessert/នំអន្សមជ្រូក.jpg",
             description:
-              "The aroma of pepper and pork belly mixed with rice and beans.",
+              "Pepper and pork belly mixed with rice and beans in banana leaf.",
           },
           {
             id: 31,
@@ -1135,7 +1198,7 @@
             category: "dessert",
             image: "./picture/dessert/អន្សមចេក.jpg",
             description:
-              "The sweet, mild flavor of ripe Namwa bananas permeates the coconut-flavored sticky rice.",
+              "Sweet sticky rice with ripe Namwa banana and coconut milk.",
           },
           {
             id: 32,
@@ -1144,7 +1207,7 @@
             category: "dessert",
             image: "./picture/dessert/nomក្រូច.jpg",
             description:
-              "Crispy on the outside, soft and chewy on the inside, filled with bean curd.",
+              "Crispy on the outside, soft inside, filled with bean curd.",
           },
           {
             id: 33,
@@ -1152,7 +1215,8 @@
             price: 0.75,
             category: "dessert",
             image: "./picture/dessert/ចាក់ច័ន្ទ.jpg",
-            description: "The beauty of the colorful layers mixed with the scent of the leaves.",
+            description:
+              "Colorful layered dessert with a delicate leaf fragrance.",
           },
           {
             id: 34,
@@ -1160,7 +1224,7 @@
             price: 1.25,
             category: "dessert",
             image: "./picture/dessert/Numslerksork.jpg",
-            description: "A soft, fluffy dough that absorbs the aroma of fresh banana leaves.",
+            description: "Soft fluffy dough wrapped in fresh banana leaves.",
           },
           {
             id: 35,
@@ -1168,7 +1232,7 @@
             price: 1.75,
             category: "dessert",
             image: "./picture/dessert/អាកោត្នោត.jpg",
-            description: "Harvesting ripe palm flesh from natural palm trees.",
+            description: "Traditional palm fruit cake with natural sweetness.",
           },
           {
             id: 36,
@@ -1176,7 +1240,7 @@
             price: 2.25,
             category: "dessert",
             image: "./picture/dessert/សង់ខ្យា.jpg",
-            description: "Sweet, melt-in-your-mouth flavor with pumpkin flesh.",
+            description: "Coconut custard steamed inside a whole pumpkin.",
           },
           {
             id: 37,
@@ -1184,7 +1248,7 @@
             price: 1.25,
             category: "dessert",
             image: "./picture/dessert/numល្ពៅ.jpg",
-            description: "The delicious heritage of golden pumpkin cake, made by mom",
+            description: "Golden pumpkin cake, a cherished family recipe.",
           },
           {
             id: 38,
@@ -1192,7 +1256,7 @@
             price: 1.25,
             category: "dessert",
             image: "./picture/dessert/numគម.jpg",
-            description: "Small shape but have flover inside.",
+            description: "Small round cake with a sweet filling inside.",
           },
         ],
         beverage: [
@@ -1284,16 +1348,14 @@
         ],
       };
 
-      // Flat array of all items for easy lookup
-      const allItems = Object.values(menuItems).flat();
+      // flat list for quick lookups
+      var allItems = Object.values(menuItems).flat();
 
-      /* ════════════════════════════════════════════
-         2. TOAST HELPER
-      ════════════════════════════════════════════ */
-      let toastTimer = null;
-
-      function showToast(msg, type = "success") {
-        const toast = document.getElementById("toast");
+      // toast helper
+      var toastTimer = null;
+      function showToast(msg, type) {
+        type = type || "success";
+        var toast = document.getElementById("toast");
         document.getElementById("toast-icon").className =
           type === "success"
             ? "fas fa-check-circle text-green-400"
@@ -1301,52 +1363,45 @@
         document.getElementById("toast-msg").textContent = msg;
         toast.classList.add("show");
         clearTimeout(toastTimer);
-        toastTimer = setTimeout(() => toast.classList.remove("show"), 2500);
+        toastTimer = setTimeout(function () {
+          toast.classList.remove("show");
+        }, 2500);
       }
 
-      /* ════════════════════════════════════════════
-         3. ITEM REVIEWS  (persisted in localStorage)
-      ════════════════════════════════════════════ */
-      function getItemReviews(itemId) {
+      // review helpers (stored in localStorage per item)
+      function getReviews(itemId) {
         try {
           return (
-            JSON.parse(localStorage.getItem(`item_reviews_${itemId}`)) || []
+            JSON.parse(localStorage.getItem("item_reviews_" + itemId)) || []
           );
-        } catch {
+        } catch (e) {
           return [];
         }
       }
-
-      function saveItemReviews(itemId, reviews) {
-        localStorage.setItem(`item_reviews_${itemId}`, JSON.stringify(reviews));
+      function saveReviews(itemId, list) {
+        localStorage.setItem("item_reviews_" + itemId, JSON.stringify(list));
       }
-
-      function getItemStats(itemId) {
-        const reviews = getItemReviews(itemId);
+      function getStats(itemId) {
+        var reviews = getReviews(itemId);
         if (!reviews.length)
           return { avg: 0, count: 0, breakdown: [0, 0, 0, 0, 0] };
-
-        const breakdown = [0, 0, 0, 0, 0];
-        let total = 0;
-        reviews.forEach((r) => {
+        var breakdown = [0, 0, 0, 0, 0];
+        var total = 0;
+        reviews.forEach(function (r) {
           total += r.rating;
           breakdown[r.rating - 1]++;
         });
-
         return {
           avg: (total / reviews.length).toFixed(1),
           count: reviews.length,
-          breakdown,
+          breakdown: breakdown,
         };
       }
 
-      /* ════════════════════════════════════════════
-         4. ITEM REVIEW MODAL
-      ════════════════════════════════════════════ */
-      let currentReviewItemId = null;
-      let itemSelectedRating = 0;
-
-      const itemRatingLabels = [
+      // item review modal
+      var currentItemId = null;
+      var selectedRating = 0;
+      var ratingLabels = [
         "",
         "មិនពេញចិត្ត",
         "ល្មមប្រហែល",
@@ -1355,60 +1410,59 @@
         "ល្អឥតខ្ចោះ!",
       ];
 
-      function openItemReview(itemId) {
-        const item = allItems.find((i) => i.id === itemId);
+      function openReview(itemId) {
+        var item = allItems.find(function (i) {
+          return i.id === itemId;
+        });
         if (!item) return;
-
-        currentReviewItemId = itemId;
-        itemSelectedRating = 0;
+        currentItemId = itemId;
+        selectedRating = 0;
 
         document.getElementById("modal-item-img").src = item.image;
         document.getElementById("modal-item-name").textContent = item.name;
         document.getElementById("item-review-name").value = "";
         document.getElementById("item-review-comment").value = "";
         document.getElementById("item-review-error").classList.add("hidden");
+        updateStarPicker(0);
+        renderModalStats(itemId);
+        renderReviewList(itemId);
 
-        updateItemStars(0);
-        renderItemModalStats(itemId);
-        renderItemReviewsList(itemId);
-
-        const modal = document.getElementById("item-review-modal");
-        const panel = document.getElementById("item-review-panel");
+        var modal = document.getElementById("item-review-modal");
+        var panel = document.getElementById("item-review-panel");
         panel.style.transform = "translateY(40px)";
         modal.classList.remove("hidden");
         modal.style.opacity = "0";
         document.body.style.overflow = "hidden";
-
-        requestAnimationFrame(() => {
+        requestAnimationFrame(function () {
           modal.style.opacity = "1";
           panel.style.transform = "translateY(0)";
         });
       }
 
-      function closeItemReview() {
-        const modal = document.getElementById("item-review-modal");
+      function closeReview() {
+        var modal = document.getElementById("item-review-modal");
         modal.style.opacity = "0";
-        setTimeout(() => {
+        setTimeout(function () {
           modal.classList.add("hidden");
           document.body.style.overflow = "";
-          currentReviewItemId = null;
+          currentItemId = null;
         }, 220);
       }
 
-      function renderItemModalStats(itemId) {
-        const stats = getItemStats(itemId);
+      function renderModalStats(itemId) {
+        var stats = getStats(itemId);
 
         document.getElementById("modal-avg-stars").innerHTML = [1, 2, 3, 4, 5]
-          .map((i) => {
-            const full = i <= Math.floor(stats.avg);
-            const half =
+          .map(function (i) {
+            var full = i <= Math.floor(stats.avg);
+            var half =
               !full && i <= Math.ceil(stats.avg) && stats.avg % 1 >= 0.5;
-            const cls = full
+            var cls = full
               ? "text-litter-700"
               : half
                 ? "text-litter-700 opacity-60"
                 : "text-coffee-200 dark:text-gray-600";
-            return `<i class="fas fa-star text-xs ${cls}"></i>`;
+            return '<i class="fas fa-star text-xs ' + cls + '"></i>';
           })
           .join("");
 
@@ -1416,47 +1470,54 @@
           ? stats.avg
           : "";
         document.getElementById("modal-review-count").textContent = stats.count
-          ? `(${stats.count} review)`
+          ? "(" + stats.count + " review)"
           : "មិនទាន់មាន review";
 
-        const breakdownEl = document.getElementById("modal-breakdown");
+        var breakdownEl = document.getElementById("modal-breakdown");
         if (!stats.count) {
           breakdownEl.innerHTML = "";
           return;
         }
 
         breakdownEl.innerHTML = [5, 4, 3, 2, 1]
-          .map((star) => {
-            const count = stats.breakdown[star - 1];
-            const pct = Math.round((count / stats.count) * 100);
-            return `
-              <div class="flex items-center gap-2">
-                <span class="text-xs text-coffee-500 dark:text-coffee-400 w-4 text-right">${star}</span>
-                <i class="fas fa-star text-litter-700 text-xs"></i>
-                <div class="flex-1 h-1.5 bg-coffee-200 dark:bg-gray-700 rounded-full overflow-hidden">
-                  <div class="rating-bar-fill h-full bg-litter-700 rounded-full" style="width:${pct}%"></div>
-                </div>
-                <span class="text-xs text-coffee-400 w-6">${count}</span>
-              </div>`;
+          .map(function (star) {
+            var count = stats.breakdown[star - 1];
+            var pct = Math.round((count / stats.count) * 100);
+            return (
+              '<div class="flex items-center gap-2">' +
+              '<span class="text-xs text-coffee-500 dark:text-coffee-400 w-4 text-right">' +
+              star +
+              "</span>" +
+              '<i class="fas fa-star text-litter-700 text-xs"></i>' +
+              '<div class="flex-1 h-1.5 bg-coffee-200 dark:bg-gray-700 rounded-full overflow-hidden">' +
+              '<div class="rating-bar-fill h-full bg-litter-700 rounded-full" style="width:' +
+              pct +
+              '%"></div>' +
+              "</div>" +
+              '<span class="text-xs text-coffee-400 w-6">' +
+              count +
+              "</span>" +
+              "</div>"
+            );
           })
           .join("");
       }
 
-      function renderItemReviewsList(itemId) {
-        const reviews = getItemReviews(itemId);
-        const listEl = document.getElementById("item-reviews-list");
+      function renderReviewList(itemId) {
+        var reviews = getReviews(itemId);
+        var listEl = document.getElementById("item-reviews-list");
 
         if (!reviews.length) {
-          listEl.innerHTML = `
-            <div class="text-center py-10 text-coffee-300 dark:text-gray-600">
-              <i class="fas fa-comment-slash text-3xl mb-2 block"></i>
-              <p class="text-sm">មិនទាន់មាន review សម្រាប់ម្ហូបនេះ</p>
-              <p class="text-xs mt-1 opacity-70">សូមជាអ្នកដំបូងបង្អស់!</p>
-            </div>`;
+          listEl.innerHTML =
+            '<div class="text-center py-10 text-coffee-300 dark:text-gray-600">' +
+            '<i class="fas fa-comment-slash text-3xl mb-2 block"></i>' +
+            '<p class="text-sm">មិនទាន់មាន review សម្រាប់ម្ហូបនេះ</p>' +
+            '<p class="text-xs mt-1 opacity-70">សូមជាអ្នកដំបូងបង្អស់!</p>' +
+            "</div>";
           return;
         }
 
-        const avatarColors = [
+        var avatarColors = [
           "bg-coffee-200 text-coffee-700",
           "bg-amber-100 text-amber-700",
           "bg-green-100 text-green-700",
@@ -1465,118 +1526,134 @@
         ];
 
         listEl.innerHTML =
-          `<div class="divide-y divide-coffee-50 dark:divide-gray-800 px-6">` +
+          '<div class="divide-y divide-coffee-50 dark:divide-gray-800 px-6">' +
           reviews
             .slice()
             .reverse()
-            .map((r) => {
-              const stars = [1, 2, 3, 4, 5]
-                .map(
-                  (i) =>
-                    `<i class="fas fa-star text-xs ${i <= r.rating ? "text-litter-700" : "text-coffee-200 dark:text-gray-600"}"></i>`,
-                )
+            .map(function (r) {
+              var stars = [1, 2, 3, 4, 5]
+                .map(function (i) {
+                  return (
+                    '<i class="fas fa-star text-xs ' +
+                    (i <= r.rating
+                      ? "text-litter-700"
+                      : "text-coffee-200 dark:text-gray-600") +
+                    '"></i>'
+                  );
+                })
                 .join("");
-              const initial = r.name.charAt(0).toUpperCase();
-              const colorClass =
+              var initial = r.name.charAt(0).toUpperCase();
+              var colorClass =
                 avatarColors[r.name.charCodeAt(0) % avatarColors.length];
-              return `
-                <div class="py-4">
-                  <div class="flex items-center justify-between mb-1.5">
-                    <div class="flex items-center gap-2">
-                      <div class="w-8 h-8 rounded-full ${colorClass} flex items-center justify-center font-bold text-xs flex-shrink-0">${initial}</div>
-                      <div>
-                        <p class="font-semibold text-coffee-800 dark:text-coffee-200 text-sm leading-none">${r.name}</p>
-                        <p class="text-xs text-coffee-400 mt-0.5">${r.date}</p>
-                      </div>
-                    </div>
-                    <div class="flex gap-0.5">${stars}</div>
-                  </div>
-                  <p class="text-coffee-600 dark:text-coffee-400 text-sm leading-relaxed pl-10">${r.comment}</p>
-                </div>`;
+              return (
+                '<div class="py-4">' +
+                '<div class="flex items-center justify-between mb-1.5">' +
+                '<div class="flex items-center gap-2">' +
+                '<div class="w-8 h-8 rounded-full ' +
+                colorClass +
+                ' flex items-center justify-center font-bold text-xs flex-shrink-0">' +
+                initial +
+                "</div>" +
+                '<div><p class="font-semibold text-coffee-800 dark:text-coffee-200 text-sm leading-none">' +
+                r.name +
+                "</p>" +
+                '<p class="text-xs text-coffee-400 mt-0.5">' +
+                r.date +
+                "</p></div>" +
+                "</div>" +
+                '<div class="flex gap-0.5">' +
+                stars +
+                "</div>" +
+                "</div>" +
+                '<p class="text-coffee-600 dark:text-coffee-400 text-sm leading-relaxed pl-10">' +
+                r.comment +
+                "</p>" +
+                "</div>"
+              );
             })
             .join("") +
-          `</div>`;
+          "</div>";
       }
 
-      function updateItemStars(val) {
-        document.querySelectorAll(".item-star-btn").forEach((s, i) => {
+      function updateStarPicker(val) {
+        document.querySelectorAll(".item-star-btn").forEach(function (s, i) {
           s.classList.toggle("active", i < val);
           s.style.color = i < val ? "#FFB700" : "";
         });
         document.getElementById("item-star-label").textContent =
-          val > 0 ? itemRatingLabels[val] : "ជ្រើសរើសផ្កាយ";
+          val > 0 ? ratingLabels[val] : "ជ្រើសរើសផ្កាយ";
       }
 
-      function submitItemReview() {
-        const name = document.getElementById("item-review-name").value.trim();
-        const comment = document
+      function submitReview() {
+        var name = document.getElementById("item-review-name").value.trim();
+        var comment = document
           .getElementById("item-review-comment")
           .value.trim();
-        const errEl = document.getElementById("item-review-error");
+        var errEl = document.getElementById("item-review-error");
 
-        if (!name || !comment || itemSelectedRating === 0) {
+        if (!name || !comment || selectedRating === 0) {
           errEl.classList.remove("hidden");
           return;
         }
         errEl.classList.add("hidden");
 
-        const reviews = getItemReviews(currentReviewItemId);
+        var reviews = getReviews(currentItemId);
         reviews.push({
-          name,
-          comment,
-          rating: itemSelectedRating,
+          name: name,
+          comment: comment,
+          rating: selectedRating,
           date: new Date().toLocaleDateString("km-KH", {
             year: "numeric",
             month: "short",
             day: "numeric",
           }),
         });
-        saveItemReviews(currentReviewItemId, reviews);
+        saveReviews(currentItemId, reviews);
 
-        // Reset form
         document.getElementById("item-review-name").value = "";
         document.getElementById("item-review-comment").value = "";
-        itemSelectedRating = 0;
-        updateItemStars(0);
+        selectedRating = 0;
+        updateStarPicker(0);
 
-        renderItemModalStats(currentReviewItemId);
-        renderItemReviewsList(currentReviewItemId);
+        renderModalStats(currentItemId);
+        renderReviewList(currentItemId);
 
-        // Animate newest review
-        const first = document
+        var first = document
           .getElementById("item-reviews-list")
           .querySelector(".py-4");
         if (first) first.classList.add("review-new");
 
-        refreshCardReviewBadge(currentReviewItemId);
+        refreshCardBadge(currentItemId);
         showToast("Review បានបញ្ជូនដោយជោគជ័យ!");
       }
 
-      function refreshCardReviewBadge(itemId) {
-        const stats = getItemStats(itemId);
-        const badge = document.querySelector(
-          `.review-badge[data-item-id="${itemId}"]`,
+      function refreshCardBadge(itemId) {
+        var stats = getStats(itemId);
+        var badge = document.querySelector(
+          '.review-badge[data-item-id="' + itemId + '"]',
         );
         if (!badge) return;
         badge.querySelector(".badge-star").textContent =
-          stats.count > 0 ? `⭐ ${stats.avg}` : "⭐ -";
+          stats.count > 0 ? "⭐ " + stats.avg : "⭐ -";
         badge.querySelector(".badge-count").textContent =
-          stats.count > 0 ? `(${stats.count})` : "";
+          stats.count > 0 ? "(" + stats.count + ")" : "";
         badge.classList.toggle("opacity-50", stats.count === 0);
       }
 
-      /* ════════════════════════════════════════════
-         5. CART
-      ════════════════════════════════════════════ */
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      // cart
+      var cart = JSON.parse(localStorage.getItem("cart")) || [];
 
       function addToCart(itemId) {
-        const item = allItems.find((i) => i.id === itemId);
+        var item = allItems.find(function (i) {
+          return i.id === itemId;
+        });
         if (!item) return;
 
-        const existing = cart.find((i) => i.id === itemId);
+        var existing = cart.find(function (i) {
+          return i.id === itemId;
+        });
         if (existing) {
-          existing.quantity += 1;
+          existing.quantity++;
         } else {
           cart.push({
             id: item.id,
@@ -1586,18 +1663,21 @@
             quantity: 1,
           });
         }
-
         updateCart();
-        showToast(`Added"${item.name}" to order!`);
+        showToast('Added "' + item.name + '" to order!');
       }
 
       function removeFromCart(itemId) {
-        cart = cart.filter((i) => i.id !== itemId);
+        cart = cart.filter(function (i) {
+          return i.id !== itemId;
+        });
         updateCart();
       }
 
       function updateQuantity(itemId, newQty) {
-        const item = cart.find((i) => i.id === itemId);
+        var item = cart.find(function (i) {
+          return i.id === itemId;
+        });
         if (!item) return;
         if (newQty <= 0) removeFromCart(itemId);
         else {
@@ -1609,61 +1689,95 @@
       function updateCart() {
         localStorage.setItem("cart", JSON.stringify(cart));
 
-        const total = cart.reduce((s, i) => s + i.quantity, 0);
-        const countEl = document.getElementById("cart-count");
+        var total = cart.reduce(function (s, i) {
+          return s + i.quantity;
+        }, 0);
+        var countEl = document.getElementById("cart-count");
         countEl.textContent = total;
         countEl.classList.toggle("hidden", total === 0);
 
-        const cartItemsEl = document.getElementById("cart-items");
-        const emptyMsg = document.getElementById("empty-cart-message");
+        // update item count label in sidebar header
+        var label = document.getElementById("cart-item-count-label");
+        if (label)
+          label.textContent =
+            total === 0 ? "0 items" : total + " item" + (total > 1 ? "s" : "");
+
+        var cartItemsEl = document.getElementById("cart-items");
+        var emptyMsg = document.getElementById("empty-cart-message");
         if (!cartItemsEl) return;
 
         cartItemsEl.innerHTML = "";
 
         if (cart.length === 0) {
-          emptyMsg?.classList.remove("hidden");
-          ["cart-subtotal", "cart-tax", "cart-total"].forEach((id) => {
-            const el = document.getElementById(id);
+          emptyMsg && emptyMsg.classList.remove("hidden");
+          cartItemsEl.classList.add("hidden");
+          ["cart-subtotal", "cart-tax", "cart-total"].forEach(function (id) {
+            var el = document.getElementById(id);
             if (el) el.textContent = "$0.00";
           });
           return;
         }
 
-        emptyMsg?.classList.add("hidden");
-        let subtotal = 0;
+        emptyMsg && emptyMsg.classList.add("hidden");
+        cartItemsEl.classList.remove("hidden");
 
-        cart.forEach((item) => {
+        var subtotal = 0;
+        cart.forEach(function (item) {
           subtotal += item.price * item.quantity;
-          const el = document.createElement("div");
-          el.className =
-            "py-4 flex gap-3 border-b border-gray-100 dark:border-gray-700";
-          el.innerHTML = `
-            <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-lg flex-shrink-0" />
-            <div class="flex-1 min-w-0">
-              <h4 class="font-medium text-sm truncate">${item.name}</h4>
-              <p class="text-xs text-gray-500 mt-0.5">$${item.price.toFixed(2)}</p>
-              <div class="flex items-center gap-2 mt-2">
-                <button onclick="updateQuantity(${item.id}, ${item.quantity - 1})"
-                  class="w-6 h-6 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center text-sm hover:bg-coffee-200 transition">−</button>
-                <span class="text-sm font-bold w-4 text-center">${item.quantity}</span>
-                <button onclick="updateQuantity(${item.id}, ${item.quantity + 1})"
-                  class="w-6 h-6 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center text-sm hover:bg-coffee-200 transition">+</button>
-              </div>
-            </div>
-            <button onclick="removeFromCart(${item.id})"
-              class="text-red-400 hover:text-red-600 transition self-start mt-1" aria-label="Remove item">
-              <i class="fas fa-trash text-sm"></i>
-            </button>`;
+
+          var el = document.createElement("div");
+          el.className = "cart-item flex gap-3 py-3 px-2 rounded-xl mb-1";
+          el.innerHTML =
+            '<img src="' +
+            item.image +
+            '" alt="' +
+            item.name +
+            '" class="w-16 h-16 object-cover rounded-xl flex-shrink-0" />' +
+            '<div class="flex-1 min-w-0">' +
+            '<div class="flex items-start justify-between gap-1">' +
+            '<h4 class="font-semibold text-sm text-coffee-800 dark:text-coffee-100 leading-tight truncate">' +
+            item.name +
+            "</h4>" +
+            '<button class="remove-btn text-red-400 hover:text-red-500 transition ml-1 flex-shrink-0" onclick="removeFromCart(' +
+            item.id +
+            ')" aria-label="Remove">' +
+            '<i class="fas fa-times text-xs"></i>' +
+            "</button>" +
+            "</div>" +
+            '<p class="text-xs text-coffee-400 mt-0.5">$' +
+            item.price.toFixed(2) +
+            " each</p>" +
+            '<div class="flex items-center justify-between mt-2">' +
+            '<div class="flex items-center gap-2 bg-coffee-50 dark:bg-gray-800 rounded-full px-1 py-0.5">' +
+            '<button class="qty-btn bg-coffee-200 dark:bg-gray-700 text-coffee-800 dark:text-white hover:bg-coffee-300" onclick="updateQuantity(' +
+            item.id +
+            "," +
+            (item.quantity - 1) +
+            ')">−</button>' +
+            '<span class="text-sm font-bold text-coffee-800 dark:text-white w-5 text-center">' +
+            item.quantity +
+            "</span>" +
+            '<button class="qty-btn bg-coffee-700 text-white hover:bg-coffee-800" onclick="updateQuantity(' +
+            item.id +
+            "," +
+            (item.quantity + 1) +
+            ')">+</button>' +
+            "</div>" +
+            '<span class="text-sm font-bold text-coffee-700 dark:text-litter-700">$' +
+            (item.price * item.quantity).toFixed(2) +
+            "</span>" +
+            "</div>" +
+            "</div>";
           cartItemsEl.appendChild(el);
         });
 
-        const tax = subtotal * 0.08;
-        const grand = subtotal + tax;
+        var tax = subtotal * 0.08;
+        var grand = subtotal + tax;
         document.getElementById("cart-subtotal").textContent =
-          `$${subtotal.toFixed(2)}`;
-        document.getElementById("cart-tax").textContent = `$${tax.toFixed(2)}`;
+          "$" + subtotal.toFixed(2);
+        document.getElementById("cart-tax").textContent = "$" + tax.toFixed(2);
         document.getElementById("cart-total").textContent =
-          `$${grand.toFixed(2)}`;
+          "$" + grand.toFixed(2);
       }
 
       function showCart() {
@@ -1673,7 +1787,6 @@
         document.getElementById("cart-overlay").classList.remove("hidden");
         document.body.style.overflow = "hidden";
       }
-
       function hideCart() {
         document
           .getElementById("cart-sidebar")
@@ -1681,38 +1794,31 @@
         document.getElementById("cart-overlay").classList.add("hidden");
         document.body.style.overflow = "";
       }
-
       function clearCart() {
         cart = [];
         updateCart();
-        showToast("Succesfully Payment Thank You!");
-        hideCart();
+        showToast("Payment successful! Thank you!");
       }
 
-      /* ════════════════════════════════════════════
-         6. PAYMENT MODAL
-      ════════════════════════════════════════════ */
+      // payment modal
       function openPayment() {
-        const totalText = document.getElementById("cart-total").textContent;
-        const totalVal = parseFloat(totalText.replace("$", ""));
+        var totalText = document.getElementById("cart-total").textContent;
+        var totalVal = parseFloat(totalText.replace("$", ""));
         if (totalVal <= 0) {
-          showToast("Please choose the food first!", "error");
+          showToast("Please add items first!", "error");
           return;
         }
         document.getElementById("payment-amount").textContent = totalText;
         document.getElementById("payment-modal").classList.remove("hidden");
         hideCart();
       }
-
       function closePayment() {
         document.getElementById("payment-modal").classList.add("hidden");
       }
 
-      /* ════════════════════════════════════════════
-         7. DARK MODE
-      ════════════════════════════════════════════ */
+      // dark mode
       function updateThemeIcons() {
-        const isDark = document.documentElement.classList.contains("dark");
+        var isDark = document.documentElement.classList.contains("dark");
         document.getElementById("icon-moon").classList.toggle("hidden", isDark);
         document.getElementById("icon-sun").classList.toggle("hidden", !isDark);
         document.getElementById("mobile-icon").className = isDark
@@ -1722,83 +1828,101 @@
           ? "Light Mode"
           : "Dark Mode";
       }
-
       function toggleTheme() {
-        const isDark = document.documentElement.classList.contains("dark");
+        var isDark = document.documentElement.classList.contains("dark");
         document.documentElement.classList.toggle("dark", !isDark);
         localStorage.setItem("color-theme", isDark ? "light" : "dark");
         updateThemeIcons();
       }
 
-      /* ════════════════════════════════════════════
-         8. MENU TABS + SEARCH + RENDERING
-      ════════════════════════════════════════════ */
-      let activeTab = "all";
-      let searchQuery = "";
+      // menu tabs + search
+      var activeTab = "all";
+      var searchQuery = "";
 
-      const TAB_ACTIVE = "bg-coffee-700 text-white shadow-md scale-105";
-      const TAB_INACTIVE =
+      var TAB_ACTIVE = "bg-coffee-700 text-white shadow-md scale-105";
+      var TAB_INACTIVE =
         "bg-coffee-100 dark:bg-gray-800 text-coffee-700 dark:text-coffee-300 hover:bg-coffee-200 dark:hover:bg-gray-700";
 
       function setActiveTab(tab) {
         activeTab = tab;
-        document.querySelectorAll(".tab-btn").forEach((btn) => {
-          const isActive = btn.getAttribute("data-tab") === tab;
-          btn.className = `tab-btn px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 ${isActive ? TAB_ACTIVE : TAB_INACTIVE}`;
+        document.querySelectorAll(".tab-btn").forEach(function (btn) {
+          var isActive = btn.getAttribute("data-tab") === tab;
+          btn.className =
+            "tab-btn px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 " +
+            (isActive ? TAB_ACTIVE : TAB_INACTIVE);
         });
         renderMenu();
       }
 
       function createMenuCard(item) {
-        const stats = getItemStats(item.id);
-        const hasReviews = stats.count > 0;
-        const badge = hasReviews
-          ? `<span class="badge-star text-xs font-bold text-litter-700">⭐ ${stats.avg}</span>
-             <span class="badge-count text-xs text-coffee-400">(${stats.count})</span>`
-          : `<span class="badge-star text-xs text-coffee-300 dark:text-gray-600">⭐ -</span>
-             <span class="badge-count text-xs"></span>`;
+        var stats = getStats(item.id);
+        var hasReviews = stats.count > 0;
+        var badge = hasReviews
+          ? '<span class="badge-star text-xs font-bold text-litter-700">⭐ ' +
+            stats.avg +
+            '</span><span class="badge-count text-xs text-coffee-400">(' +
+            stats.count +
+            ")</span>"
+          : '<span class="badge-star text-xs text-coffee-300 dark:text-gray-600">⭐ -</span><span class="badge-count text-xs"></span>';
 
-        return `
-          <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
-            <div class="relative">
-              <img src="${item.image}" alt="${item.name}" class="w-full h-48 object-cover" loading="lazy" />
-              <span class="absolute top-2 right-2 bg-coffee-850/80 text-litter-700 text-xs font-bold px-2 py-1 rounded-full">
-                $${item.price.toFixed(2)}
-              </span>
-            </div>
-            <div class="p-4 flex flex-col flex-1">
-              <div class="flex items-start justify-between mb-1 gap-2">
-                <h3 class="font-bold text-base text-coffee-800 dark:text-coffee-200 leading-tight">${item.name}</h3>
-                <div class="review-badge flex items-center gap-1 flex-shrink-0 ${hasReviews ? "" : "opacity-50"}" data-item-id="${item.id}">
-                  ${badge}
-                </div>
-              </div>
-              <p class="text-coffee-500 dark:text-coffee-400 text-sm mb-4 line-clamp-2 flex-1">${item.description}</p>
-              <div class="flex gap-2 mt-auto">
-                <button class="add-to-cart flex-1 bg-coffee-600 hover:bg-coffee-700 active:scale-95 text-white py-2 rounded-lg transition-all duration-200 text-sm font-medium" data-id="${item.id}">
-                  <i class="fas fa-plus mr-1 text-xs"></i> Add to Cart
-                </button>
-                <button class="open-item-review flex-shrink-0 w-10 h-9 flex items-center justify-center rounded-lg border-2 border-coffee-200 dark:border-gray-600 hover:border-litter-700 hover:text-litter-700 text-coffee-400 dark:text-coffee-500 transition-all duration-200"
-                  data-id="${item.id}" title="Review ម្ហូបនេះ" aria-label="Review item">
-                  <i class="fas fa-comment-alt text-sm"></i>
-                </button>
-              </div>
-            </div>
-          </div>`;
+        return (
+          '<div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">' +
+          '<div class="relative">' +
+          '<img src="' +
+          item.image +
+          '" alt="' +
+          item.name +
+          '" class="w-full h-48 object-cover" loading="lazy" />' +
+          '<span class="absolute top-2 right-2 bg-coffee-850/80 text-litter-700 text-xs font-bold px-2 py-1 rounded-full">$' +
+          item.price.toFixed(2) +
+          "</span>" +
+          "</div>" +
+          '<div class="p-4 flex flex-col flex-1">' +
+          '<div class="flex items-start justify-between mb-1 gap-2">' +
+          '<h3 class="font-bold text-base text-coffee-800 dark:text-coffee-200 leading-tight">' +
+          item.name +
+          "</h3>" +
+          '<div class="review-badge flex items-center gap-1 flex-shrink-0 ' +
+          (hasReviews ? "" : "opacity-50") +
+          '" data-item-id="' +
+          item.id +
+          '">' +
+          badge +
+          "</div>" +
+          "</div>" +
+          '<p class="text-coffee-500 dark:text-coffee-400 text-sm mb-4 line-clamp-2 flex-1">' +
+          item.description +
+          "</p>" +
+          '<div class="flex gap-2 mt-auto">' +
+          '<button class="add-to-cart flex-1 bg-coffee-600 hover:bg-coffee-700 active:scale-95 text-white py-2 rounded-lg transition-all duration-200 text-sm font-medium" data-id="' +
+          item.id +
+          '">' +
+          '<i class="fas fa-plus mr-1 text-xs"></i> Add to Cart' +
+          "</button>" +
+          '<button class="open-item-review flex-shrink-0 w-10 h-9 flex items-center justify-center rounded-lg border-2 border-coffee-200 dark:border-gray-600 hover:border-litter-700 hover:text-litter-700 text-coffee-400 dark:text-coffee-500 transition-all duration-200" data-id="' +
+          item.id +
+          '" title="Review" aria-label="Review item">' +
+          '<i class="fas fa-comment-alt text-sm"></i>' +
+          "</button>" +
+          "</div>" +
+          "</div>" +
+          "</div>"
+        );
       }
 
       function renderMenu() {
-        const grid = document.getElementById("menu-grid");
-        const empty = document.getElementById("menu-empty");
-        let items = activeTab === "all" ? allItems : menuItems[activeTab] || [];
+        var grid = document.getElementById("menu-grid");
+        var empty = document.getElementById("menu-empty");
+        var items = activeTab === "all" ? allItems : menuItems[activeTab] || [];
 
         if (searchQuery) {
-          const q = searchQuery.toLowerCase();
-          items = items.filter(
-            (i) =>
+          var q = searchQuery.toLowerCase();
+          items = items.filter(function (i) {
+            return (
               i.name.toLowerCase().includes(q) ||
-              i.description.toLowerCase().includes(q),
-          );
+              i.description.toLowerCase().includes(q)
+            );
+          });
         }
 
         if (!items.length) {
@@ -1810,27 +1934,21 @@
         empty.classList.add("hidden");
         grid.innerHTML = items.map(createMenuCard).join("");
 
-        grid
-          .querySelectorAll(".add-to-cart")
-          .forEach((btn) =>
-            btn.addEventListener("click", (e) =>
-              addToCart(parseInt(e.currentTarget.dataset.id)),
-            ),
-          );
-        grid
-          .querySelectorAll(".open-item-review")
-          .forEach((btn) =>
-            btn.addEventListener("click", (e) =>
-              openItemReview(parseInt(e.currentTarget.dataset.id)),
-            ),
-          );
+        grid.querySelectorAll(".add-to-cart").forEach(function (btn) {
+          btn.addEventListener("click", function (e) {
+            addToCart(parseInt(e.currentTarget.dataset.id));
+          });
+        });
+        grid.querySelectorAll(".open-item-review").forEach(function (btn) {
+          btn.addEventListener("click", function (e) {
+            openReview(parseInt(e.currentTarget.dataset.id));
+          });
+        });
       }
 
-      /* ════════════════════════════════════════════
-         9. INIT — DOMContentLoaded
-      ════════════════════════════════════════════ */
+      // init
       document.addEventListener("DOMContentLoaded", function () {
-        // ── Dark Mode ──
+        // dark mode
         document
           .getElementById("theme-toggle")
           .addEventListener("click", toggleTheme);
@@ -1839,29 +1957,27 @@
           .addEventListener("click", toggleTheme);
         updateThemeIcons();
 
-        // ── Mobile Menu ──
-        const mobileBtn = document.getElementById("mobile-menu-btn");
-        const mobileMenu = document.getElementById("mobile-menu");
-        mobileBtn.addEventListener("click", () =>
-          mobileMenu.classList.toggle("hidden"),
-        );
-        mobileMenu
-          .querySelectorAll("a")
-          .forEach((link) =>
-            link.addEventListener("click", () =>
-              mobileMenu.classList.add("hidden"),
-            ),
-          );
+        // mobile menu toggle
+        var mobileBtn = document.getElementById("mobile-menu-btn");
+        var mobileMenu = document.getElementById("mobile-menu");
+        mobileBtn.addEventListener("click", function () {
+          mobileMenu.classList.toggle("hidden");
+        });
+        mobileMenu.querySelectorAll("a").forEach(function (link) {
+          link.addEventListener("click", function () {
+            mobileMenu.classList.add("hidden");
+          });
+        });
 
-        // ── Search ──
-        const searchBtn = document.getElementById("search-btn");
-        const searchInput = document.getElementById("search-input");
-        let searchOpen = false;
+        // search
+        var searchBtn = document.getElementById("search-btn");
+        var searchInput = document.getElementById("search-input");
+        var searchOpen = false;
 
-        searchBtn.addEventListener("click", (e) => {
+        searchBtn.addEventListener("click", function (e) {
           e.stopPropagation();
           searchOpen = !searchOpen;
-          const w = window.innerWidth < 768 ? "w-32" : "w-48";
+          var w = window.innerWidth < 768 ? "w-32" : "w-48";
           if (searchOpen) {
             searchInput.classList.remove("w-0", "opacity-0");
             searchInput.classList.add(w, "opacity-100");
@@ -1874,12 +1990,12 @@
           }
         });
 
-        searchInput.addEventListener("input", (e) => {
+        searchInput.addEventListener("input", function (e) {
           searchQuery = e.target.value.trim();
           renderMenu();
         });
 
-        document.addEventListener("click", (e) => {
+        document.addEventListener("click", function (e) {
           if (
             !searchBtn.contains(e.target) &&
             !searchInput.contains(e.target)
@@ -1890,7 +2006,7 @@
           }
         });
 
-        // ── Cart ──
+        // cart
         document.getElementById("cart-btn").addEventListener("click", showCart);
         document
           .getElementById("close-cart")
@@ -1900,68 +2016,65 @@
           .addEventListener("click", hideCart);
         document
           .getElementById("checkout-btn")
-          .addEventListener("click", openPayment); // opens QR payment first
+          .addEventListener("click", openPayment);
 
-        // ── Payment Modal ──
+        // payment
         document
           .getElementById("payment-close-btn")
-          .addEventListener("click", () => {
+          .addEventListener("click", function () {
             closePayment();
-            clearCart(); // clear cart only after user confirms payment done
+            clearCart();
           });
         document
           .getElementById("payment-backdrop")
           .addEventListener("click", closePayment);
 
-        // ── Menu Tabs ──
-        document
-          .querySelectorAll(".tab-btn")
-          .forEach((btn) =>
-            btn.addEventListener("click", () =>
-              setActiveTab(btn.getAttribute("data-tab")),
-            ),
-          );
+        // tabs
+        document.querySelectorAll(".tab-btn").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            setActiveTab(btn.getAttribute("data-tab"));
+          });
+        });
 
-        // ── Smooth Scroll ──
-        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        // smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
           anchor.addEventListener("click", function (e) {
             e.preventDefault();
-            const target = document.querySelector(this.getAttribute("href"));
+            var target = document.querySelector(this.getAttribute("href"));
             if (target) target.scrollIntoView({ behavior: "smooth" });
           });
         });
 
-        // ── Item Review Modal Controls ──
+        // review modal controls
         document
           .getElementById("close-item-review")
-          .addEventListener("click", closeItemReview);
+          .addEventListener("click", closeReview);
         document
           .getElementById("item-review-backdrop")
-          .addEventListener("click", closeItemReview);
+          .addEventListener("click", closeReview);
         document
           .getElementById("item-review-submit")
-          .addEventListener("click", submitItemReview);
+          .addEventListener("click", submitReview);
         document
           .getElementById("item-review-comment")
-          .addEventListener("keydown", (e) => {
-            if (e.key === "Enter") submitItemReview();
+          .addEventListener("keydown", function (e) {
+            if (e.key === "Enter") submitReview();
           });
 
-        // ── Item Star Picker ──
-        document.querySelectorAll(".item-star-btn").forEach((star) => {
-          star.addEventListener("mouseenter", () =>
-            updateItemStars(parseInt(star.dataset.v)),
-          );
-          star.addEventListener("mouseleave", () =>
-            updateItemStars(itemSelectedRating),
-          );
-          star.addEventListener("click", () => {
-            itemSelectedRating = parseInt(star.dataset.v);
-            updateItemStars(itemSelectedRating);
+        // star picker
+        document.querySelectorAll(".item-star-btn").forEach(function (star) {
+          star.addEventListener("mouseenter", function () {
+            updateStarPicker(parseInt(star.dataset.v));
+          });
+          star.addEventListener("mouseleave", function () {
+            updateStarPicker(selectedRating);
+          });
+          star.addEventListener("click", function () {
+            selectedRating = parseInt(star.dataset.v);
+            updateStarPicker(selectedRating);
           });
         });
 
-        // ── Initial Render ──
         setActiveTab("all");
         updateCart();
       });
